@@ -6,20 +6,34 @@
 
 Scene::Scene()
 {
-	map = NULL;
+	
 }
 
 Scene::~Scene()
 {
-	if(map != NULL)
-		delete map;
+	//if(map != NULL)
+	//	delete map;
+
+	for (auto kv : tileMaps)
+		if (kv.second)delete kv.second;
+	
 }
 
 
 void Scene::init()
 {
 	initShaders();
-	map = TileMap::createTileMap("levels/level01.txt", glm::vec2(32, 16), texProgram);
+
+	TileMap* map;
+
+	map = TileMap::createTileMap("levels/level01.txt", glm::vec2(0, 0), texProgram);
+	map->layer = 2;
+	tileMaps[map->layer] = map;
+
+	map = TileMap::createTileMap("levels/level01_background.txt", glm::vec2(0, 0), texProgram);
+	map->layer = 1;
+	tileMaps[map->layer] = map;
+
 	projection = glm::ortho(0.f, float(CAMERA_WIDTH - 1), float(CAMERA_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
 }
@@ -38,7 +52,8 @@ void Scene::render()
 	texProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
 	modelview = glm::mat4(1.0f);
 	texProgram.setUniformMatrix4f("modelview", modelview);
-	map->render();
+	for (auto keyValue : tileMaps)
+		keyValue.second->render();
 }
 
 void Scene::initShaders()

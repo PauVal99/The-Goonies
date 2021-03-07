@@ -5,10 +5,11 @@
 #include <glm/glm.hpp>
 #include "ShaderProgram.h"
 #include "TileMap.h"
+#include <map>
 
 
-#define CAMERA_WIDTH 640
-#define CAMERA_HEIGHT 480
+#define CAMERA_WIDTH 256
+#define CAMERA_HEIGHT 160
 
 
 // Scene contains all the entities of our game.
@@ -30,7 +31,10 @@ private:
 	void initShaders();
 
 private:
-	TileMap *map;
+	//TileMap *map;
+
+	std::map<int, TileMap*> tileMaps;
+
 	ShaderProgram texProgram;
 	float currentTime;
 	glm::mat4 projection;

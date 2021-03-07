@@ -26,6 +26,8 @@ public:
 	void render() const;
 	void free();
 
+	int layer;
+
 private:
 	bool loadLevel(const string &levelFile);
 	void prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program);
