@@ -6,6 +6,7 @@
 # Node artifact files
 node_modules/
 dist/
+.vscode/
 .vs/
 
 # Compiled Java class files
@@ -41,11 +42,8 @@ Thumbs.db
 *.exe
 *.war
 
-# Large media files
-*.mp4
-*.tiff
-*.avi
-*.flv
-*.mov
-*.wmv
+.ilk
+.pdb
 
+The Goonies/Debug/*
+The Goonies/Debug/Release
