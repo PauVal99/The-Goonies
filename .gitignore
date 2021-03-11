@@ -42,8 +42,8 @@ Thumbs.db
 *.exe
 *.war
 
-.ilk
-.pdb
+*.ilk
+*.pdb
 
 The Goonies/Debug/*
-The Goonies/Debug/Release
+The Goonies/Release/*
