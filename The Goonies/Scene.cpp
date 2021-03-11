@@ -2,45 +2,47 @@
 #include <cmath>
 #include <glm/gtc/matrix_transform.hpp>
 #include "Scene.h"
+#include "Game.h"
+
+
+#define SCREEN_X 32
+#define SCREEN_Y 16
+
+#define INIT_PLAYER_X_TILES 6
+#define INIT_PLAYER_Y_TILES 6
 
 
 Scene::Scene()
 {
-	
+	map = NULL;
+	player = NULL;
 }
 
 Scene::~Scene()
 {
-	//if(map != NULL)
-	//	delete map;
-
-	for (auto kv : tileMaps)
-		if (kv.second)delete kv.second;
-	
+	if(map != NULL)
+		delete map;
+	if(player != NULL)
+		delete player;
 }
 
 
 void Scene::init()
 {
 	initShaders();
-
-	TileMap* map;
-
-	map = TileMap::createTileMap("levels/level01.txt", glm::vec2(0, 0), texProgram);
-	map->layer = 2;
-	tileMaps[map->layer] = map;
-
-	map = TileMap::createTileMap("levels/level01_background.txt", glm::vec2(0, 0), texProgram);
-	map->layer = 1;
-	tileMaps[map->layer] = map;
-
-	projection = glm::ortho(0.f, float(CAMERA_WIDTH - 1), float(CAMERA_HEIGHT - 1), 0.f);
+	map = TileMap::createTileMap("levels/test.tm", glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
+	player = new Player();
+	player->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
+	player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * 8, INIT_PLAYER_Y_TILES * 8));
+	player->setTileMap(map);
+	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
 }
 
 void Scene::update(int deltaTime)
 {
 	currentTime += deltaTime;
+	player->update(deltaTime);
 }
 
 void Scene::render()
@@ -52,8 +54,9 @@ void Scene::render()
 	texProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
 	modelview = glm::mat4(1.0f);
 	texProgram.setUniformMatrix4f("modelview", modelview);
-	for (auto keyValue : tileMaps)
-		keyValue.second->render();
+	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
+	map->render();
+	player->render();
 }
 
 void Scene::initShaders()
