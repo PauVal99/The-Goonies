@@ -1,8 +1,8 @@
 TILEMAP
-36 28 							-- Size of tile map in tiles
-8 8 							-- Tile size & block size
-images/Terrain.png 	-- Tilesheet
-3 3  								-- Number of tiles in tilesheet
+36 28 -- Size of tile map in tiles
+16 16 -- Tile size & block size
+images/Terrain.png -- Tilesheet
+3 3 -- Number of tiles in tilesheet
 111111111111111111111111111111111111
 11                                11
 11                                11
