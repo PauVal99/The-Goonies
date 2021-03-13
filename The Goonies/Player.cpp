@@ -6,9 +6,11 @@
 #include "Game.h"
 
 
+#define JUMP_HEIGHT 48
+#define MOVE_SPEED 1
+#define FALL_SPEED 4
+
 #define JUMP_ANGLE_STEP 4
-#define JUMP_HEIGHT 30
-#define FALL_STEP 4
 
 const glm::ivec2 playerSize = glm::ivec2(32, 32);
 
@@ -20,7 +22,7 @@ enum PlayerAnims
 
 void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 {
-	bJumping = false;
+	jumping = false;
 	spritesheet.loadFromFile("images/Player.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	spritesheet.setMagFilter(GL_NEAREST);
 	sprite = Sprite::createSprite(glm::ivec2(32, 32), glm::vec2(0.25, 0.25), &spritesheet, &shaderProgram);
@@ -59,63 +61,60 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 void Player::update(int deltaTime)
 {
 	sprite->update(deltaTime);
-	if(Game::instance().getSpecialKey(GLUT_KEY_LEFT))
-	{
-		if(sprite->animation() != MOVE_LEFT)
+	if(Game::instance().getSpecialKey(GLUT_KEY_LEFT)) {
+		if(jumping)
+			sprite->changeAnimation(JUMP_LEFT);
+		else if(sprite->animation() != MOVE_LEFT)
 			sprite->changeAnimation(MOVE_LEFT);
-		posPlayer.x -= 1;
-		if(map->collisionMoveLeft(posPlayer, playerSize))
-		{
-			posPlayer.x += 1;
-			sprite->changeAnimation(STAND_LEFT);
+		
+		if(map->collisionMoveLeft(posPlayer, playerSize)) {
+			posPlayer.x += MOVE_SPEED;
+			if(sprite->animation() == MOVE_LEFT)
+				sprite->changeAnimation(STAND_LEFT);
 		}
-	}
-	else if(Game::instance().getSpecialKey(GLUT_KEY_RIGHT))
-	{
-		if(sprite->animation() != MOVE_RIGHT)
+		posPlayer.x -= MOVE_SPEED;
+	} else if(Game::instance().getSpecialKey(GLUT_KEY_RIGHT)) {
+		if(jumping)
+			sprite->changeAnimation(JUMP_RIGHT);
+		else if(sprite->animation() != MOVE_RIGHT)
 			sprite->changeAnimation(MOVE_RIGHT);
-		posPlayer.x += 1;
-		if(map->collisionMoveRight(posPlayer, playerSize))
-		{
-			posPlayer.x -= 1;
-			sprite->changeAnimation(STAND_RIGHT);
+
+		if(map->collisionMoveRight(posPlayer, playerSize)) {
+			posPlayer.x -= MOVE_SPEED;
+			if(sprite->animation() == MOVE_RIGHT)
+				sprite->changeAnimation(STAND_RIGHT);
 		}
-	}
-	else
-	{
+		posPlayer.x += MOVE_SPEED;
+	} else {
 		if(sprite->animation() == MOVE_LEFT)
 			sprite->changeAnimation(STAND_LEFT);
 		else if(sprite->animation() == MOVE_RIGHT)
 			sprite->changeAnimation(STAND_RIGHT);
 	}
 	
-	if(bJumping)
-	{
+	if(jumping) {
 		jumpAngle += JUMP_ANGLE_STEP;
-		sprite->changeAnimation(JUMP_RIGHT);
-		if(jumpAngle == 180)
-		{
-			bJumping = false;
-			posPlayer.y = startY;
-			sprite->changeAnimation(STAND_RIGHT);
-		}
-		else
-		{
-			posPlayer.y = int(startY - 80 * sin(3.14159f * jumpAngle / 180.f));
-			if(jumpAngle > 90) {
-				bJumping = !map->collisionMoveDown(posPlayer, playerSize, &posPlayer.y);
-				if(!bJumping) sprite->changeAnimation(STAND_RIGHT);
-			}
-		}
-	}
-	else
-	{
-		posPlayer.y += FALL_STEP;
-		if(map->collisionMoveDown(posPlayer, playerSize, &posPlayer.y))
-		{
-			if(Game::instance().getSpecialKey(GLUT_KEY_UP))
-			{
-				bJumping = true;
+		if(jumpAngle == 180) {
+			jumping = false;
+			if(sprite->animation() == JUMP_LEFT)
+				sprite->changeAnimation(STAND_LEFT);
+			else sprite->changeAnimation(STAND_RIGHT);
+		} else if ((jumpAngle > 90) && map->collisionMoveDown(posPlayer, playerSize)) {
+			jumping = false;
+			if(sprite->animation() == JUMP_LEFT)
+				sprite->changeAnimation(STAND_LEFT);
+			else sprite->changeAnimation(STAND_RIGHT);
+		} else posPlayer.y = int(startY - JUMP_HEIGHT * sin(3.14159f * jumpAngle / 180.f));
+	} else {
+		posPlayer.y += FALL_SPEED;
+		if(map->collisionMoveDown(posPlayer, playerSize)) {
+			posPlayer.y -= FALL_SPEED;
+			if(Game::instance().getSpecialKey(GLUT_KEY_UP)) {
+				if((sprite->animation() == MOVE_LEFT) || (sprite->animation() == STAND_LEFT))
+					sprite->changeAnimation(JUMP_LEFT);
+				else sprite->changeAnimation(JUMP_RIGHT);
+				
+				jumping = true;
 				jumpAngle = 0;
 				startY = posPlayer.y;
 			}
@@ -140,7 +139,3 @@ void Player::setPosition(const glm::vec2 &pos)
 	posPlayer = pos;
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
 }
-
-
-
-
