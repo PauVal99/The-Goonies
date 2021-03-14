@@ -4,7 +4,7 @@
 
 #include "Sprite.h"
 #include "CollisionMap.h"
-
+#include "CollisionBox.h"
 
 // Player is basically a Sprite that represents the player. As such it has
 // all properties it needs to track its movement, jumping, and collisions.
@@ -14,7 +14,7 @@ class Player
 {
 
 public:
-	void init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram);
+	void init(const glm::ivec2 &tileMapOffset, ShaderProgram &shaderProgram);
 	void update(int deltaTime);
 	void render();
 	
@@ -22,8 +22,7 @@ public:
 	void setPosition(const glm::vec2 &pos);
 	
 private:
-	glm::ivec2 getMinCollisionBox();
-	glm::ivec2 getMaxCollisionBox();
+	CollisionBox getCollisionBox();
 
 private:
 	bool jumping;
@@ -32,7 +31,6 @@ private:
 	Texture spritesheet;
 	Sprite *sprite;
 	CollisionMap *map;
-
 };
 
 

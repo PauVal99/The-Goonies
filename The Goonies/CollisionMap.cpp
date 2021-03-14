@@ -27,6 +27,10 @@ CollisionMap::~CollisionMap()
 		delete map;
 }
 
+void CollisionMap::setPlayerCollisonBox(const CollisionBox &collisionBox) {
+	playerCollisionBox = playerCollisionBox;
+}
+
 bool CollisionMap::loadLevel(const string &levelFile)
 {
 	ifstream fin;
@@ -68,12 +72,12 @@ bool CollisionMap::loadLevel(const string &levelFile)
 	return true;
 }
 
-bool CollisionMap::collision(const glm::ivec2 &min, const glm::ivec2 &max) {
+bool CollisionMap::collision(const CollisionBox &collisionBox) {
     
-    int xIni = min.x / tileSize; 
-    int xEnd = max.x / tileSize;
-    int yIni = min.y / tileSize;
-    int yEnd = max.y / tileSize;
+    int xIni = collisionBox.min.x / tileSize; 
+    int xEnd = collisionBox.max.x / tileSize;
+    int yIni = collisionBox.min.y / tileSize;
+    int yEnd = collisionBox.max.y / tileSize;
 
     for(int j = yIni; j <= yEnd; ++j) 
         for(int i = xIni; i <= xEnd; ++i) 

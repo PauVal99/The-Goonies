@@ -3,6 +3,7 @@
 
 #include <glm/glm.hpp>
 #include <string>
+#include "CollisionBox.h"
 
 using namespace std;
 
@@ -16,13 +17,15 @@ public:
 	~CollisionMap();
 	
 	int getTileSize() const { return tileSize; }
+	void setPlayerCollisonBox(const CollisionBox &collisionBox);
 
-    bool collision(const glm::ivec2 &min, const glm::ivec2 &max);
+    bool collision(const CollisionBox &collisionBox);
 	
 private:
 	bool loadLevel(const string &levelFile);
 
 private:
+	CollisionBox playerCollisionBox;
 	glm::ivec2 mapSize;
 	int tileSize;
 	int *map;
