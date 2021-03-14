@@ -18,12 +18,12 @@ public:
 
 	void setTileMap(TileMap* tileMap);
 	void setPosition(const glm::vec2& pos);
-	void setPatrolPoints(const glm::vec2& patrolPoint1, const glm::vec2& patrolPoint2);
+	void setPatrolPoints(const float patrolPoint1, const float patrolPoint2);
 
 private:
 	
 	glm::ivec2 tileMapDispl, posEnemy;
-	glm::ivec2 patrolPoint1, patrolPoint2;
+	float patrolPoint1, patrolPoint2;
 	int startY;
 	bool movingRight = true;
 	Texture spritesheet;

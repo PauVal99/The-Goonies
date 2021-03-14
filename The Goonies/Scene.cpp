@@ -39,7 +39,7 @@ void Scene::init()
 	enemy = new Enemy();
 	enemy->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
 	enemy->setPosition(glm::vec2(8 * 16, 7 * 16));
-	enemy->setPatrolPoints(glm::vec2(8 * 16, 7 * 16), glm::vec2(14 * 16, 7 * 16));
+	enemy->setPatrolPoints(8 * 16, 14 * 16);
 	enemy->setTileMap(map);
 
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);

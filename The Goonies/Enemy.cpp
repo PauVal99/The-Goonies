@@ -16,7 +16,7 @@ const glm::ivec2 enemySize = glm::ivec2(16, 16);
 
 enum EnemyAnims
 {
-	STAND_LEFT, STAND_RIGHT, MOVE_LEFT, MOVE_RIGHT
+	MOVE_LEFT, MOVE_RIGHT
 };
 
 
@@ -27,12 +27,6 @@ void Enemy::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
 	spritesheet.setMagFilter(GL_NEAREST);
 	sprite = Sprite::createSprite(enemySize, glm::vec2(0.5, 0.5), &spritesheet, &shaderProgram);
 	sprite->setNumberAnimations(4);
-
-	sprite->setAnimationSpeed(STAND_RIGHT, 6);
-	sprite->addKeyframe(STAND_RIGHT, glm::vec2(0.f, 0.5f));
-
-	sprite->setAnimationSpeed(STAND_LEFT, 6);
-	sprite->addKeyframe(STAND_LEFT, glm::vec2(0.f, 0.f));
 
 	sprite->setAnimationSpeed(MOVE_LEFT, 2);
 	sprite->addKeyframe(MOVE_LEFT, glm::vec2(0.f, 0.f));
@@ -53,8 +47,8 @@ void Enemy::update(int deltaTime)
 {
 	sprite->update(deltaTime);
 	
-	if (posEnemy.x <= patrolPoint1.x) movingRight = true;
-	else if (posEnemy.x >= patrolPoint2.x)movingRight = false;
+	if (posEnemy.x <= patrolPoint1) movingRight = true;
+	else if (posEnemy.x >= patrolPoint2)movingRight = false;
 
 	if (movingRight) {
 		if (sprite->animation() != MOVE_RIGHT) {
@@ -88,7 +82,7 @@ void Enemy::setPosition(const glm::vec2& pos)
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posEnemy.x), float(tileMapDispl.y + posEnemy.y)));
 }
 
-void Enemy::setPatrolPoints(const glm::vec2& patrolPoint1, const glm::vec2& patrolPoint2) {
+void Enemy::setPatrolPoints(const float patrolPoint1, const float patrolPoint2) {
 	this -> patrolPoint1 = patrolPoint1;
 	this -> patrolPoint2 = patrolPoint2;
 }
