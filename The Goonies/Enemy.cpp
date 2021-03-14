@@ -71,9 +71,9 @@ void Enemy::render()
 	sprite->render();
 }
 
-void Enemy::setTileMap(TileMap* tileMap)
+void Enemy::setCollisionMap(CollisionMap* collisionMap)
 {
-	map = tileMap;
+	map = collisionMap;
 }
 
 void Enemy::setPosition(const glm::vec2& pos)
