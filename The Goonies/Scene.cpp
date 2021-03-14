@@ -35,6 +35,13 @@ void Scene::init()
 	player->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
 	player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * 16, INIT_PLAYER_Y_TILES * 16));
 	player->setTileMap(map);
+
+	enemy = new Enemy();
+	enemy->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
+	enemy->setPosition(glm::vec2(8 * 16, 7 * 16));
+	enemy->setPatrolPoints(glm::vec2(8 * 16, 7 * 16), glm::vec2(14 * 16, 7 * 16));
+	enemy->setTileMap(map);
+
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
 }
@@ -43,6 +50,7 @@ void Scene::update(int deltaTime)
 {
 	currentTime += deltaTime;
 	player->update(deltaTime);
+	enemy->update(deltaTime);
 }
 
 void Scene::render()
@@ -57,6 +65,7 @@ void Scene::render()
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
 	map->render();
 	player->render();
+	enemy->render();
 }
 
 void Scene::initShaders()
