@@ -3,7 +3,7 @@
 
 
 #include "Sprite.h"
-#include "TileMap.h"
+#include "CollisionMap.h"
 
 
 // Player is basically a Sprite that represents the player. As such it has
@@ -18,16 +18,20 @@ public:
 	void update(int deltaTime);
 	void render();
 	
-	void setTileMap(TileMap *tileMap);
+	void setCollisionMap(CollisionMap *collisionMap);
 	void setPosition(const glm::vec2 &pos);
 	
 private:
+	glm::ivec2 getMinCollisionBox();
+	glm::ivec2 getMaxCollisionBox();
+
+private:
 	bool jumping;
-	glm::ivec2 tileMapDispl, posPlayer;
+	glm::ivec2 tileMapOffset, posPlayer;
 	int jumpAngle, startY;
 	Texture spritesheet;
 	Sprite *sprite;
-	TileMap *map;
+	CollisionMap *map;
 
 };
 

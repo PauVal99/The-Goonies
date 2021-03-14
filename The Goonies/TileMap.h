@@ -27,10 +27,6 @@ public:
 	void free();
 	
 	int getTileSize() const { return tileSize; }
-
-	bool collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size) const;
-	bool collisionMoveRight(const glm::ivec2 &pos, const glm::ivec2 &size) const;
-	bool collisionMoveDown(const glm::ivec2 &pos, const glm::ivec2 &size) const;
 	
 private:
 	bool loadLevel(const string &levelFile);
