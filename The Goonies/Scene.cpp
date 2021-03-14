@@ -5,8 +5,8 @@
 #include "Game.h"
 
 
-#define SCREEN_X 0
-#define SCREEN_Y 0
+#define OFFSET_X 0
+#define OFFSET_Y 0
 
 #define INIT_PLAYER_X_TILES 6
 #define INIT_PLAYER_Y_TILES 6
@@ -14,14 +14,14 @@
 
 Scene::Scene()
 {
-	map = NULL;
+	tileMap = NULL;
 	player = NULL;
 }
 
 Scene::~Scene()
 {
-	if(map != NULL)
-		delete map;
+	if(tileMap != NULL)
+		delete tileMap;
 	if(player != NULL)
 		delete player;
 }
@@ -30,11 +30,15 @@ Scene::~Scene()
 void Scene::init()
 {
 	initShaders();
-	map = TileMap::createTileMap("levels/test.tm", glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
+
+	tileMap = TileMap::createTileMap("levels/test.tm", glm::vec2(OFFSET_X, OFFSET_Y), texProgram);
+	collisionMap = CollisionMap::createCollisionMap("levels/test.cm");
+
 	player = new Player();
-	player->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
-	player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * 16, INIT_PLAYER_Y_TILES * 16));
-	player->setTileMap(map);
+	player->init(glm::ivec2(OFFSET_X, OFFSET_Y), texProgram);
+	player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * tileMap->getTileSize(), INIT_PLAYER_Y_TILES * tileMap->getTileSize()));
+	player->setCollisionMap(collisionMap);
+
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
 }
@@ -55,7 +59,7 @@ void Scene::render()
 	modelview = glm::mat4(1.0f);
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
-	map->render();
+	tileMap->render();
 	player->render();
 }
 

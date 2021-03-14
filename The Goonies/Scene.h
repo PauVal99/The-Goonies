@@ -5,6 +5,7 @@
 #include <glm/glm.hpp>
 #include "ShaderProgram.h"
 #include "TileMap.h"
+#include "CollisionMap.h"
 #include "Player.h"
 
 
@@ -27,7 +28,8 @@ private:
 	void initShaders();
 
 private:
-	TileMap *map;
+	TileMap *tileMap;
+	CollisionMap * collisionMap;
 	Player *player;
 	ShaderProgram texProgram;
 	float currentTime;
