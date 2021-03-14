@@ -5,14 +5,7 @@
 #include "Enemy.h"
 #include "Game.h"
 
-
-#define JUMP_HEIGHT 48
 #define MOVE_SPEED 1
-#define FALL_SPEED 4
-
-#define JUMP_ANGLE_STEP 4
-
-const glm::ivec2 enemySize = glm::ivec2(16, 16);
 
 enum EnemyAnims
 {
@@ -20,27 +13,24 @@ enum EnemyAnims
 };
 
 
-void Enemy::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
+void Enemy::init(const glm::ivec2& tileMapOffset, ShaderProgram& shaderProgram)
 {
-	
-	spritesheet.loadFromFile("images/Calavera.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spritesheet.loadFromFile("images/Skull.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	spritesheet.setMagFilter(GL_NEAREST);
-	sprite = Sprite::createSprite(enemySize, glm::vec2(0.5, 0.5), &spritesheet, &shaderProgram);
+	sprite = Sprite::createSprite(glm::ivec2(16, 16), glm::vec2(0.5, 0.5), &spritesheet, &shaderProgram);
 	sprite->setNumberAnimations(4);
 
 	sprite->setAnimationSpeed(MOVE_LEFT, 2);
 	sprite->addKeyframe(MOVE_LEFT, glm::vec2(0.f, 0.f));
 	sprite->addKeyframe(MOVE_LEFT, glm::vec2(0.5f, 0.f));
 	
-
 	sprite->setAnimationSpeed(MOVE_RIGHT, 2);
 	sprite->addKeyframe(MOVE_RIGHT, glm::vec2(0.f, 0.5f));
 	sprite->addKeyframe(MOVE_RIGHT, glm::vec2(0.5f, 0.5f));
 
 	sprite->changeAnimation(MOVE_RIGHT);
-	tileMapDispl = tileMapPos;
-	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posEnemy.x), float(tileMapDispl.y + posEnemy.y)));
-
+	this->tileMapOffset = tileMapOffset;
+	sprite->setPosition(glm::vec2(float(tileMapOffset.x + posEnemy.x), float(tileMapOffset.y + posEnemy.y)));
 }
 
 void Enemy::update(int deltaTime)
@@ -48,22 +38,20 @@ void Enemy::update(int deltaTime)
 	sprite->update(deltaTime);
 	
 	if (posEnemy.x <= patrolPoint1) movingRight = true;
-	else if (posEnemy.x >= patrolPoint2)movingRight = false;
+	else if (posEnemy.x >= patrolPoint2) movingRight = false;
 
 	if (movingRight) {
-		if (sprite->animation() != MOVE_RIGHT) {
+		if (sprite->animation() != MOVE_RIGHT)
 			sprite->changeAnimation(MOVE_RIGHT);
-		}
 		posEnemy.x += MOVE_SPEED;
 	}
 	else {
-		if (sprite->animation() != MOVE_LEFT) {
+		if (sprite->animation() != MOVE_LEFT) 
 			sprite->changeAnimation(MOVE_LEFT);
-		}
 		posEnemy.x -= MOVE_SPEED;
 	}
 
-	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posEnemy.x), float(tileMapDispl.y + posEnemy.y)));
+	sprite->setPosition(glm::vec2(float(tileMapOffset.x + posEnemy.x), float(tileMapOffset.y + posEnemy.y)));
 }
 
 void Enemy::render()
@@ -79,10 +67,10 @@ void Enemy::setCollisionMap(CollisionMap* collisionMap)
 void Enemy::setPosition(const glm::vec2& pos)
 {
 	posEnemy = pos;
-	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posEnemy.x), float(tileMapDispl.y + posEnemy.y)));
+	sprite->setPosition(glm::vec2(float(tileMapOffset.x + posEnemy.x), float(tileMapOffset.y + posEnemy.y)));
 }
 
-void Enemy::setPatrolPoints(const float patrolPoint1, const float patrolPoint2) {
+void Enemy::setPatrolPoints(const int patrolPoint1, const int patrolPoint2) {
 	this -> patrolPoint1 = patrolPoint1;
 	this -> patrolPoint2 = patrolPoint2;
 }

@@ -41,8 +41,8 @@ void Scene::init()
 
 	enemy = new Enemy();
 	enemy->init(glm::ivec2(OFFSET_X, OFFSET_Y), texProgram);
-	enemy->setPosition(glm::vec2(8 * 16, 7 * 16));
-	enemy->setPatrolPoints(8 * 16, 14 * 16);
+	enemy->setPosition(glm::vec2(8 * tileMap->getTileSize(), 7 * tileMap->getTileSize()));
+	enemy->setPatrolPoints(8 * tileMap->getTileSize(), 14 * tileMap->getTileSize());
 	enemy->setCollisionMap(collisionMap);
 
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
