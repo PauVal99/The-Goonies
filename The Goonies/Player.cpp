@@ -93,15 +93,22 @@ void Player::update(int deltaTime)
 		jumpAngle += JUMP_ANGLE_STEP;
 		if(jumpAngle == 180) {
 			jumping = false;
+			posPlayer.y = startY;
 			if(sprite->animation() == JUMP_LEFT)
 				sprite->changeAnimation(STAND_LEFT);
 			else sprite->changeAnimation(STAND_RIGHT);
-		} else if ((jumpAngle > 90) && map->collision(getCollisionBox())) {
-			jumping = false;
-			if(sprite->animation() == JUMP_LEFT)
-				sprite->changeAnimation(STAND_LEFT);
-			else sprite->changeAnimation(STAND_RIGHT);
-		} else posPlayer.y = int(startY - JUMP_HEIGHT * sin(3.14159f * jumpAngle / 180.f));
+		} else {
+			posPlayer.y = int(startY - JUMP_HEIGHT * sin(3.14159f * jumpAngle / 180.f));
+			if(map->collision(getCollisionBox())) {
+				jumping = false;
+				if(jumpAngle > 90) posPlayer.y = (posPlayer.y / map->getTileSize()) * map->getTileSize();
+				else posPlayer.y = (posPlayer.y / map->getTileSize() + 1) * map->getTileSize();
+				
+				if(sprite->animation() == JUMP_LEFT)
+					sprite->changeAnimation(STAND_LEFT);
+				else sprite->changeAnimation(STAND_RIGHT);
+			}
+		}
 	} else {
 		posPlayer.y += FALL_SPEED;
 		if(map->collision(getCollisionBox())) {
