@@ -23,7 +23,7 @@ Scene::~Scene()
 	if(tileMap != NULL)
 		delete tileMap;
 	if(player != NULL)
-		delete player
+		delete player;
 }
 
 
