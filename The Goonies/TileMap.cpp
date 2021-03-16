@@ -8,16 +8,16 @@
 using namespace std;
 
 
-TileMap *TileMap::createTileMap(const string &levelFile, const glm::vec2 &minCoords, ShaderProgram &program)
+TileMap *TileMap::createTileMap(const string &levelFile, const int &layer, const glm::vec2 &minCoords, ShaderProgram &program)
 {
-	TileMap *map = new TileMap(levelFile, minCoords, program);
-	
+	TileMap *map = new TileMap(levelFile, layer, minCoords, program);
 	return map;
 }
 
 
-TileMap::TileMap(const string &levelFile, const glm::vec2 &minCoords, ShaderProgram &program)
+TileMap::TileMap(const string &levelFile, const int &layer, const glm::vec2 &minCoords, ShaderProgram &program)
 {
+	this->layer = layer;
 	loadLevel(levelFile);
 	prepareArrays(minCoords, program);
 }
@@ -115,7 +115,7 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 				// Non-empty tile
 				nTiles++;
 				posTile = glm::vec2(minCoords.x + i * tileSize, minCoords.y + j * tileSize);
-				texCoordTile[0] = glm::vec2(float((tile-1)%2) / tilesheetSize.x, float((tile-1)/2) / tilesheetSize.y);
+				texCoordTile[0] = glm::vec2(float((tile-1)%tilesheetSize.x) / tilesheetSize.x, float((tile-1)/ tilesheetSize.x) / tilesheetSize.y);
 				texCoordTile[1] = texCoordTile[0] + tileTexSize;
 				//texCoordTile[0] += halfTexel;
 				texCoordTile[1] -= halfTexel;

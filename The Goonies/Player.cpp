@@ -197,7 +197,7 @@ void Player::setCollisionMap(CollisionMap *collisionMap)
 	map = collisionMap;
 }
 
-void Player::setPosition(const glm::vec2 &pos)
+void Player::setPosition(const glm::ivec2 &pos)
 {
 	posPlayer = pos;
 	sprite->setPosition(glm::vec2(float(tileMapOffset.x + posPlayer.x), float(tileMapOffset.y + posPlayer.y)));

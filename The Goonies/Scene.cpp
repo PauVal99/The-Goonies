@@ -1,74 +1,58 @@
 #include <iostream>
-#include <cmath>
 #include <glm/gtc/matrix_transform.hpp>
 #include "Scene.h"
 #include "Game.h"
 
-
-#define OFFSET_X 0
-#define OFFSET_Y 0
-
-#define INIT_PLAYER_X_TILES 6
-#define INIT_PLAYER_Y_TILES 14
-
-
 Scene::Scene()
 {
-	tileMap = NULL;
 	player = NULL;
 }
 
 Scene::~Scene()
 {
-	if(tileMap != NULL)
-		delete tileMap;
-	if(player != NULL)
-		delete player;
+	for (auto map : tileMaps)
+		if (map.second)
+			delete map.second;
 }
-
 
 void Scene::init()
 {
+	currentTime = 0.0f;
 	initShaders();
+	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 
-	tileMap = TileMap::createTileMap("levels/test.tm", glm::vec2(OFFSET_X, OFFSET_Y), texProgram);
-	collisionMap = CollisionMap::createCollisionMap("levels/test.cm");
+	setTileMaps();
 
 	player = new Player();
-	player->init(glm::ivec2(OFFSET_X, OFFSET_Y), texProgram);
-	player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * tileMap->getTileSize(), INIT_PLAYER_Y_TILES * tileMap->getTileSize()));
+	player->init(OFFSET, texProgram);
+	player->setPosition(setPlayerPosition());
 	player->setCollisionMap(collisionMap);
 
-	enemy = new Enemy();
-	enemy->init(glm::ivec2(OFFSET_X, OFFSET_Y), texProgram);
-	enemy->setPosition(glm::vec2(8 * tileMap->getTileSize(), 7 * tileMap->getTileSize()));
-	enemy->setPatrolPoints(8 * tileMap->getTileSize(), 14 * tileMap->getTileSize());
-	enemy->setCollisionMap(collisionMap);
-
-	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
-	currentTime = 0.0f;
+	setEnemies();	
 }
 
 void Scene::update(int deltaTime)
 {
 	currentTime += deltaTime;
 	player->update(deltaTime);
-	enemy->update(deltaTime);
+	enemiesUpdate(deltaTime);
 }
 
 void Scene::render()
 {
-	glm::mat4 modelview;
-
 	texProgram.use();
 	texProgram.setUniformMatrix4f("projection", projection);
 	texProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
-	modelview = glm::mat4(1.0f);
+	
+	glm::mat4 modelview = glm::mat4(1.0f);
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
-	tileMap->render();
+	
+	for (auto map : tileMaps)
+		map.second->render();
 	player->render();
-	enemy->render();
+
+	enemiesRender();
 }
 
 void Scene::initShaders()

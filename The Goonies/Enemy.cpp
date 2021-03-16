@@ -12,7 +12,6 @@ enum EnemyAnims
 	MOVE_LEFT, MOVE_RIGHT
 };
 
-
 void Enemy::init(const glm::ivec2& tileMapOffset, ShaderProgram& shaderProgram)
 {
 	spritesheet.loadFromFile("images/Skull.png", TEXTURE_PIXEL_FORMAT_RGBA);
@@ -64,7 +63,7 @@ void Enemy::setCollisionMap(CollisionMap* collisionMap)
 	map = collisionMap;
 }
 
-void Enemy::setPosition(const glm::vec2& pos)
+void Enemy::setPosition(const glm::ivec2& pos)
 {
 	posEnemy = pos;
 	sprite->setPosition(glm::vec2(float(tileMapOffset.x + posEnemy.x), float(tileMapOffset.y + posEnemy.y)));
