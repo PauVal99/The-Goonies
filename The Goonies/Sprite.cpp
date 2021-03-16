@@ -31,12 +31,13 @@ Sprite::Sprite(const glm::vec2 &quadSize, const glm::vec2 &sizeInSpritesheet, Te
 	texture = spritesheet;
 	shaderProgram = program;
 	currentAnimation = -1;
+	stopped = false;
 	position = glm::vec2(0.f);
 }
 
 void Sprite::update(int deltaTime)
 {
-	if(currentAnimation >= 0)
+	if(!stopped && currentAnimation >= 0)
 	{
 		timeAnimation += deltaTime;
 		while(timeAnimation > animations[currentAnimation].millisecsPerKeyframe)
@@ -94,6 +95,14 @@ void Sprite::changeAnimation(int animId)
 		timeAnimation = 0.f;
 		texCoordDispl = animations[animId].keyframeDispl[0];
 	}
+}
+
+void Sprite::startAnimation() {
+	stopped = false;
+}
+
+void Sprite::stopAnimation() {
+	stopped = true;
 }
 
 int Sprite::animation() const

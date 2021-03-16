@@ -22,10 +22,15 @@ public:
 	void setPosition(const glm::vec2 &pos);
 	
 private:
+	void moveSideways();
+	void climb();
+	void jump();
 	CollisionBox getCollisionBox();
 
+	void setAnimations();
+
 private:
-	bool jumping;
+	bool jumping, climbing;
 	glm::ivec2 tileMapOffset, posPlayer;
 	int jumpAngle, startY;
 	Texture spritesheet;

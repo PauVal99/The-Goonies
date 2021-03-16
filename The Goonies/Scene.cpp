@@ -9,7 +9,7 @@
 #define OFFSET_Y 0
 
 #define INIT_PLAYER_X_TILES 6
-#define INIT_PLAYER_Y_TILES 6
+#define INIT_PLAYER_Y_TILES 14
 
 
 Scene::Scene()
