@@ -3,7 +3,7 @@
 
 
 #include "Scene.h"
-
+#include "RedScene.h"
 #define SCREEN_WIDTH 512
 #define SCREEN_HEIGHT 320
 
@@ -42,7 +42,7 @@ public:
 
 private:
 	bool bPlay;                       // Continue to play game?
-	Scene scene;                      // Scene to render
+	RedScene scene;                      // Scene to render
 	bool keys[256], specialKeys[256]; // Store key states so that 
 	                                  // we can have access at any time
 

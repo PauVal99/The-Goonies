@@ -27,7 +27,7 @@ public:
 	void free();
 	
 	int getTileSize() const { return tileSize; }
-	
+	int layer;
 private:
 	bool loadLevel(const string &levelFile);
 	void prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program);

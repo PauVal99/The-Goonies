@@ -8,6 +8,7 @@
 #include "CollisionMap.h"
 #include "Player.h"
 #include "Enemy.h"
+#include <map>
 
 
 // Scene contains all the entities of our game.
@@ -21,18 +22,13 @@ public:
 	Scene();
 	~Scene();
 
-	void init();
-	void update(int deltaTime);
-	void render();
-
-private:
+protected:
 	void initShaders();
 
-private:
-	TileMap *tileMap;
+protected:
+	std::map<int, TileMap*> tileMaps;
 	CollisionMap * collisionMap;
-	Player *player;
-	Enemy* enemy;
+	Player* player;
 	ShaderProgram texProgram;
 	float currentTime;
 	glm::mat4 projection;
