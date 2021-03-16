@@ -8,16 +8,16 @@
 using namespace std;
 
 
-TileMap *TileMap::createTileMap(const string &levelFile, const glm::vec2 &minCoords, ShaderProgram &program)
+TileMap *TileMap::createTileMap(const string &levelFile, const int &layer, const glm::vec2 &minCoords, ShaderProgram &program)
 {
-	TileMap *map = new TileMap(levelFile, minCoords, program);
-	
+	TileMap *map = new TileMap(levelFile, layer, minCoords, program);
 	return map;
 }
 
 
-TileMap::TileMap(const string &levelFile, const glm::vec2 &minCoords, ShaderProgram &program)
+TileMap::TileMap(const string &levelFile, const int &layer, const glm::vec2 &minCoords, ShaderProgram &program)
 {
+	this->layer = layer;
 	loadLevel(levelFile);
 	prepareArrays(minCoords, program);
 }

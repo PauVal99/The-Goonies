@@ -13,19 +13,16 @@ public:
 	void render();
 
 	void setCollisionMap(CollisionMap* collisionMap);
-	void setPosition(const glm::vec2& pos);
-	void setPatrolPoints(const float patrolPoint1, const float patrolPoint2);
+	void setPosition(const glm::ivec2& pos);
+	void setPatrolPoints(const int patrolPoint1, const int patrolPoint2);
 
 private:
-	
 	glm::ivec2 tileMapDispl, posEnemy;
-	float patrolPoint1, patrolPoint2;
-	int startY;
+	int startY, patrolPoint1, patrolPoint2;
 	bool movingRight = true;
 	Texture spritesheet;
 	Sprite* sprite;
 	CollisionMap* map;
-
 };
 
 

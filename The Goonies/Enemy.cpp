@@ -5,7 +5,6 @@
 #include "Enemy.h"
 #include "Game.h"
 
-
 #define JUMP_HEIGHT 48
 #define MOVE_SPEED 1
 #define FALL_SPEED 4
@@ -19,10 +18,8 @@ enum EnemyAnims
 	MOVE_LEFT, MOVE_RIGHT
 };
 
-
 void Enemy::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
 {
-	
 	spritesheet.loadFromFile("images/Calavera.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	spritesheet.setMagFilter(GL_NEAREST);
 	sprite = Sprite::createSprite(enemySize, glm::vec2(0.5, 0.5), &spritesheet, &shaderProgram);
@@ -76,13 +73,13 @@ void Enemy::setCollisionMap(CollisionMap* collisionMap)
 	map = collisionMap;
 }
 
-void Enemy::setPosition(const glm::vec2& pos)
+void Enemy::setPosition(const glm::ivec2& pos)
 {
 	posEnemy = pos;
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posEnemy.x), float(tileMapDispl.y + posEnemy.y)));
 }
 
-void Enemy::setPatrolPoints(const float patrolPoint1, const float patrolPoint2) {
+void Enemy::setPatrolPoints(const int patrolPoint1, const int patrolPoint2) {
 	this -> patrolPoint1 = patrolPoint1;
 	this -> patrolPoint2 = patrolPoint2;
 }

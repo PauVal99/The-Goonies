@@ -19,7 +19,7 @@ public:
 	void render();
 	
 	void setCollisionMap(CollisionMap *collisionMap);
-	void setPosition(const glm::vec2 &pos);
+	void setPosition(const glm::ivec2 &pos);
 	
 private:
 	CollisionBox getCollisionBox();
