@@ -1,7 +1,7 @@
 TILEMAP
 32 20 -- Size of tile map in tiles
 16 16 -- Tile size & block size
-images/Ground.png -- Tilesheet
+images/RedLevel/Ground.png -- Tilesheet
 3 3 -- Number of tiles in tilesheet
 44444444444444444444444444444444
 44444444444444444444444444444444

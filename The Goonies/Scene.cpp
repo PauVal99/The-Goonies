@@ -4,14 +4,6 @@
 #include "Scene.h"
 #include "Game.h"
 
-
-#define OFFSET_X 0
-#define OFFSET_Y 0
-
-#define INIT_PLAYER_X_TILES 6
-#define INIT_PLAYER_Y_TILES 6
-
-
 Scene::Scene()
 {
 	
@@ -20,12 +12,10 @@ Scene::Scene()
 
 Scene::~Scene()
 {
-	for (auto kv : tileMaps)
-		if (kv.second)
-			delete kv.second;
+	for (auto map : tileMaps)
+		if (map.second)
+			delete map.second;
 }
-
-
 
 void Scene::initShaders()
 {

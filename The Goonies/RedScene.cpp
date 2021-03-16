@@ -5,7 +5,6 @@
 #include "Scene.h"
 #include "Game.h"
 
-
 #define OFFSET_X 0
 #define OFFSET_Y 0
 
@@ -14,22 +13,21 @@
 
 #define TILE_SIZE 16
 
-
 void RedScene::init()
 {
 	initShaders();
 
 	TileMap* map;
 
-	map = TileMap::createTileMap("levels/RedLevel/Ground.txt", glm::vec2(0, 0), texProgram);
+	map = TileMap::createTileMap("levels/RedLevel/Ground.tm", glm::vec2(0, 0), texProgram);
 	map->layer = 1;
 	tileMaps[map->layer] = map;
 
-	map = TileMap::createTileMap("levels/RedLevel/Platforms.txt", glm::vec2(0, 0), texProgram);
+	map = TileMap::createTileMap("levels/RedLevel/Platforms.tm", glm::vec2(0, 0), texProgram);
 	map->layer = 2;
 	tileMaps[map->layer] = map;
 
-	collisionMap = CollisionMap::createCollisionMap("levels/test.cm");
+	collisionMap = CollisionMap::createCollisionMap("levels/RedLevel/RedLevel.cm");
 
 	player = new Player();
 	player->init(glm::ivec2(OFFSET_X, OFFSET_Y), texProgram);
@@ -38,8 +36,8 @@ void RedScene::init()
 
 	enemy = new Enemy();
 	enemy->init(glm::ivec2(OFFSET_X, OFFSET_Y), texProgram);
-	enemy->setPosition(glm::vec2(8 * 16, 7 * 16));
-	enemy->setPatrolPoints(8 * 16, 14 * 16);
+	enemy->setPosition(glm::vec2(8 * TILE_SIZE, 7 * TILE_SIZE));
+	enemy->setPatrolPoints(8 * TILE_SIZE, 14 * TILE_SIZE);
 	enemy->setCollisionMap(collisionMap);
 
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
@@ -63,8 +61,8 @@ void RedScene::render()
 	modelview = glm::mat4(1.0f);
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
-	for (auto keyValue : tileMaps)
-		keyValue.second->render();
+	for (auto map : tileMaps)
+		map.second->render();
 	player->render();
 	enemy->render();
 }
