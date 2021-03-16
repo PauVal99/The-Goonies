@@ -5,6 +5,10 @@
 #include <string>
 #include "CollisionBox.h"
 
+#define AIR 0
+#define BLOCK 1
+#define VINE 2
+
 using namespace std;
 
 class CollisionMap
@@ -20,7 +24,9 @@ public:
 	void setPlayerCollisonBox(const CollisionBox &collisionBox);
 
     bool collision(const CollisionBox &collisionBox);
-	
+	bool onGround(const CollisionBox &collisionBox);
+	glm::ivec2 onVine(const CollisionBox &collisionBox);
+	glm::ivec2 aboveVine(const CollisionBox &collisionBox);
 private:
 	bool loadLevel(const string &levelFile);
 
