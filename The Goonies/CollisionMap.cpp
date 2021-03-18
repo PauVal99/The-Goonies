@@ -60,7 +60,7 @@ bool CollisionMap::loadLevel(const string &levelFile)
 			if(tile == ' ')
 				map[j*mapSize.x+i] = 0;
 			else
-				map[j*mapSize.x+i] = tile - int('0');
+				map[j*mapSize.x+i] = tile - int('`');
 		}
 		fin.get(tile);
 #ifndef _WIN32
