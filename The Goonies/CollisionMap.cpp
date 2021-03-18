@@ -4,9 +4,9 @@
 #include "CollisionMap.h"
 #include <windows.h>
 
-
 using namespace std;
 
+#define OFFSET glm::ivec2(0, -8)
 
 CollisionMap *CollisionMap::createCollisionMap(const string &levelFile)
 {
@@ -73,27 +73,22 @@ bool CollisionMap::loadLevel(const string &levelFile)
 }
 
 bool CollisionMap::collision(const CollisionBox &collisionBox) {
-    int xIni = collisionBox.min.x / tileSize; 
-    int xEnd = collisionBox.max.x / tileSize;
-    int yIni = collisionBox.min.y / tileSize;
-    int yEnd = collisionBox.max.y / tileSize;
+    Tiles tiles = getTiles(collisionBox);
 
-    for(int j = yIni; j <= yEnd; ++j) 
-        for(int i = xIni; i <= xEnd; ++i) 
+    for(int j = tiles.min.y; j <= tiles.max.y; ++j) 
+        for(int i = tiles.min.x; i <= tiles.max.x; ++i) 
             if(map[j * mapSize.x + i] == BLOCK) return true;
     return false;
 }
 
 bool CollisionMap::onGround(const CollisionBox &collisionBox) {
-    int xIni = collisionBox.min.x / tileSize; 
-    int xEnd = collisionBox.max.x / tileSize;
-	int yAir = (collisionBox.max.y) / tileSize;
-    int yBlock = (collisionBox.max.y + 1) / tileSize;
+    Tiles tiles = getTiles(collisionBox);
+    int yBlock = (collisionBox.max.y + 1 + OFFSET.y) / tileSize;
 
-	for(int i = xIni; i <= xEnd; ++i) 
+	for(int i = tiles.min.x; i <= tiles.max.x; ++i) 
 		if(map[yBlock * mapSize.x + i] == BLOCK) {
-			for(int j = xIni; j <= xEnd; ++j) 
-				if(map[yAir * mapSize.x + j] == BLOCK) 
+			for(int j = tiles.min.x; j <= tiles.max.x; ++j) 
+				if(map[tiles.max.y * mapSize.x + j] == BLOCK) 
 					return false;
 			return true;
 		}
@@ -101,55 +96,28 @@ bool CollisionMap::onGround(const CollisionBox &collisionBox) {
 }
 
 glm::ivec2 CollisionMap::onVine(const CollisionBox &collisionBox) {
-    int xIni = collisionBox.min.x / tileSize; 
-    int xEnd = collisionBox.max.x / tileSize;
-    int yIni = collisionBox.min.y / tileSize;
-    int yEnd = collisionBox.max.y / tileSize;
+    Tiles tiles = getTiles(collisionBox);
 
-    for(int j = yIni; j <= yEnd; ++j) 
-        for(int i = xIni; i <= xEnd; ++i) 
+    for(int j = tiles.min.y; j <= tiles.max.y; ++j) 
+        for(int i = tiles.min.x; i <= tiles.max.x; ++i) 
             if(map[j * mapSize.x + i] == VINE)
 				return tileSize * glm::ivec2(i, j);
     return glm::ivec2(-1, -1);
 }
 
 glm::ivec2 CollisionMap::aboveVine(const CollisionBox &collisionBox) {
-    int xIni = collisionBox.min.x / tileSize; 
-    int xEnd = collisionBox.max.x / tileSize;
-	int y = (collisionBox.max.y + 1) / tileSize;
+	Tiles tiles = getTiles(collisionBox);
+	int y = (collisionBox.max.y + 1 + OFFSET.y) / tileSize;
 
-	for(int i = xIni; i <= xEnd; ++i) 
+	for(int i = tiles.min.x; i <= tiles.max.x; ++i) 
 		if(map[y * mapSize.x + i] == VINE) 
 			return tileSize * glm::ivec2(i, y);
     return glm::ivec2(-1, -1);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Tiles CollisionMap::getTiles(const CollisionBox &collisionBox) {
+	Tiles tiles;
+	tiles.min = glm::ivec2((collisionBox.min.x + OFFSET.x) / tileSize, (collisionBox.min.y + OFFSET.y) / tileSize);
+	tiles.max = glm::ivec2((collisionBox.max.x + OFFSET.x) / tileSize, (collisionBox.max.y + OFFSET.y) / tileSize);
+	return tiles;
+}

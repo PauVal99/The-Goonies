@@ -7,10 +7,12 @@
 
 
 #define JUMP_HEIGHT 48
+#define JUMP_ANGLE_STEP 4
 #define MOVE_SPEED 1
 #define FALL_SPEED 4
 
-#define JUMP_ANGLE_STEP 4
+#define COLLISION_BOX_MIN glm::ivec2(4, 0)
+#define COLLISION_BOX_MAX glm::ivec2(26, 31)
 
 enum PlayerAnims
 {
@@ -178,10 +180,8 @@ void Player::jump() {
 
 CollisionBox Player::getCollisionBox() {
 	CollisionBox collisionBox;
-	collisionBox.min.x = posPlayer.x + 6;
-	collisionBox.min.y = posPlayer.y;
-	collisionBox.max.x = posPlayer.x + 26;
-	collisionBox.max.y = posPlayer.y + 31;
+	collisionBox.min = posPlayer + COLLISION_BOX_MIN;
+	collisionBox.max = posPlayer + COLLISION_BOX_MAX;
 	collisionBox.min += tileMapOffset;
 	collisionBox.max += tileMapOffset;
 	return collisionBox;

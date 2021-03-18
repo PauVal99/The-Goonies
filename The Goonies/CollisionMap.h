@@ -11,6 +11,12 @@
 
 using namespace std;
 
+struct Tiles
+{
+    glm::ivec2 min;
+    glm::ivec2 max;
+};
+
 class CollisionMap
 {
 
@@ -29,6 +35,7 @@ public:
 	glm::ivec2 aboveVine(const CollisionBox &collisionBox);
 private:
 	bool loadLevel(const string &levelFile);
+	Tiles getTiles(const CollisionBox &collisionBox);
 
 private:
 	CollisionBox playerCollisionBox;
