@@ -7,11 +7,10 @@ RedScene::~RedScene() {
 }
 
 void RedScene::setTileMaps() {
-	TileMap* tileMap = TileMap::createTileMap("levels/RedLevel/Ground.tm", 1, OFFSET, texProgram);
+	TileMap* tileMap = TileMap::createTileMap("levels/RedLevel/RedLevel.tm", 1, OFFSET, texProgram);
 	tileMaps[tileMap->getLayer()] = tileMap;
 
-	tileMap = TileMap::createTileMap("levels/RedLevel/Platforms.tm", 2, OFFSET, texProgram);
-	tileMaps[tileMap->getLayer()] = tileMap;
+	
 
 	collisionMap = CollisionMap::createCollisionMap("levels/RedLevel/RedLevel.cm");
 }

@@ -30,7 +30,7 @@ public:
 	void setAnimationSpeed(int animId, int keyframesPerSec);
 	void addKeyframe(int animId, const glm::vec2 &frame);
 	void changeAnimation(int animId);
-	void stopAnimation();
+	void pauseAnimation();
 	void startAnimation();
 	int animation() const;
 	
@@ -47,7 +47,7 @@ private:
 	float timeAnimation;
 	glm::vec2 texCoordDispl;
 	vector<AnimKeyframes> animations;
-	bool stopped;
+	bool pause;
 
 };
 

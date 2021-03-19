@@ -133,7 +133,7 @@ void Player::climb() {
 		} else if(Game::instance().getSpecialKey(GLUT_KEY_DOWN)) {
 			sprite->startAnimation();
 			posPlayer.y += MOVE_SPEED;
-		} else sprite->stopAnimation();
+		} else sprite->pauseAnimation();
 	} else if(onGround && (onVine != glm::ivec2(-1, -1)) && Game::instance().getSpecialKey(GLUT_KEY_UP)) {
 		climbing = true;
 		sprite->changeAnimation(CLIMB);
