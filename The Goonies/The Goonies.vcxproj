@@ -12,7 +12,9 @@
   <ItemGroup>
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="HyperShoes.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PowerUp.cpp" />
     <ClCompile Include="RedScene.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -25,6 +27,8 @@
   <ItemGroup>
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="HyperShoes.h" />
+    <ClInclude Include="PowerUp.h" />
     <ClInclude Include="RedScene.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />

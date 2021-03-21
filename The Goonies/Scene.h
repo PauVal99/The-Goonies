@@ -7,6 +7,7 @@
 #include "TileMap.h"
 #include "CollisionMap.h"
 #include "Player.h"
+#include "HyperShoes.h"
 
 #define OFFSET glm::vec2(0, 0)
 #define TILE_SIZE 16
@@ -45,6 +46,7 @@ private:
 	glm::mat4 projection;
 
 	Player* player;
+	HyperShoes* hypershoes;
 };
 
 

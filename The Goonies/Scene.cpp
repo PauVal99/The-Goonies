@@ -2,6 +2,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "Scene.h"
 #include "Game.h"
+#include "PowerUp.h"
 
 Scene::Scene()
 {
@@ -28,6 +29,10 @@ void Scene::init()
 	player->setPosition(setPlayerPosition());
 	player->setCollisionMap(collisionMap);
 
+	hypershoes = new HyperShoes();
+	hypershoes->init(OFFSET, texProgram, glm::ivec2(10, 7) * TILE_SIZE);
+
+
 	setEnemies();	
 }
 
@@ -35,6 +40,7 @@ void Scene::update(int deltaTime)
 {
 	currentTime += deltaTime;
 	player->update(deltaTime);
+	hypershoes->update(deltaTime);
 	enemiesUpdate(deltaTime);
 }
 
@@ -51,7 +57,7 @@ void Scene::render()
 	for (auto map : tileMaps)
 		map.second->render();
 	player->render();
-
+	hypershoes->render();
 	enemiesRender();
 }
 
