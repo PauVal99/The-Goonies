@@ -124,57 +124,61 @@ void Player::climb() {
 	glm::ivec2 onVine = collisionMap->onVine(getCollisionBox());
 	glm::ivec2 aboveVine = collisionMap->aboveVine(getCollisionBox());
 
-	if(climbing) {
-		if (onGround || (onVine == glm::ivec2(-1, -1))) {
-			climbing = false;
-			sprite->changeAnimation(STAND_RIGHT);
-		} else if(Game::instance().getSpecialKey(GLUT_KEY_UP)) {
-			sprite->startAnimation();
+	if(!jumping) {
+		if(climbing) {
+			if (onGround || (onVine == glm::ivec2(-1, -1))) {
+				climbing = false;
+				sprite->changeAnimation(STAND_RIGHT);
+			} else if(Game::instance().getSpecialKey(GLUT_KEY_UP)) {
+				sprite->startAnimation();
+				position.y -= MOVE_SPEED;
+			} else if(Game::instance().getSpecialKey(GLUT_KEY_DOWN)) {
+				sprite->startAnimation();
+				position.y += MOVE_SPEED;
+			} else sprite->pauseAnimation();
+		} else if(onGround && (onVine != glm::ivec2(-1, -1)) && Game::instance().getSpecialKey(GLUT_KEY_UP)) {
+			climbing = true;
+			sprite->changeAnimation(CLIMB);
+			position.x = onVine.x - 6;
 			position.y -= MOVE_SPEED;
-		} else if(Game::instance().getSpecialKey(GLUT_KEY_DOWN)) {
-			sprite->startAnimation();
+		} else if((aboveVine != glm::ivec2(-1, -1)) && Game::instance().getSpecialKey(GLUT_KEY_DOWN)) {
+			climbing = true;
+			sprite->changeAnimation(CLIMB);
+			position.x = aboveVine.x - 6;
+			position.y = aboveVine.y;
 			position.y += MOVE_SPEED;
-		} else sprite->pauseAnimation();
-	} else if(onGround && (onVine != glm::ivec2(-1, -1)) && Game::instance().getSpecialKey(GLUT_KEY_UP)) {
-		climbing = true;
-		sprite->changeAnimation(CLIMB);
-		position.x = onVine.x - 6;
-		position.y -= MOVE_SPEED;
-	} else if((aboveVine != glm::ivec2(-1, -1)) && Game::instance().getSpecialKey(GLUT_KEY_DOWN)) {
-		climbing = true;
-		sprite->changeAnimation(CLIMB);
-		position.x = aboveVine.x - 6;
-		position.y = aboveVine.y;
-		position.y += MOVE_SPEED;
+		}
 	}
 }
 
 void Player::jump() {
-	if(jumping) {
-		jumpAngle += JUMP_ANGLE_STEP;
-		if(jumpAngle == 180) {
-			jumping = false;
-			position.y = startY;
-			if(sprite->animation() == JUMP_LEFT)
-				sprite->changeAnimation(STAND_LEFT);
-			else sprite->changeAnimation(STAND_RIGHT);
-		} else if(collisionMap->collision(getCollisionBox())) {
-			jumping = false;
-			if(jumpAngle > 90) position.y = (position.y / collisionMap->getTileSize()) * collisionMap->getTileSize();
-			else position.y = (position.y / collisionMap->getTileSize() + 1) * collisionMap->getTileSize();
+	if(!climbing) {
+		if(jumping) {
+			jumpAngle += JUMP_ANGLE_STEP;
+			if(jumpAngle == 180) {
+				jumping = false;
+				position.y = startY;
+				if(sprite->animation() == JUMP_LEFT)
+					sprite->changeAnimation(STAND_LEFT);
+				else sprite->changeAnimation(STAND_RIGHT);
+			} else if(collisionMap->collision(getCollisionBox())) {
+				jumping = false;
+				if(jumpAngle > 90) position.y = (position.y / collisionMap->getTileSize()) * collisionMap->getTileSize();
+				else position.y = (position.y / collisionMap->getTileSize() + 1) * collisionMap->getTileSize();
+				
+				if(sprite->animation() == JUMP_LEFT)
+					sprite->changeAnimation(STAND_LEFT);
+				else sprite->changeAnimation(STAND_RIGHT);
+			} else
+				position.y = int(startY - JUMP_HEIGHT * sin(3.14159f * jumpAngle / 180.f));
+		} else if(Game::instance().getKey(GLUT_KEY_SPACEBAR) && collisionMap->onGround(getCollisionBox())) {
+			if((sprite->animation() == MOVE_LEFT) || (sprite->animation() == STAND_LEFT))
+				sprite->changeAnimation(JUMP_LEFT);
+			else sprite->changeAnimation(JUMP_RIGHT);
 			
-			if(sprite->animation() == JUMP_LEFT)
-				sprite->changeAnimation(STAND_LEFT);
-			else sprite->changeAnimation(STAND_RIGHT);
-		} else
-			position.y = int(startY - JUMP_HEIGHT * sin(3.14159f * jumpAngle / 180.f));
-	} else if(!climbing && Game::instance().getKey(GLUT_KEY_SPACEBAR) && collisionMap->onGround(getCollisionBox())) {
-		if((sprite->animation() == MOVE_LEFT) || (sprite->animation() == STAND_LEFT))
-			sprite->changeAnimation(JUMP_LEFT);
-		else sprite->changeAnimation(JUMP_RIGHT);
-		
-		jumping = true;
-		jumpAngle = 0;
-		startY = position.y;
+			jumping = true;
+			jumpAngle = 0;
+			startY = position.y;
+		}
 	}
 }
