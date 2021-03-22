@@ -168,7 +168,7 @@ void Player::jump() {
 			else sprite->changeAnimation(STAND_RIGHT);
 		} else
 			position.y = int(startY - JUMP_HEIGHT * sin(3.14159f * jumpAngle / 180.f));
-	} else if(!climbing && Game::instance().getSpecialKey(GLUT_KEY_UP) && collisionMap->onGround(getCollisionBox())) {
+	} else if(!climbing && Game::instance().getKey(GLUT_KEY_SPACEBAR) && collisionMap->onGround(getCollisionBox())) {
 		if((sprite->animation() == MOVE_LEFT) || (sprite->animation() == STAND_LEFT))
 			sprite->changeAnimation(JUMP_LEFT);
 		else sprite->changeAnimation(JUMP_RIGHT);
