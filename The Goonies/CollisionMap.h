@@ -28,6 +28,7 @@ public:
 	
 	int getTileSize() const { return tileSize; }
 	void setPlayerCollisonBox(const CollisionBox &collisionBox);
+	bool collisionWithPlayer(const CollisionBox &collisionBox);
 
     bool collision(const CollisionBox &collisionBox);
 	bool onGround(const CollisionBox &collisionBox);

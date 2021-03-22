@@ -1,7 +1,7 @@
 #include <iostream>
 #include <glm/gtc/matrix_transform.hpp>
-#include "Scene.h"
 #include "Game.h"
+#include "Scene.h"
 
 Scene::Scene()
 {
@@ -24,9 +24,7 @@ void Scene::init()
 	setTileMaps();
 
 	player = new Player();
-	player->init(OFFSET, texProgram);
-	player->setPosition(setPlayerPosition());
-	player->setCollisionMap(collisionMap);
+	player->init(setPlayerPosition(), OFFSET, collisionMap, texProgram);
 
 	setEnemies();	
 }

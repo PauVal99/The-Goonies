@@ -10,7 +10,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Skull.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RedScene.cpp" />
@@ -23,7 +23,7 @@
     <ClCompile Include="Sprite.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Skull.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="RedScene.h" />
     <ClInclude Include="Scene.h" />
@@ -37,6 +37,8 @@
     <ClCompile Include="CollisionMap.cpp" />
     <ClInclude Include="CollisionMap.h" />
     <ClInclude Include="CollisionBox.h" />
+    <ClCompile Include="Actor.cpp" />
+    <ClInclude Include="Actor.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5BE6CA2A-E5A8-40CC-9015-047CE0C78036}</ProjectGuid>

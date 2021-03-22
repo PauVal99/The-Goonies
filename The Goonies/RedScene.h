@@ -1,7 +1,7 @@
 #ifndef _REDSCENE_INCLUDE
 #define _REDSCENE_INCLUDE
 
-#include "Enemy.h"
+#include "Skull.h"
 #include "Scene.h"
 
 class RedScene: public Scene
@@ -17,7 +17,7 @@ protected:
 	void enemiesRender();
 
 private:
-	Enemy* enemy;
+	Skull* skull;
 };
 
 

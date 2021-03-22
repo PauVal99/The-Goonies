@@ -79,6 +79,11 @@ Tiles CollisionMap::getTiles(const CollisionBox &collisionBox) {
 	return tiles;
 }
 
+bool CollisionMap::collisionWithPlayer(const CollisionBox &collisionBox) {
+	return (playerCollisionBox.min.x < collisionBox.max.x) && (collisionBox.min.x < playerCollisionBox.max.x)
+		&& (playerCollisionBox.min.y < collisionBox.max.y) && (collisionBox.min.y < playerCollisionBox.max.y);
+}
+
 bool CollisionMap::collision(const CollisionBox &collisionBox) {
     Tiles tiles = getTiles(collisionBox);
 

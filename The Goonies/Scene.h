@@ -36,7 +36,7 @@ private:
 
 protected:
 	std::map<int, TileMap*> tileMaps;
-	CollisionMap * collisionMap;
+	CollisionMap* collisionMap;
 
 	ShaderProgram texProgram;
 

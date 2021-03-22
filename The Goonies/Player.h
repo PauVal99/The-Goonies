@@ -1,41 +1,32 @@
 #ifndef _PLAYER_INCLUDE
 #define _PLAYER_INCLUDE
 
-
-#include "Sprite.h"
-#include "CollisionMap.h"
+#include "Actor.h"
 #include "CollisionBox.h"
 
 // Player is basically a Sprite that represents the player. As such it has
 // all properties it needs to track its movement, jumping, and collisions.
 
-
-class Player
+class Player: public Actor
 {
+	
+protected:
+    string setImage();
+    glm::vec2 setSize();
+    glm::vec2 setSizeInSpritesheed();
+    void setAnimations();
+    void childUpdate();
 
-public:
-	void init(const glm::ivec2 &tileMapOffset, ShaderProgram &shaderProgram);
-	void update(int deltaTime);
-	void render();
-	
-	void setCollisionMap(CollisionMap *collisionMap);
-	void setPosition(const glm::ivec2 &pos);
-	
 private:
 	void moveSideways();
 	void climb();
 	void jump();
 	CollisionBox getCollisionBox();
 
-	void setAnimations();
-
 private:
 	bool jumping, climbing;
-	int health,jumpAngle, startY;
-	glm::ivec2 tileMapOffset, posPlayer;
-	Texture spritesheet;
-	Sprite *sprite;
-	CollisionMap *map;
+	int health, jumpAngle, startY;
+
 };
 
 
