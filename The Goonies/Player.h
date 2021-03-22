@@ -31,8 +31,8 @@ private:
 
 private:
 	bool jumping, climbing;
+	int health,jumpAngle, startY;
 	glm::ivec2 tileMapOffset, posPlayer;
-	int jumpAngle, startY;
 	Texture spritesheet;
 	Sprite *sprite;
 	CollisionMap *map;

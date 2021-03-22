@@ -12,7 +12,7 @@
 #define FALL_SPEED 4
 
 #define COLLISION_BOX_MIN glm::ivec2(4, 0)
-#define COLLISION_BOX_MAX glm::ivec2(26, 31)
+#define COLLISION_BOX_MAX glm::ivec2(25, 31)
 
 enum PlayerAnims
 {
@@ -24,6 +24,7 @@ void Player::init(const glm::ivec2 &tileMapOffset, ShaderProgram &shaderProgram)
 {
 	jumping = false;
 	climbing = false;
+	health = 100;
 	spritesheet.loadFromFile("images/Player.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	spritesheet.setMagFilter(GL_NEAREST);
 	sprite = Sprite::createSprite(glm::ivec2(32, 32), glm::vec2(0.25, 0.25), &spritesheet, &shaderProgram);
