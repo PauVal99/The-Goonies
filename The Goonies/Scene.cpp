@@ -10,9 +10,11 @@ Scene::Scene()
 
 Scene::~Scene()
 {
-	for (auto map : tileMaps)
+	for(auto map : tileMaps)
 		if (map.second)
 			delete map.second;
+	for(auto enemy : enemies)
+		delete enemy;
 }
 
 void Scene::init()
@@ -26,14 +28,15 @@ void Scene::init()
 	player = new Player();
 	player->init(setPlayerPosition(), OFFSET, collisionMap, texProgram);
 
-	setEnemies();	
+	setEnemies();
 }
 
 void Scene::update(int deltaTime)
 {
 	currentTime += deltaTime;
 	player->update(deltaTime);
-	enemiesUpdate(deltaTime);
+	for(auto enemy : enemies)
+		enemy->update(deltaTime);
 }
 
 void Scene::render()
@@ -46,11 +49,11 @@ void Scene::render()
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
 	
-	for (auto map : tileMaps)
+	for(auto map : tileMaps)
 		map.second->render();
 	player->render();
-
-	enemiesRender();
+	for(auto enemy : enemies)
+		enemy->render();
 }
 
 void Scene::initShaders()

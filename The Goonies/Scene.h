@@ -2,11 +2,14 @@
 #define _SCENE_INCLUDE
 
 #include <map>
+#include <vector>
 #include <glm/glm.hpp>
+
 #include "ShaderProgram.h"
 #include "TileMap.h"
 #include "CollisionMap.h"
 #include "Player.h"
+#include "Enemy.h"
 
 #define OFFSET glm::vec2(0, 0)
 #define TILE_SIZE 16
@@ -28,8 +31,6 @@ protected:
 	virtual void setTileMaps() = 0;
 	virtual glm::ivec2 setPlayerPosition() = 0;
 	virtual void setEnemies() = 0;
-	virtual void enemiesUpdate(const int &deltaTime) = 0;
-	virtual void enemiesRender() = 0;
 
 private:
 	void initShaders();
@@ -37,12 +38,12 @@ private:
 protected:
 	std::map<int, TileMap*> tileMaps;
 	CollisionMap* collisionMap;
+	std::vector<Enemy*> enemies;
 	ShaderProgram texProgram;
 
 private:
 	float currentTime;
 	glm::mat4 projection;
-
 	Player* player;
 };
 

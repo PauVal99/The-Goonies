@@ -1,9 +1,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "RedScene.h"
-
-RedScene::~RedScene() {
-	delete skull;
-}
+#include "Skull.h"
 
 void RedScene::setTileMaps() {
 	TileMap* tileMap = TileMap::createTileMap("levels/RedLevel/RedLevel.tm", 1, OFFSET, texProgram);
@@ -17,17 +14,10 @@ glm::ivec2 RedScene::setPlayerPosition() {
 }
 
 void RedScene::setEnemies() {
-	skull = new Skull();
+	Skull* skull = new Skull();
 	skull->init(glm::ivec2(8, 7) * TILE_SIZE, OFFSET, collisionMap, texProgram);
 	skull->setPatrolPoints(8 * TILE_SIZE, 14 * TILE_SIZE);
-}
-
-void RedScene::enemiesUpdate(const int &deltaTime) {
-	skull->update(deltaTime);
-}
-
-void RedScene::enemiesRender() {
-	skull->render();
+	enemies.push_back(skull);
 }
 
 
