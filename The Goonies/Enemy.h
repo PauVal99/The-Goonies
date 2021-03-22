@@ -5,6 +5,8 @@
 
 class Enemy: public Actor
 {
+public:
+    virtual int damage() = 0;
 
 };
 

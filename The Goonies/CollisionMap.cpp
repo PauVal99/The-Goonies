@@ -6,7 +6,7 @@
 
 using namespace std;
 
-#define OFFSET glm::ivec2(0, -8)
+#define OFFSET glm::ivec2(0, -12)
 
 CollisionMap *CollisionMap::createCollisionMap(const string &levelFile)
 {
@@ -25,10 +25,6 @@ CollisionMap::~CollisionMap()
 {
 	if(map != NULL)
 		delete map;
-}
-
-void CollisionMap::setPlayerCollisonBox(const CollisionBox &collisionBox) {
-	playerCollisionBox = playerCollisionBox;
 }
 
 bool CollisionMap::loadLevel(const string &levelFile)
@@ -77,11 +73,6 @@ Tiles CollisionMap::getTiles(const CollisionBox &collisionBox) {
 	tiles.min = glm::ivec2((collisionBox.min.x + OFFSET.x) / tileSize, (collisionBox.min.y + OFFSET.y) / tileSize);
 	tiles.max = glm::ivec2((collisionBox.max.x + OFFSET.x) / tileSize, (collisionBox.max.y + OFFSET.y) / tileSize);
 	return tiles;
-}
-
-bool CollisionMap::collisionWithPlayer(const CollisionBox &collisionBox) {
-	return (playerCollisionBox.min.x < collisionBox.max.x) && (collisionBox.min.x < playerCollisionBox.max.x)
-		&& (playerCollisionBox.min.y < collisionBox.max.y) && (collisionBox.min.y < playerCollisionBox.max.y);
 }
 
 bool CollisionMap::collision(const CollisionBox &collisionBox) {

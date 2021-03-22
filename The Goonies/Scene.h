@@ -42,6 +42,9 @@ protected:
 	ShaderProgram texProgram;
 
 private:
+	bool collision(const CollisionBox &collisionBox1, const CollisionBox &collisionBox2);
+
+private:
 	float currentTime;
 	glm::mat4 projection;
 	Player* player;

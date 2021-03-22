@@ -3,6 +3,7 @@
 
 #include "Sprite.h"
 #include "CollisionMap.h"
+#include "CollisionBox.h"
 
 class Actor
 {
@@ -13,11 +14,13 @@ public:
 	void render();
 
 	void setPosition(const glm::ivec2& pos);
+    CollisionBox getCollisionBox();
 
 protected:
     virtual string setImage() = 0;
     virtual glm::vec2 setSize() = 0;
     virtual glm::vec2 setSizeInSpritesheed() = 0;
+    virtual CollisionBox setCollisionBox() = 0;
     virtual void setAnimations() = 0;
     virtual void childUpdate() = 0;
 

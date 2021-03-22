@@ -2,6 +2,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "Game.h"
 #include "Scene.h"
+#include <windows.h>
 
 Scene::Scene()
 {
@@ -37,6 +38,17 @@ void Scene::update(int deltaTime)
 	player->update(deltaTime);
 	for(auto enemy : enemies)
 		enemy->update(deltaTime);
+
+	for(auto enemy : enemies) {
+		CollisionBox playerCollisionBox = player->getCollisionBox();
+		if(collision(playerCollisionBox, enemy->getCollisionBox()))
+			player->damage(enemy->damage());
+	}
+}
+
+bool Scene::collision(const CollisionBox &collisionBox1, const CollisionBox &collisionBox2) {
+	return (collisionBox1.min.x < collisionBox2.max.x) && (collisionBox2.min.x < collisionBox1.max.x)
+		&& (collisionBox1.min.y < collisionBox2.max.y) && (collisionBox2.min.y < collisionBox1.max.y);
 }
 
 void Scene::render()

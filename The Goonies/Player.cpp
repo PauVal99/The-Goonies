@@ -28,6 +28,18 @@ glm::vec2 Player::setSizeInSpritesheed() {
 	return glm::vec2(0.25, 0.25);
 }
 
+void Player::damage(const int &damage) {
+	health -= damage;
+	damaged = true;
+}
+
+CollisionBox Player::setCollisionBox() {
+	CollisionBox collisionBox;
+	collisionBox.min = COLLISION_BOX_MIN;
+	collisionBox.max = COLLISION_BOX_MAX;
+	return collisionBox;
+}
+
 void Player::setAnimations() {
 	sprite->setNumberAnimations(7);
 	
@@ -70,8 +82,6 @@ void Player::childUpdate()
 
 	if(!jumping && !climbing && !collisionMap->onGround(getCollisionBox()))
 		position.y += FALL_SPEED;
-
-	collisionMap->setPlayerCollisonBox(getCollisionBox());
 }
 
 void Player::moveSideways() {
@@ -167,13 +177,4 @@ void Player::jump() {
 		jumpAngle = 0;
 		startY = position.y;
 	}
-}
-
-CollisionBox Player::getCollisionBox() {
-	CollisionBox collisionBox;
-	collisionBox.min = position + COLLISION_BOX_MIN;
-	collisionBox.max = position + COLLISION_BOX_MAX;
-	collisionBox.min += tileMapOffset;
-	collisionBox.max += tileMapOffset;
-	return collisionBox;
 }

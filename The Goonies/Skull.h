@@ -8,11 +8,13 @@ class Skull: public Enemy
 
 public:
 	void setPatrolPoints(const int patrolPoint1, const int patrolPoint2);
+    int damage();
 
 protected:
     string setImage();
     glm::vec2 setSize();
     glm::vec2 setSizeInSpritesheed();
+    CollisionBox setCollisionBox();
     void setAnimations();
     void childUpdate();
 

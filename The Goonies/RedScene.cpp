@@ -15,7 +15,7 @@ glm::ivec2 RedScene::setPlayerPosition() {
 
 void RedScene::setEnemies() {
 	Skull* skull = new Skull();
-	skull->init(glm::ivec2(8, 7) * TILE_SIZE, OFFSET, collisionMap, texProgram);
+	skull->init(glm::ivec2(8, 8) * TILE_SIZE, OFFSET, collisionMap, texProgram);
 	skull->setPatrolPoints(8 * TILE_SIZE, 14 * TILE_SIZE);
 	enemies.push_back(skull);
 }

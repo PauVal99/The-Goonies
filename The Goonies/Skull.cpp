@@ -4,21 +4,35 @@
 
 #define MOVE_SPEED 1
 
+#define COLLISION_BOX_MIN glm::ivec2(0, 0)
+#define COLLISION_BOX_MAX glm::ivec2(15, 19)
+
 enum SkullAnims
 {
 	MOVE_LEFT, MOVE_RIGHT
 };
+
+int Skull::damage() {
+	return 5;
+}		
 
 string Skull::setImage() {
 	return "images/Skull.png";
 }
 
 glm::vec2 Skull::setSize() {
-	return glm::ivec2(16, 16);
+	return glm::ivec2(16, 20);
 }
 
 glm::vec2 Skull::setSizeInSpritesheed() {
 	return glm::vec2(0.5, 0.5);
+}
+
+CollisionBox Skull::setCollisionBox() {
+	CollisionBox collisionBox;
+	collisionBox.min = COLLISION_BOX_MIN;
+	collisionBox.max = COLLISION_BOX_MAX;
+	return collisionBox;
 }
 
 void Skull::setAnimations() {
