@@ -6,7 +6,7 @@
 
 using namespace std;
 
-#define OFFSET glm::ivec2(0, -8)
+#define OFFSET glm::ivec2(0, -12)
 
 CollisionMap *CollisionMap::createCollisionMap(const string &levelFile)
 {
@@ -25,10 +25,6 @@ CollisionMap::~CollisionMap()
 {
 	if(map != NULL)
 		delete map;
-}
-
-void CollisionMap::setPlayerCollisonBox(const CollisionBox &collisionBox) {
-	playerCollisionBox = playerCollisionBox;
 }
 
 bool CollisionMap::loadLevel(const string &levelFile)
@@ -72,6 +68,13 @@ bool CollisionMap::loadLevel(const string &levelFile)
 	return true;
 }
 
+Tiles CollisionMap::getTiles(const CollisionBox &collisionBox) {
+	Tiles tiles;
+	tiles.min = glm::ivec2((collisionBox.min.x + OFFSET.x) / tileSize, (collisionBox.min.y + OFFSET.y) / tileSize);
+	tiles.max = glm::ivec2((collisionBox.max.x + OFFSET.x) / tileSize, (collisionBox.max.y + OFFSET.y) / tileSize);
+	return tiles;
+}
+
 bool CollisionMap::collision(const CollisionBox &collisionBox) {
     Tiles tiles = getTiles(collisionBox);
 
@@ -113,11 +116,4 @@ glm::ivec2 CollisionMap::aboveVine(const CollisionBox &collisionBox) {
 		if(map[y * mapSize.x + i] == VINE) 
 			return tileSize * glm::ivec2(i, y);
     return glm::ivec2(-1, -1);
-}
-
-Tiles CollisionMap::getTiles(const CollisionBox &collisionBox) {
-	Tiles tiles;
-	tiles.min = glm::ivec2((collisionBox.min.x + OFFSET.x) / tileSize, (collisionBox.min.y + OFFSET.y) / tileSize);
-	tiles.max = glm::ivec2((collisionBox.max.x + OFFSET.x) / tileSize, (collisionBox.max.y + OFFSET.y) / tileSize);
-	return tiles;
 }

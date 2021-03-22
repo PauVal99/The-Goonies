@@ -1,7 +1,8 @@
 #include <iostream>
 #include <glm/gtc/matrix_transform.hpp>
-#include "Scene.h"
 #include "Game.h"
+#include "Scene.h"
+#include <windows.h>
 
 Scene::Scene()
 {
@@ -10,9 +11,11 @@ Scene::Scene()
 
 Scene::~Scene()
 {
-	for (auto map : tileMaps)
+	for(auto map : tileMaps)
 		if (map.second)
 			delete map.second;
+	for(auto enemy : enemies)
+		delete enemy;
 }
 
 void Scene::init()
@@ -24,18 +27,28 @@ void Scene::init()
 	setTileMaps();
 
 	player = new Player();
-	player->init(OFFSET, texProgram);
-	player->setPosition(setPlayerPosition());
-	player->setCollisionMap(collisionMap);
+	player->init(setPlayerPosition(), OFFSET, collisionMap, texProgram);
 
-	setEnemies();	
+	setEnemies();
 }
 
 void Scene::update(int deltaTime)
 {
 	currentTime += deltaTime;
 	player->update(deltaTime);
-	enemiesUpdate(deltaTime);
+	for(auto enemy : enemies)
+		enemy->update(deltaTime);
+
+	for(auto enemy : enemies) {
+		CollisionBox playerCollisionBox = player->getCollisionBox();
+		if(collision(playerCollisionBox, enemy->getCollisionBox()))
+			player->damage(enemy->damage());
+	}
+}
+
+bool Scene::collision(const CollisionBox &collisionBox1, const CollisionBox &collisionBox2) {
+	return (collisionBox1.min.x < collisionBox2.max.x) && (collisionBox2.min.x < collisionBox1.max.x)
+		&& (collisionBox1.min.y < collisionBox2.max.y) && (collisionBox2.min.y < collisionBox1.max.y);
 }
 
 void Scene::render()
@@ -48,11 +61,11 @@ void Scene::render()
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
 	
-	for (auto map : tileMaps)
+	for(auto map : tileMaps)
 		map.second->render();
 	player->render();
-
-	enemiesRender();
+	for(auto enemy : enemies)
+		enemy->render();
 }
 
 void Scene::initShaders()
