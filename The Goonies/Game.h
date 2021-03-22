@@ -2,6 +2,9 @@
 #define _GAME_INCLUDE
 
 #include "RedScene.h"
+
+#define  GLUT_KEY_SPACEBAR 32
+
 #define SCREEN_WIDTH 512
 #define SCREEN_HEIGHT 320
 
