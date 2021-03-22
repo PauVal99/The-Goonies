@@ -9,7 +9,7 @@
 class Player: public Actor
 {
 public:
-	void damage(const int &damage);
+	void takeDamage(const int &damage);
 
 public:
 	int health = 100;

@@ -41,7 +41,7 @@ void Scene::update(int deltaTime)
 	for(auto enemy : enemies) {
 		CollisionBox playerCollisionBox = player->getCollisionBox();
 		if(collision(playerCollisionBox, enemy->getCollisionBox()))
-			player->damage(enemy->damage());
+			player->takeDamage(enemy->damage());
 	}
 }
 

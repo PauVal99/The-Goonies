@@ -28,7 +28,7 @@ glm::vec2 Player::setSizeInSpritesheed() {
 	return glm::vec2(0.25, 0.25);
 }
 
-void Player::damage(const int &damage) {
+void Player::takeDamage(const int &damage) {
 	health -= damage;
 	damaged = true;
 }
