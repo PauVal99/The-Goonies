@@ -3,10 +3,10 @@
 #include "Skull.h"
 
 void RedScene::setTileMaps() {
-	TileMap* tileMap = TileMap::createTileMap("levels/RedLevel/RedLevel.tm", 1, OFFSET, texProgram);
+	TileMap* tileMap = TileMap::createTileMap("levels/red/Red.tm", 1, OFFSET, texProgram);
 	tileMaps[tileMap->getLayer()] = tileMap;
 
-	collisionMap = CollisionMap::createCollisionMap("levels/RedLevel/RedLevel.cm");
+	collisionMap = CollisionMap::createCollisionMap("levels/red/Red.cm");
 }
 
 glm::ivec2 RedScene::setPlayerPosition() {
