@@ -2,7 +2,6 @@
 #include <fstream>
 #include <sstream>
 #include "CollisionMap.h"
-#include <windows.h>
 
 using namespace std;
 

@@ -18,26 +18,21 @@ public:
 	static TileMap *createTileMap(const string &levelFile, const int &layer, const glm::vec2 &minCoords, ShaderProgram &program);
 
 	TileMap(const string &levelFile, const int &layer, const glm::vec2 &minCoords, ShaderProgram &program);
-	~TileMap();
 
 	void render() const;
 	void free();
 	
 	int getTileSize() const { return tileSize; }
 	int getLayer() const { return layer; }
-private:
-	bool loadLevel(const string &levelFile);
-	void prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program);
 
 private:
+	int tileSize, blockSize, layer;
 	GLuint vao;
 	GLuint vbo;
 	GLint posLocation, texCoordLocation;
 	glm::ivec2 position, mapSize, tilesheetSize;
-	int tileSize, blockSize;
 	Texture tilesheet;
 	glm::vec2 tileTexSize;
-	int *map, layer;
 };
 
 
