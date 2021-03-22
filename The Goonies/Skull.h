@@ -1,11 +1,9 @@
-#ifndef _ENEMY_INCLUDE
-#define _ENEMY_INCLUDE
+#ifndef _SKULL_INCLUDE
+#define _SKULL_INCLUDE
 
-#include "Actor.h"
-#include "Sprite.h"
-#include "CollisionMap.h"
+#include "Enemy.h"
 
-class Skull: public Actor
+class Skull: public Enemy
 {
 
 public:
@@ -25,5 +23,3 @@ private:
 };
 
 #endif
-
-

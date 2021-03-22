@@ -39,6 +39,8 @@
     <ClInclude Include="CollisionBox.h" />
     <ClCompile Include="Actor.cpp" />
     <ClInclude Include="Actor.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClCompile Include="Enemy.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5BE6CA2A-E5A8-40CC-9015-047CE0C78036}</ProjectGuid>
