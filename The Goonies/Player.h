@@ -3,6 +3,8 @@
 
 #include "Actor.h"
 
+#define HEALTH 100
+
 // Player is basically a Sprite that represents the player. As such it has
 // all properties it needs to track its movement, jumping, and collisions.
 
@@ -12,7 +14,7 @@ public:
 	void takeDamage(const int &damage);
 
 public:
-	int health = 100;
+	int health = HEALTH;
 
 protected:
     string setImage();
