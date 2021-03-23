@@ -7,13 +7,15 @@
 #define COLLISION_BOX_MIN glm::ivec2(0, 0)
 #define COLLISION_BOX_MAX glm::ivec2(15, 19)
 
+#define DAMAGE 5
+
 enum SkullAnims
 {
 	MOVE_LEFT, MOVE_RIGHT
 };
 
 int Skull::damage() {
-	return 5;
+	return DAMAGE;
 }		
 
 string Skull::setImage() {

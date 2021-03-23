@@ -34,6 +34,8 @@ glm::vec2 Player::setSizeInSpritesheet() {
 void Player::takeDamage(const int &damage) {
 	if(damageCooldown == 0) {
 		health -= damage;
+		if(health <= 0)
+			Game::instance().init();
 		damageCooldown = DAMAGE_COOLDOWN;
 	}
 }

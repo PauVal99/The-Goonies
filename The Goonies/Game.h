@@ -16,7 +16,6 @@ class Game
 public:
 	Game() {}
 	
-	
 	static Game &instance()
 	{
 		static Game G;
@@ -42,7 +41,7 @@ public:
 
 private:
 	bool bPlay;                       // Continue to play game?
-	RedScene scene;                   // Scene to render
+	RedScene* scene;                   // Scene to render
 	bool keys[256], specialKeys[256]; // Store key states so that 
 	                                  // we can have access at any time
 
