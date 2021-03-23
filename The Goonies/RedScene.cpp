@@ -19,8 +19,3 @@ void RedScene::setEnemies() {
 	skull->setPatrolPoints(8 * TILE_SIZE, 14 * TILE_SIZE);
 	enemies.push_back(skull);
 }
-
-
-
-
-
