@@ -13,10 +13,10 @@ public:
 protected:
     string setImage();
     glm::vec2 setSize();
-    glm::vec2 setSizeInSpritesheed();
+    glm::vec2 setSizeInSpritesheet();
     CollisionBox setCollisionBox();
     void setAnimations();
-    void childUpdate();
+    void childUpdate(int deltaTime);
 
 private:
 	int patrolPoint1, patrolPoint2;

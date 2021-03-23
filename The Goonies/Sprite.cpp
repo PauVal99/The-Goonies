@@ -33,6 +33,7 @@ Sprite::Sprite(const glm::vec2 &quadSize, const glm::vec2 &sizeInSpritesheet, Te
 	currentAnimation = -1;
 	pause = false;
 	position = glm::vec2(0.f);
+	color = glm::vec4(1.0f);
 }
 
 void Sprite::update(int deltaTime)
@@ -54,6 +55,7 @@ void Sprite::render() const
 	glm::mat4 modelview = glm::translate(glm::mat4(1.0f), glm::vec3(position.x, position.y, 0.f));
 	shaderProgram->setUniformMatrix4f("modelview", modelview);
 	shaderProgram->setUniform2f("texCoordDispl", texCoordDispl.x, texCoordDispl.y);
+	shaderProgram->setUniform4f("color", color.x, color.y, color.z, color.a);
 	glEnable(GL_TEXTURE_2D);
 	texture->use();
 	glBindVertexArray(vao);
@@ -113,6 +115,10 @@ int Sprite::animation() const
 void Sprite::setPosition(const glm::vec2 &pos)
 {
 	position = pos;
+}
+
+void Sprite::setColor(const glm::vec4 &color) {
+	this->color = color;
 }
 
 
