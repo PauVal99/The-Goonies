@@ -7,7 +7,7 @@ void Actor::init(const glm::ivec2 &iniPos, const glm::ivec2 &tileMapOffset, Coll
 {
 	spritesheet.loadFromFile(setImage(), TEXTURE_PIXEL_FORMAT_RGBA);
 	spritesheet.setMagFilter(GL_NEAREST);
-	sprite = Sprite::createSprite(setSize(), setSizeInSpritesheed(), &spritesheet, &shaderProgram);
+	sprite = Sprite::createSprite(setSize(), setSizeInSpritesheet(), &spritesheet, &shaderProgram);
 
     setAnimations();
 
@@ -20,7 +20,7 @@ void Actor::update(int deltaTime)
 {
 	sprite->update(deltaTime);
 	
-    childUpdate();
+    childUpdate(deltaTime);
 
     setPosition(position);
 }

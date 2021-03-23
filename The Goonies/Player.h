@@ -17,10 +17,10 @@ public:
 protected:
     string setImage();
     glm::vec2 setSize();
-    glm::vec2 setSizeInSpritesheed();
+    glm::vec2 setSizeInSpritesheet();
 	CollisionBox setCollisionBox();
     void setAnimations();
-    void childUpdate();
+    void childUpdate(int deltaTime);
 
 private:
 	void moveSideways();
@@ -28,8 +28,8 @@ private:
 	void jump();
 
 private:
-	bool jumping = false, climbing = false, damaged = false;
-	int jumpAngle, startY;
+	bool jumping = false, climbing = false;
+	int jumpAngle, startY, damageCooldown = 0;
 
 };
 
