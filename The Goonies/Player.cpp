@@ -11,6 +11,8 @@
 #define COLLISION_BOX_MIN glm::ivec2(4, 0)
 #define COLLISION_BOX_MAX glm::ivec2(25, 31)
 
+#define DAMAGE_COOLDOWN 2000
+
 enum PlayerAnims
 {
 	STAND_LEFT, STAND_RIGHT, MOVE_LEFT, MOVE_RIGHT, JUMP_LEFT, JUMP_RIGHT, CLIMB
@@ -24,13 +26,15 @@ glm::vec2 Player::setSize() {
 	return glm::ivec2(32, 32);
 }
 
-glm::vec2 Player::setSizeInSpritesheed() {
+glm::vec2 Player::setSizeInSpritesheet() {
 	return glm::vec2(0.25, 0.25);
 }
 
 void Player::takeDamage(const int &damage) {
-	health -= damage;
-	damaged = true;
+	if(damageCooldown == 0) {
+		health -= damage;
+		damageCooldown = DAMAGE_COOLDOWN;
+	}
 }
 
 CollisionBox Player::setCollisionBox() {
@@ -74,14 +78,17 @@ void Player::setAnimations() {
 	sprite->changeAnimation(STAND_RIGHT);
 }
 
-void Player::childUpdate()
-{	
+void Player::childUpdate(int deltaTime) {	
 	moveSideways();
 	climb();
 	jump();
 
 	if(!jumping && !climbing && !collisionMap->onGround(getCollisionBox()))
 		position.y += FALL_SPEED;
+
+	damageCooldown -= deltaTime;
+	if(damageCooldown <= 0)
+		damageCooldown = 0;
 }
 
 void Player::moveSideways() {
