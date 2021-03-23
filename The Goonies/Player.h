@@ -26,6 +26,7 @@ private:
 	void moveSideways();
 	void climb();
 	void jump();
+	void wounded(int deltaTime);
 
 private:
 	bool jumping = false, climbing = false;

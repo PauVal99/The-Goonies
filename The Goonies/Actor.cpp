@@ -44,3 +44,15 @@ CollisionBox Actor::getCollisionBox() {
 	collisionBox.max += tileMapOffset;
 	return collisionBox;
 }
+
+void Actor::setColor(const glm::vec4 &color) {
+	sprite->setColor(color);
+}
+
+void Actor::resetColor() {
+	sprite->setColor(glm::vec4(1.f));
+}
+
+void Actor::discard() {
+	sprite->setColor(glm::vec4(0.f));
+}

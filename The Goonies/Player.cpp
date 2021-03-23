@@ -12,6 +12,7 @@
 #define COLLISION_BOX_MAX glm::ivec2(25, 31)
 
 #define DAMAGE_COOLDOWN 2000
+#define DAMAGE_COLOR glm::vec4(1.5f, 1.5f, 1.5f, 1.f)
 
 enum PlayerAnims
 {
@@ -86,9 +87,7 @@ void Player::childUpdate(int deltaTime) {
 	if(!jumping && !climbing && !collisionMap->onGround(getCollisionBox()))
 		position.y += FALL_SPEED;
 
-	damageCooldown -= deltaTime;
-	if(damageCooldown <= 0)
-		damageCooldown = 0;
+	wounded(deltaTime);
 }
 
 void Player::moveSideways() {
@@ -187,5 +186,18 @@ void Player::jump() {
 			jumpAngle = 0;
 			startY = position.y;
 		}
+	}
+}
+
+void Player::wounded(int deltaTime) {
+	damageCooldown -= deltaTime;
+	
+	if(damageCooldown > 0) {
+		if((damageCooldown/(deltaTime * 2)) % 4 == 0)
+			discard();
+		else setColor(DAMAGE_COLOR);
+	} else {
+		damageCooldown = 0;
+		resetColor();
 	}
 }
