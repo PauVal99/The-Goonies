@@ -1,30 +1,13 @@
 #ifndef _ENEMY_INCLUDE
 #define _ENEMY_INCLUDE
 
-#include "Sprite.h"
-#include "CollisionMap.h"
+#include "Actor.h"
 
-class Enemy
+class Enemy: public Actor
 {
-
 public:
-	void init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram);
-	void update(int deltaTime);
-	void render();
+    virtual int damage() = 0;
 
-	void setCollisionMap(CollisionMap* collisionMap);
-	void setPosition(const glm::ivec2& pos);
-	void setPatrolPoints(const int patrolPoint1, const int patrolPoint2);
-
-private:
-	glm::ivec2 tileMapOffset, posEnemy;
-	int patrolPoint1, patrolPoint2;
-	bool movingRight = true;
-	Texture spritesheet;
-	Sprite* sprite;
-	CollisionMap* map;
 };
 
 #endif
-
-

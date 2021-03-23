@@ -1,10 +1,7 @@
-#include <cmath>
-#include <iostream>
 #include <GL/glew.h>
 #include <GL/glut.h>
-#include "Player.h"
 #include "Game.h"
-
+#include "Player.h"
 
 #define JUMP_HEIGHT 48
 #define JUMP_ANGLE_STEP 4
@@ -12,26 +9,35 @@
 #define FALL_SPEED 4
 
 #define COLLISION_BOX_MIN glm::ivec2(4, 0)
-#define COLLISION_BOX_MAX glm::ivec2(26, 31)
+#define COLLISION_BOX_MAX glm::ivec2(25, 31)
 
 enum PlayerAnims
 {
 	STAND_LEFT, STAND_RIGHT, MOVE_LEFT, MOVE_RIGHT, JUMP_LEFT, JUMP_RIGHT, CLIMB
 };
 
+string Player::setImage() {
+	return "images/Player.png";
+}
 
-void Player::init(const glm::ivec2 &tileMapOffset, ShaderProgram &shaderProgram)
-{
-	jumping = false;
-	climbing = false;
-	spritesheet.loadFromFile("images/Player.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	spritesheet.setMagFilter(GL_NEAREST);
-	sprite = Sprite::createSprite(glm::ivec2(32, 32), glm::vec2(0.25, 0.25), &spritesheet, &shaderProgram);
+glm::vec2 Player::setSize() {
+	return glm::ivec2(32, 32);
+}
 
-	setAnimations();
+glm::vec2 Player::setSizeInSpritesheed() {
+	return glm::vec2(0.25, 0.25);
+}
 
-	this->tileMapOffset = tileMapOffset;
-	sprite->setPosition(glm::vec2(float(tileMapOffset.x + posPlayer.x), float(tileMapOffset.y + posPlayer.y)));
+void Player::takeDamage(const int &damage) {
+	health -= damage;
+	damaged = true;
+}
+
+CollisionBox Player::setCollisionBox() {
+	CollisionBox collisionBox;
+	collisionBox.min = COLLISION_BOX_MIN;
+	collisionBox.max = COLLISION_BOX_MAX;
+	return collisionBox;
 }
 
 void Player::setAnimations() {
@@ -68,44 +74,39 @@ void Player::setAnimations() {
 	sprite->changeAnimation(STAND_RIGHT);
 }
 
-void Player::update(int deltaTime)
-{
-	sprite->update(deltaTime);
-	
+void Player::childUpdate()
+{	
 	moveSideways();
 	climb();
 	jump();
 
-	if(!jumping && !climbing && !map->onGround(getCollisionBox()))
-		posPlayer.y += FALL_SPEED;
-
-	map->setPlayerCollisonBox(getCollisionBox());
-	sprite->setPosition(glm::vec2(float(tileMapOffset.x + posPlayer.x), float(tileMapOffset.y + posPlayer.y)));
+	if(!jumping && !climbing && !collisionMap->onGround(getCollisionBox()))
+		position.y += FALL_SPEED;
 }
 
 void Player::moveSideways() {
 	if(!climbing) {
 		if(Game::instance().getSpecialKey(GLUT_KEY_LEFT)) {
-			posPlayer.x -= MOVE_SPEED;
+			position.x -= MOVE_SPEED;
 			if(jumping)
 				sprite->changeAnimation(JUMP_LEFT);
 			else if(sprite->animation() != MOVE_LEFT)
 				sprite->changeAnimation(MOVE_LEFT);
 			
-			if(map->collision(getCollisionBox())) {
-				posPlayer.x += MOVE_SPEED;
+			if(collisionMap->collision(getCollisionBox())) {
+				position.x += MOVE_SPEED;
 				if(sprite->animation() == MOVE_LEFT)
 					sprite->changeAnimation(STAND_LEFT);
 			}
 		} else if(Game::instance().getSpecialKey(GLUT_KEY_RIGHT)) {
-			posPlayer.x += MOVE_SPEED;
+			position.x += MOVE_SPEED;
 			if(jumping)
 				sprite->changeAnimation(JUMP_RIGHT);
 			else if(sprite->animation() != MOVE_RIGHT)
 				sprite->changeAnimation(MOVE_RIGHT);
 
-			if(map->collision(getCollisionBox())) {
-				posPlayer.x -= MOVE_SPEED;
+			if(collisionMap->collision(getCollisionBox())) {
+				position.x -= MOVE_SPEED;
 				if(sprite->animation() == MOVE_RIGHT)
 					sprite->changeAnimation(STAND_RIGHT);
 			}
@@ -119,86 +120,65 @@ void Player::moveSideways() {
 }
 
 void Player::climb() {
-	bool onGround = map->onGround(getCollisionBox());
-	glm::ivec2 onVine = map->onVine(getCollisionBox());
-	glm::ivec2 aboveVine = map->aboveVine(getCollisionBox());
+	bool onGround = collisionMap->onGround(getCollisionBox());
+	glm::ivec2 onVine = collisionMap->onVine(getCollisionBox());
+	glm::ivec2 aboveVine = collisionMap->aboveVine(getCollisionBox());
 
-	if(climbing) {
-		if (onGround || (onVine == glm::ivec2(-1, -1))) {
-			climbing = false;
-			sprite->changeAnimation(STAND_RIGHT);
-		} else if(Game::instance().getSpecialKey(GLUT_KEY_UP)) {
-			sprite->startAnimation();
-			posPlayer.y -= MOVE_SPEED;
-		} else if(Game::instance().getSpecialKey(GLUT_KEY_DOWN)) {
-			sprite->startAnimation();
-			posPlayer.y += MOVE_SPEED;
-		} else sprite->pauseAnimation();
-	} else if(onGround && (onVine != glm::ivec2(-1, -1)) && Game::instance().getSpecialKey(GLUT_KEY_UP)) {
-		climbing = true;
-		sprite->changeAnimation(CLIMB);
-		posPlayer.x = onVine.x - 6;
-		posPlayer.y -= MOVE_SPEED;
-	} else if((aboveVine != glm::ivec2(-1, -1)) && Game::instance().getSpecialKey(GLUT_KEY_DOWN)) {
-		climbing = true;
-		sprite->changeAnimation(CLIMB);
-		posPlayer.x = aboveVine.x - 6;
-		posPlayer.y = aboveVine.y;
-		posPlayer.y += MOVE_SPEED;
+	if(!jumping) {
+		if(climbing) {
+			if (onGround || (onVine == glm::ivec2(-1, -1))) {
+				climbing = false;
+				sprite->changeAnimation(STAND_RIGHT);
+			} else if(Game::instance().getSpecialKey(GLUT_KEY_UP)) {
+				sprite->startAnimation();
+				position.y -= MOVE_SPEED;
+			} else if(Game::instance().getSpecialKey(GLUT_KEY_DOWN)) {
+				sprite->startAnimation();
+				position.y += MOVE_SPEED;
+			} else sprite->pauseAnimation();
+		} else if(onGround && (onVine != glm::ivec2(-1, -1)) && Game::instance().getSpecialKey(GLUT_KEY_UP)) {
+			climbing = true;
+			sprite->changeAnimation(CLIMB);
+			position.x = onVine.x - 6;
+			position.y -= MOVE_SPEED;
+		} else if((aboveVine != glm::ivec2(-1, -1)) && Game::instance().getSpecialKey(GLUT_KEY_DOWN)) {
+			climbing = true;
+			sprite->changeAnimation(CLIMB);
+			position.x = aboveVine.x - 6;
+			position.y = aboveVine.y;
+			position.y += MOVE_SPEED;
+		}
 	}
 }
 
 void Player::jump() {
-	if(jumping) {
-		jumpAngle += JUMP_ANGLE_STEP;
-		if(jumpAngle == 180) {
-			jumping = false;
-			posPlayer.y = startY;
-			if(sprite->animation() == JUMP_LEFT)
-				sprite->changeAnimation(STAND_LEFT);
-			else sprite->changeAnimation(STAND_RIGHT);
-		} else if(map->collision(getCollisionBox())) {
-			jumping = false;
-			if(jumpAngle > 90) posPlayer.y = (posPlayer.y / map->getTileSize()) * map->getTileSize();
-			else posPlayer.y = (posPlayer.y / map->getTileSize() + 1) * map->getTileSize();
+	if(!climbing) {
+		if(jumping) {
+			jumpAngle += JUMP_ANGLE_STEP;
+			if(jumpAngle == 180) {
+				jumping = false;
+				position.y = startY;
+				if(sprite->animation() == JUMP_LEFT)
+					sprite->changeAnimation(STAND_LEFT);
+				else sprite->changeAnimation(STAND_RIGHT);
+			} else if(collisionMap->collision(getCollisionBox())) {
+				jumping = false;
+				if(jumpAngle > 90) position.y = (position.y / collisionMap->getTileSize()) * collisionMap->getTileSize();
+				else position.y = (position.y / collisionMap->getTileSize() + 1) * collisionMap->getTileSize();
+				
+				if(sprite->animation() == JUMP_LEFT)
+					sprite->changeAnimation(STAND_LEFT);
+				else sprite->changeAnimation(STAND_RIGHT);
+			} else
+				position.y = int(startY - JUMP_HEIGHT * sin(3.14159f * jumpAngle / 180.f));
+		} else if(Game::instance().getKey(GLUT_KEY_SPACEBAR) && collisionMap->onGround(getCollisionBox())) {
+			if((sprite->animation() == MOVE_LEFT) || (sprite->animation() == STAND_LEFT))
+				sprite->changeAnimation(JUMP_LEFT);
+			else sprite->changeAnimation(JUMP_RIGHT);
 			
-			if(sprite->animation() == JUMP_LEFT)
-				sprite->changeAnimation(STAND_LEFT);
-			else sprite->changeAnimation(STAND_RIGHT);
-		} else
-			posPlayer.y = int(startY - JUMP_HEIGHT * sin(3.14159f * jumpAngle / 180.f));
-	} else if(!climbing && Game::instance().getSpecialKey(GLUT_KEY_UP) && map->onGround(getCollisionBox())) {
-		if((sprite->animation() == MOVE_LEFT) || (sprite->animation() == STAND_LEFT))
-			sprite->changeAnimation(JUMP_LEFT);
-		else sprite->changeAnimation(JUMP_RIGHT);
-		
-		jumping = true;
-		jumpAngle = 0;
-		startY = posPlayer.y;
+			jumping = true;
+			jumpAngle = 0;
+			startY = position.y;
+		}
 	}
-}
-
-CollisionBox Player::getCollisionBox() {
-	CollisionBox collisionBox;
-	collisionBox.min = posPlayer + COLLISION_BOX_MIN;
-	collisionBox.max = posPlayer + COLLISION_BOX_MAX;
-	collisionBox.min += tileMapOffset;
-	collisionBox.max += tileMapOffset;
-	return collisionBox;
-}
-
-void Player::render()
-{
-	sprite->render();
-}
-
-void Player::setCollisionMap(CollisionMap *collisionMap)
-{
-	map = collisionMap;
-}
-
-void Player::setPosition(const glm::ivec2 &pos)
-{
-	posPlayer = pos;
-	sprite->setPosition(glm::vec2(float(tileMapOffset.x + posPlayer.x), float(tileMapOffset.y + posPlayer.y)));
 }

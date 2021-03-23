@@ -1,15 +1,12 @@
 
 #include <iostream>
 #include <string>
-#include<fstream>
+#include <fstream>
 using namespace std;
 
-int main()
-{
-   
-
+int main() {
     ofstream fout;
-    fout.open("output.txt");
+    fout.open("output");
     char output_map[20][32];
 
     int number;
@@ -29,8 +26,6 @@ int main()
             }
         }
     }
-
-    
 
     for (int i = 0; i < 20; i++) {
         for (int p = 0; p < 32; p++) {
