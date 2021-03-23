@@ -17,7 +17,7 @@ public:
 protected:
     string setImage();
     glm::vec2 setSize();
-    glm::vec2 setSizeInSpritesheed();
+    glm::vec2 setSizeInSpritesheet();
 	CollisionBox setCollisionBox();
     void setAnimations();
     void childUpdate();

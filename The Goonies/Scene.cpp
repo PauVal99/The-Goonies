@@ -31,7 +31,7 @@ void Scene::init()
 	player->init(setPlayerPosition(), OFFSET, collisionMap, texProgram);
 
 	hypershoes = new HyperShoes();
-	hypershoes->init(OFFSET, texProgram, glm::ivec2(10, 7) * TILE_SIZE);
+	hypershoes->init(glm::ivec2(10, 8) * TILE_SIZE, OFFSET, collisionMap, texProgram);
 
 	setEnemies();
 

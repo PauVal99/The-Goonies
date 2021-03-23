@@ -24,7 +24,7 @@ glm::vec2 Player::setSize() {
 	return glm::ivec2(32, 32);
 }
 
-glm::vec2 Player::setSizeInSpritesheed() {
+glm::vec2 Player::setSizeInSpritesheet() {
 	return glm::vec2(0.25, 0.25);
 }
 

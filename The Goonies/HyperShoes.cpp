@@ -1,13 +1,39 @@
 #include "HyperShoes.h"
 
+#define COLLISION_BOX_MIN glm::ivec2(0, 0)
+#define COLLISION_BOX_MAX glm::ivec2(15, 19)
 
-void HyperShoes::init(const glm::ivec2& tileMapOffset, ShaderProgram& shaderProgram, const glm::ivec2& pos) {
+string HyperShoes::setImage() {
 
-	spritesheet.loadFromFile("images/Player.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	spritesheet.setMagFilter(GL_NEAREST);
-	sprite = Sprite::createSprite(glm::ivec2(32, 32), glm::vec2(0.25, 0.25), &spritesheet, &shaderProgram);
+	return "images/Skull.png";
+}
 
-	sprite->setPosition(glm::vec2(float(tileMapOffset.x + pos.x), float(tileMapOffset.y + pos.y)));
+glm::vec2 HyperShoes::setSize() {
+
+	return glm::ivec2(16, 20);
+
+}
+
+glm::vec2 HyperShoes::setSizeInSpritesheet() {
+
+	return glm::vec2(0.5, 0.5);
+
+}
+
+
+CollisionBox HyperShoes::setCollisionBox() {
+	CollisionBox collisionBox;
+	collisionBox.min = COLLISION_BOX_MIN;
+	collisionBox.max = COLLISION_BOX_MAX;
+	return collisionBox;
+}
+
+void HyperShoes::setAnimations() {
+
+}
+
+void HyperShoes::childUpdate() {
+	
 }
 
 void HyperShoes::activatePowerUp() {

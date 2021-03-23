@@ -24,7 +24,7 @@ glm::vec2 Skull::setSize() {
 	return glm::ivec2(16, 20);
 }
 
-glm::vec2 Skull::setSizeInSpritesheed() {
+glm::vec2 Skull::setSizeInSpritesheet() {
 	return glm::vec2(0.5, 0.5);
 }
 
