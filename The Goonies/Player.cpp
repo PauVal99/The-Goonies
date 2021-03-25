@@ -12,7 +12,7 @@
 #define COLLISION_BOX_MAX glm::ivec2(25, 31)
 
 #define DAMAGE_COOLDOWN 2000
-#define DAMAGE_COLOR glm::vec4(1.5f, 1.5f, 1.5f, 1.f)
+#define DAMAGE_COLOR glm::vec4(1.4f, 1.4f, 1.4f, 1.f)
 
 enum PlayerAnims
 {
@@ -35,7 +35,7 @@ void Player::takeDamage(const int &damage) {
 	if(damageCooldown == 0) {
 		health -= damage;
 		if(health <= 0)
-			Game::instance().init();
+			Game::instance().restart();
 		damageCooldown = DAMAGE_COOLDOWN;
 	}
 }
