@@ -7,8 +7,6 @@ class PowerUp: public Actor
 {
 public:
 	virtual void activatePowerUp() = 0;
-
-	
 };
 
 
