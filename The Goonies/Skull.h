@@ -16,7 +16,7 @@ protected:
     glm::vec2 setSizeInSpritesheet();
     CollisionBox setCollisionBox();
     void setAnimations();
-    void childUpdate();
+    void childUpdate(int deltaTime);
 
 private:
 	int patrolPoint1, patrolPoint2;

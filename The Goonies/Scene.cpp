@@ -15,6 +15,7 @@ Scene::~Scene()
 	for(auto map : tileMaps)
 		if (map.second)
 			delete map.second;
+	delete collisionMap;
 	for(auto enemy : enemies)
 		delete enemy;
 }

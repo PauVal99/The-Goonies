@@ -36,19 +36,19 @@ public:
 	
 	void setPosition(const glm::vec2 &pos);
 
+	void setColor(const glm::vec4 &color);
+
 private:
 	Texture *texture;
 	ShaderProgram *shaderProgram;
-	GLuint vao;
-	GLuint vbo;
+	GLuint vao, vbo;
 	GLint posLocation, texCoordLocation;
-	glm::vec2 position;
+	glm::vec2 position, texCoordDispl;
 	int currentAnimation, currentKeyframe;
 	float timeAnimation;
-	glm::vec2 texCoordDispl;
 	vector<AnimKeyframes> animations;
 	bool pause;
-
+	glm::vec4 color;
 };
 
 

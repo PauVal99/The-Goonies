@@ -17,12 +17,15 @@ public:
     CollisionBox getCollisionBox();
 
 protected:
+    void setColor(const glm::vec4 &color);
+    void resetColor();
+    void discard();
     virtual string setImage() = 0;
     virtual glm::vec2 setSize() = 0;
     virtual glm::vec2 setSizeInSpritesheet() = 0;
     virtual CollisionBox setCollisionBox() = 0;
     virtual void setAnimations() = 0;
-    virtual void childUpdate() = 0;
+    virtual void childUpdate(int deltaTime) = 0;
 
 protected:
     CollisionMap* collisionMap;

@@ -7,13 +7,15 @@
 #define COLLISION_BOX_MIN glm::ivec2(0, 0)
 #define COLLISION_BOX_MAX glm::ivec2(15, 19)
 
+#define DAMAGE 5
+
 enum SkullAnims
 {
 	MOVE_LEFT, MOVE_RIGHT
 };
 
 int Skull::damage() {
-	return 5;
+	return DAMAGE;
 }		
 
 string Skull::setImage() {
@@ -49,7 +51,7 @@ void Skull::setAnimations() {
 	sprite->changeAnimation(MOVE_RIGHT);
 }
 
-void Skull::childUpdate() {
+void Skull::childUpdate(int deltaTime) {
 	if (position.x <= patrolPoint1) movingRight = true;
 	else if (position.x >= patrolPoint2) movingRight = false;
 
