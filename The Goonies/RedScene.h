@@ -9,6 +9,7 @@ protected:
 	void setTileMaps();
 	glm::ivec2 setPlayerPosition();
 	void setEnemies();
+	void setPowerUps();
 
 };
 

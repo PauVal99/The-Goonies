@@ -31,10 +31,8 @@ void Scene::init()
 	player = new Player();
 	player->init(setPlayerPosition(), OFFSET, collisionMap, texProgram);
 
-	hypershoes = new HyperShoes();
-	hypershoes->init(glm::ivec2(10, 8) * TILE_SIZE, OFFSET, collisionMap, texProgram);
-
 	setEnemies();
+	setPowerUps();
 
 }
 
@@ -42,16 +40,25 @@ void Scene::update(int deltaTime)
 {
 	currentTime += deltaTime;
 	player->update(deltaTime);
-
-	hypershoes->update(deltaTime);
 	
 	for(auto enemy : enemies)
 		enemy->update(deltaTime);
+
+	for (auto powerup : powerUps)
+		powerup->update(deltaTime);
 
 	for(auto enemy : enemies) {
 		CollisionBox playerCollisionBox = player->getCollisionBox();
 		if(collision(playerCollisionBox, enemy->getCollisionBox()))
 			player->takeDamage(enemy->damage());
+	}
+
+	for (int i = 0; i < powerUps.size(); i++) {
+		CollisionBox playerCollisionBox = player->getCollisionBox();
+		if (collision(playerCollisionBox, powerUps[i]->getCollisionBox())) {
+			powerUps[i]->activatePowerUp(player);
+			powerUps.erase(powerUps.begin() + i);
+		}
 	}
 }
 
@@ -74,10 +81,12 @@ void Scene::render()
 		map.second->render();
 		
 	player->render();
-	hypershoes->render();
 
 	for(auto enemy : enemies)
 		enemy->render();
+
+	for (auto powerup : powerUps)
+		powerup->render();
 
 }
 

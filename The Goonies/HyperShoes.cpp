@@ -31,11 +31,11 @@ void HyperShoes::setAnimations() {
 
 }
 
-void HyperShoes::childUpdate() {
+void HyperShoes::childUpdate(int deltaTime) {
 	
 }
 
-void HyperShoes::activatePowerUp() {
+void HyperShoes::activatePowerUp(Player* player) {
 
-
+	player->activateHyperShoes();
 }

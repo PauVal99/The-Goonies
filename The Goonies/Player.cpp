@@ -5,7 +5,6 @@
 
 #define JUMP_HEIGHT 48
 #define JUMP_ANGLE_STEP 4
-#define MOVE_SPEED 1
 #define FALL_SPEED 4
 
 #define COLLISION_BOX_MIN glm::ivec2(4, 0)
@@ -13,6 +12,8 @@
 
 #define DAMAGE_COOLDOWN 2000
 #define DAMAGE_COLOR glm::vec4(1.5f, 1.5f, 1.5f, 1.f)
+
+#define MAX_EXPERIENCE 100
 
 enum PlayerAnims
 {
@@ -32,12 +33,39 @@ glm::vec2 Player::setSizeInSpritesheet() {
 }
 
 void Player::takeDamage(const int &damage) {
-	if(damageCooldown == 0) {
+	if(damageCooldown == 0 && !hasShield) {
 		health -= damage;
 		if(health <= 0)
 			Game::instance().init();
 		damageCooldown = DAMAGE_COOLDOWN;
 	}
+	else if (hasShield && shieldCooldown == 0) {
+		if (shieldHitsCounter == 0)hasShield = false;
+		shieldHitsCounter -= 1;
+		shieldCooldown = DAMAGE_COOLDOWN;
+	}
+
+}
+
+void Player::activateHyperShoes() {
+
+	moveSpeed = 2;
+
+}
+
+void Player::activateShield() {
+
+	hasShield = true;
+	shieldHitsCounter = 3;
+
+}
+
+void Player::activateVitalityPotion() {
+	health = maxVitality;
+}
+
+void Player::activateExperiencePotion() {
+	experienceIncrement += 10;
 }
 
 CollisionBox Player::setCollisionBox() {
@@ -95,26 +123,26 @@ void Player::childUpdate(int deltaTime) {
 void Player::moveSideways() {
 	if(!climbing) {
 		if(Game::instance().getSpecialKey(GLUT_KEY_LEFT)) {
-			position.x -= MOVE_SPEED;
+			position.x -= moveSpeed;
 			if(jumping)
 				sprite->changeAnimation(JUMP_LEFT);
 			else if(sprite->animation() != MOVE_LEFT)
 				sprite->changeAnimation(MOVE_LEFT);
 			
 			if(collisionMap->collision(getCollisionBox())) {
-				position.x += MOVE_SPEED;
+				position.x += moveSpeed;
 				if(sprite->animation() == MOVE_LEFT)
 					sprite->changeAnimation(STAND_LEFT);
 			}
 		} else if(Game::instance().getSpecialKey(GLUT_KEY_RIGHT)) {
-			position.x += MOVE_SPEED;
+			position.x += moveSpeed;
 			if(jumping)
 				sprite->changeAnimation(JUMP_RIGHT);
 			else if(sprite->animation() != MOVE_RIGHT)
 				sprite->changeAnimation(MOVE_RIGHT);
 
 			if(collisionMap->collision(getCollisionBox())) {
-				position.x -= MOVE_SPEED;
+				position.x -= moveSpeed;
 				if(sprite->animation() == MOVE_RIGHT)
 					sprite->changeAnimation(STAND_RIGHT);
 			}
@@ -139,22 +167,22 @@ void Player::climb() {
 				sprite->changeAnimation(STAND_RIGHT);
 			} else if(Game::instance().getSpecialKey(GLUT_KEY_UP)) {
 				sprite->startAnimation();
-				position.y -= MOVE_SPEED;
+				position.y -= moveSpeed;
 			} else if(Game::instance().getSpecialKey(GLUT_KEY_DOWN)) {
 				sprite->startAnimation();
-				position.y += MOVE_SPEED;
+				position.y += moveSpeed;
 			} else sprite->pauseAnimation();
 		} else if(onGround && (onVine != glm::ivec2(-1, -1)) && Game::instance().getSpecialKey(GLUT_KEY_UP)) {
 			climbing = true;
 			sprite->changeAnimation(CLIMB);
 			position.x = onVine.x - 6;
-			position.y -= MOVE_SPEED;
+			position.y -= moveSpeed;
 		} else if((aboveVine != glm::ivec2(-1, -1)) && Game::instance().getSpecialKey(GLUT_KEY_DOWN)) {
 			climbing = true;
 			sprite->changeAnimation(CLIMB);
 			position.x = aboveVine.x - 6;
 			position.y = aboveVine.y;
-			position.y += MOVE_SPEED;
+			position.y += moveSpeed;
 		}
 	}
 }
@@ -193,7 +221,10 @@ void Player::jump() {
 
 void Player::wounded(int deltaTime) {
 	damageCooldown -= deltaTime;
+	shieldCooldown -= deltaTime;
 	
+	if (shieldCooldown < 0)shieldCooldown = 0;
+
 	if(damageCooldown > 0) {
 		if((damageCooldown/(deltaTime * 2)) % 4 == 0)
 			discard();
@@ -202,4 +233,18 @@ void Player::wounded(int deltaTime) {
 		damageCooldown = 0;
 		resetColor();
 	}
+}
+
+void Player::getExperience() {
+	experience += experienceIncrement;
+	if (experience >= MAX_EXPERIENCE) {
+		incrementMaxVitality();
+		experience = 0;
+	}
+}
+
+void Player::incrementMaxVitality() {
+
+	maxVitality += 20;
+	health = maxVitality;
 }

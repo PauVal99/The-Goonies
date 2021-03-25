@@ -10,6 +10,9 @@
 #include "CollisionMap.h"
 #include "Player.h"
 #include "HyperShoes.h"
+#include "Shield.h"
+#include "VitalityPotion.h"
+#include "ExperiencePotion.h"
 #include "Enemy.h"
 
 
@@ -33,6 +36,7 @@ protected:
 	virtual void setTileMaps() = 0;
 	virtual glm::ivec2 setPlayerPosition() = 0;
 	virtual void setEnemies() = 0;
+	virtual void setPowerUps() = 0;
 
 private:
 	void initShaders();
@@ -41,6 +45,7 @@ protected:
 	std::map<int, TileMap*> tileMaps;
 	CollisionMap* collisionMap;
 	std::vector<Enemy*> enemies;
+	std::vector<PowerUp*> powerUps;
 	ShaderProgram texProgram;
 
 private:
@@ -50,7 +55,6 @@ private:
 	float currentTime;
 	glm::mat4 projection;
 	Player* player;
-	HyperShoes* hypershoes;
 };
 
 

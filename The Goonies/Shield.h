@@ -1,9 +1,9 @@
-#ifndef _HYPERSHOES_INCLUDE
-#define _HYPERSHOES_INCLUDE
+#ifndef _SHIELD_INCLUDE
+#define _SHIELD_INCLUDE
 
 #include "PowerUp.h";
 #include "Player.h"
-class HyperShoes : public PowerUp {
+class Shield : public PowerUp {
 
 public:
 	void activatePowerUp(Player* player);
@@ -13,7 +13,7 @@ protected:
 	glm::vec2 setSize();
 	glm::vec2 setSizeInSpritesheet();
 	void setAnimations();
-    void childUpdate(int deltaTime);
+	void childUpdate(int deltaTime);
 	CollisionBox setCollisionBox();
 };
 

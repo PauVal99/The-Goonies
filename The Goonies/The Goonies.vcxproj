@@ -10,6 +10,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ExperiencePotion.cpp" />
+    <ClCompile Include="Shield.cpp" />
     <ClCompile Include="Skull.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="HyperShoes.cpp" />
@@ -23,8 +25,11 @@
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="VitalityPotion.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ExperiencePotion.h" />
+    <ClInclude Include="Shield.h" />
     <ClInclude Include="Skull.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="HyperShoes.h" />
@@ -45,6 +50,7 @@
     <ClInclude Include="Actor.h" />
     <ClInclude Include="Enemy.h" />
     <ClCompile Include="Enemy.cpp" />
+    <ClInclude Include="VitalityPotion.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5BE6CA2A-E5A8-40CC-9015-047CE0C78036}</ProjectGuid>

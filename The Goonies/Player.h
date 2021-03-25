@@ -12,9 +12,14 @@ class Player: public Actor
 {
 public:
 	void takeDamage(const int &damage);
+	void activateHyperShoes();
+	void activateShield();
+	void activateVitalityPotion();
+	void activateExperiencePotion();
 
 public:
-	int health = HEALTH;
+	int health = 100;
+	int experience = 0;
 
 protected:
     string setImage();
@@ -29,10 +34,12 @@ private:
 	void climb();
 	void jump();
 	void wounded(int deltaTime);
+	void getExperience();
+	void incrementMaxVitality();
 
 private:
-	bool jumping = false, climbing = false;
-	int jumpAngle, startY, damageCooldown = 0;
+	bool jumping = false, climbing = false, hasShield = false;
+	int jumpAngle, startY, damageCooldown = 0,shieldCooldown=0, moveSpeed = 1, shieldHitsCounter = 0, maxVitality = 100, experienceIncrement = 20;
 
 };
 

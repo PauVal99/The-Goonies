@@ -2,11 +2,11 @@
 #define _POWERUP_INCLUDE
 
 #include "Actor.h"
-
+#include "Player.h"
 class PowerUp: public Actor
 {
 public:
-	virtual void activatePowerUp() = 0;
+	virtual void activatePowerUp(Player* player) = 0;
 };
 
 
