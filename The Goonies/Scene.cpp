@@ -1,7 +1,9 @@
 #include <iostream>
 #include <glm/gtc/matrix_transform.hpp>
 #include "Game.h"
+#include "PowerUp.h"
 #include "Scene.h"
+
 
 Scene::Scene()
 {
@@ -33,21 +35,34 @@ void Scene::init()
 	player->init(setPlayerPosition(), OFFSET, collisionMap, texProgram);
 
 	setEnemies();
+	setPowerUps();
+
 }
 
 void Scene::update(int deltaTime)
 {
 	currentTime += deltaTime;
 	player->update(deltaTime);
+	
 	for(auto enemy : enemies)
 		enemy->update(deltaTime);
 
 	camera->update(player->getPosition());
+	for (auto powerup : powerUps)
+		powerup->update(deltaTime);
 
 	for(auto enemy : enemies) {
 		CollisionBox playerCollisionBox = player->getCollisionBox();
 		if(collision(playerCollisionBox, enemy->getCollisionBox()))
 			player->takeDamage(enemy->damage());
+	}
+
+	for (int i = 0; i < powerUps.size(); i++) {
+		CollisionBox playerCollisionBox = player->getCollisionBox();
+		if (collision(playerCollisionBox, powerUps[i]->getCollisionBox())) {
+			powerUps[i]->activatePowerUp(player);
+			powerUps.erase(powerUps.begin() + i);
+		}
 	}
 }
 
@@ -72,9 +87,15 @@ void Scene::render()
 	
 	for(auto map : tileMaps)
 		map.second->render();
+		
 	player->render();
+
 	for(auto enemy : enemies)
 		enemy->render();
+
+	for (auto powerup : powerUps)
+		powerup->render();
+
 }
 
 void Scene::initShaders()

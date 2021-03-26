@@ -19,3 +19,25 @@ void RedScene::setEnemies() {
 	skull->setPatrolPoints(8 * TILE_SIZE, 14 * TILE_SIZE);
 	enemies.push_back(skull);
 }
+
+void RedScene::setPowerUps() {
+
+	HyperShoes* hypershoes = new HyperShoes();
+	hypershoes->init(glm::ivec2(10, 14) * TILE_SIZE, OFFSET, collisionMap, texProgram);
+
+	powerUps.push_back(hypershoes);
+
+	Shield* shield = new Shield();
+	shield->init(glm::ivec2(14, 14) * TILE_SIZE, OFFSET, collisionMap, texProgram);
+
+	powerUps.push_back(shield);
+
+	VitalityPotion* vitalityPotion = new VitalityPotion();
+	vitalityPotion->init(glm::ivec2(18, 14) * TILE_SIZE, OFFSET, collisionMap, texProgram);
+	powerUps.push_back(vitalityPotion);
+
+	ExperiencePotion* experiencePotion = new ExperiencePotion();
+	experiencePotion->init(glm::ivec2(22, 14) * TILE_SIZE, OFFSET, collisionMap, texProgram);
+	powerUps.push_back(experiencePotion);
+
+}
