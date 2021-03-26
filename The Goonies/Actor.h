@@ -16,6 +16,8 @@ public:
 	void setPosition(const glm::ivec2& pos);
     CollisionBox getCollisionBox();
 
+    inline glm::ivec2 getPosition() const { return position; };
+
 protected:
     void setColor(const glm::vec4 &color);
     void resetColor();

@@ -10,6 +10,7 @@
 #include "CollisionMap.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Camera.h"
 
 #define OFFSET glm::vec2(0, 0)
 #define TILE_SIZE 16
@@ -48,6 +49,7 @@ private:
 	float currentTime;
 	glm::mat4 projection;
 	Player* player;
+	Camera *camera;
 };
 
 

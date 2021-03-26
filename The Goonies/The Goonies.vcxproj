@@ -41,6 +41,8 @@
     <ClInclude Include="Actor.h" />
     <ClInclude Include="Enemy.h" />
     <ClCompile Include="Enemy.cpp" />
+    <ClInclude Include="Camera.h" />
+    <ClCompile Include="Camera.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5BE6CA2A-E5A8-40CC-9015-047CE0C78036}</ProjectGuid>
