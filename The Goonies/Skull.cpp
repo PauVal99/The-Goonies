@@ -23,7 +23,7 @@ string Skull::setImage() {
 }
 
 glm::vec2 Skull::setSize() {
-	return glm::ivec2(16, 20);
+	return glm::vec2(16, 20);
 }
 
 glm::vec2 Skull::setSizeInSpritesheet() {

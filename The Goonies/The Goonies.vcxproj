@@ -50,6 +50,8 @@
     <ClInclude Include="Actor.h" />
     <ClInclude Include="Enemy.h" />
     <ClCompile Include="Enemy.cpp" />
+    <ClInclude Include="Camera.h" />
+    <ClCompile Include="Camera.cpp" />
     <ClInclude Include="VitalityPotion.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

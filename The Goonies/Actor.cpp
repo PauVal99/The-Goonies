@@ -3,7 +3,7 @@
 #include "Actor.h"
 #include "CollisionBox.h"
 
-void Actor::init(const glm::ivec2 &iniPos, const glm::ivec2 &tileMapOffset, CollisionMap* collisionMap, ShaderProgram &shaderProgram)
+void Actor::init(const glm::ivec2 &iniPos, const glm::ivec2 &tileMapOffset, ShaderProgram &shaderProgram)
 {
 	spritesheet.loadFromFile(setImage(), TEXTURE_PIXEL_FORMAT_RGBA);
 	spritesheet.setMagFilter(GL_NEAREST);
@@ -12,8 +12,12 @@ void Actor::init(const glm::ivec2 &iniPos, const glm::ivec2 &tileMapOffset, Coll
     setAnimations();
 
 	this->tileMapOffset = tileMapOffset;
-    this->collisionMap = collisionMap;
+    
     setPosition(iniPos);
+}
+
+void Actor::setCollisionMap(CollisionMap* collisionMap) {
+	this->collisionMap = collisionMap;
 }
 
 void Actor::update(int deltaTime)

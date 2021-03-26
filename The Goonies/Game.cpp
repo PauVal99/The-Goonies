@@ -10,6 +10,13 @@ void Game::init()
 	scene->init();
 }
 
+void Game::restart()
+{
+	delete scene;
+	scene = new RedScene();
+	scene->init();
+}
+
 bool Game::update(int deltaTime)
 {
 	scene->update(deltaTime);

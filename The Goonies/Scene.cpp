@@ -1,13 +1,12 @@
 #include <iostream>
 #include <glm/gtc/matrix_transform.hpp>
 #include "Game.h"
-#include "PowerUp.h"
 #include "Scene.h"
-
 
 Scene::Scene()
 {
 	player = NULL;
+	camera = NULL;
 }
 
 Scene::~Scene()
@@ -16,6 +15,7 @@ Scene::~Scene()
 		if (map.second)
 			delete map.second;
 	delete collisionMap;
+	delete camera;
 	for(auto enemy : enemies)
 		delete enemy;
 }
@@ -25,41 +25,47 @@ void Scene::init()
 	currentTime = 0.0f;
 	initShaders();
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
+	camera = new Camera(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	setTileMaps();
 
 	player = new Player();
-	player->init(setPlayerPosition(), OFFSET, collisionMap, texProgram);
+	player->init(setPlayerPosition(), OFFSET, texProgram);
+	player->setCollisionMap(collisionMap);
 
 	setEnemies();
 	setPowerUps();
-
 }
 
 void Scene::update(int deltaTime)
 {
 	currentTime += deltaTime;
+
+	updateActors(deltaTime);
+
+	CollisionBox playerCollisionBox = player->getCollisionBox();
+
+	for(auto enemy : enemies)
+		if(collision(playerCollisionBox, enemy->getCollisionBox()))
+			player->takeDamage(enemy->damage());
+
+	for (unsigned int i = 0; i < powerUps.size(); i++)
+		if (collision(playerCollisionBox, powerUps[i]->getCollisionBox())) {
+			powerUps[i]->activatePowerUp(player);
+			delete powerUps[i];
+			powerUps.erase(powerUps.begin() + i);
+		}
+}
+
+void Scene::updateActors(int deltaTime) {
 	player->update(deltaTime);
-	
+	camera->update(player->getPosition());
+
 	for(auto enemy : enemies)
 		enemy->update(deltaTime);
 
-	for (auto powerup : powerUps)
-		powerup->update(deltaTime);
-
-	for(auto enemy : enemies) {
-		CollisionBox playerCollisionBox = player->getCollisionBox();
-		if(collision(playerCollisionBox, enemy->getCollisionBox()))
-			player->takeDamage(enemy->damage());
-	}
-
-	for (int i = 0; i < powerUps.size(); i++) {
-		CollisionBox playerCollisionBox = player->getCollisionBox();
-		if (collision(playerCollisionBox, powerUps[i]->getCollisionBox())) {
-			powerUps[i]->activatePowerUp(player);
-			powerUps.erase(powerUps.begin() + i);
-		}
-	}
+	for (auto powerUp : powerUps)
+		powerUp->update(deltaTime);
 }
 
 bool Scene::collision(const CollisionBox &collisionBox1, const CollisionBox &collisionBox2) {
@@ -73,6 +79,10 @@ void Scene::render()
 	texProgram.setUniformMatrix4f("projection", projection);
 	texProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
 	
+	glm::mat4 camView = glm::mat4(1.f);
+	camView = glm::translate(camView, glm::vec3(camera->getTranslation(), 0.f));
+	texProgram.setUniformMatrix4f("cameraView", camView);
+
 	glm::mat4 modelview = glm::mat4(1.0f);
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
@@ -85,8 +95,8 @@ void Scene::render()
 	for(auto enemy : enemies)
 		enemy->render();
 
-	for (auto powerup : powerUps)
-		powerup->render();
+	for (auto powerUp : powerUps)
+		powerUp->render();
 
 }
 
@@ -119,6 +129,3 @@ void Scene::initShaders()
 	vShader.free();
 	fShader.free();
 }
-
-
-

@@ -11,9 +11,13 @@
 #define COLLISION_BOX_MAX glm::ivec2(25, 31)
 
 #define DAMAGE_COOLDOWN 2000
-#define DAMAGE_COLOR glm::vec4(1.5f, 1.5f, 1.5f, 1.f)
+#define DAMAGE_COLOR glm::vec4(1.4f, 1.4f, 1.4f, 1.f)
+
+#define HEALTH_INCREMENT 20
+#define SHIELD_HITS 3
 
 #define MAX_EXPERIENCE 100
+#define EXPERIENCE_POTION 40
 
 enum PlayerAnims
 {
@@ -25,7 +29,7 @@ string Player::setImage() {
 }
 
 glm::vec2 Player::setSize() {
-	return glm::ivec2(32, 32);
+	return glm::vec2(32, 32);
 }
 
 glm::vec2 Player::setSizeInSpritesheet() {
@@ -33,39 +37,43 @@ glm::vec2 Player::setSizeInSpritesheet() {
 }
 
 void Player::takeDamage(const int &damage) {
-	if(damageCooldown == 0 && !hasShield) {
-		health -= damage;
-		if(health <= 0)
-			Game::instance().init();
+	if(damageCooldown == 0) {
+		if(shieldHitsCounter == 0) {
+			health -= damage;
+			if(health <= 0)
+				Game::instance().restart();
+		} else --shieldHitsCounter;
 		damageCooldown = DAMAGE_COOLDOWN;
 	}
-	else if (hasShield && shieldCooldown == 0) {
-		if (shieldHitsCounter == 0)hasShield = false;
-		shieldHitsCounter -= 1;
-		shieldCooldown = DAMAGE_COOLDOWN;
-	}
+}
 
+void Player::addExperience(int exp) {
+	experience += exp;
+	if (experience >= MAX_EXPERIENCE) {
+		incrementMaxHealth();
+		experience -= MAX_EXPERIENCE;
+	}
+}
+
+void Player::incrementMaxHealth() {
+	maxHealth += HEALTH_INCREMENT;
+	health += HEALTH_INCREMENT;
 }
 
 void Player::activateHyperShoes() {
-
 	moveSpeed = 2;
-
 }
 
 void Player::activateShield() {
-
-	hasShield = true;
-	shieldHitsCounter = 3;
-
+	shieldHitsCounter = SHIELD_HITS;
 }
 
 void Player::activateVitalityPotion() {
-	health = maxVitality;
+	health = maxHealth;
 }
 
 void Player::activateExperiencePotion() {
-	experienceIncrement += 10;
+	addExperience(EXPERIENCE_POTION);
 }
 
 CollisionBox Player::setCollisionBox() {
@@ -221,10 +229,7 @@ void Player::jump() {
 
 void Player::wounded(int deltaTime) {
 	damageCooldown -= deltaTime;
-	shieldCooldown -= deltaTime;
 	
-	if (shieldCooldown < 0)shieldCooldown = 0;
-
 	if(damageCooldown > 0) {
 		if((damageCooldown/(deltaTime * 2)) % 4 == 0)
 			discard();
@@ -233,18 +238,4 @@ void Player::wounded(int deltaTime) {
 		damageCooldown = 0;
 		resetColor();
 	}
-}
-
-void Player::getExperience() {
-	experience += experienceIncrement;
-	if (experience >= MAX_EXPERIENCE) {
-		incrementMaxVitality();
-		experience = 0;
-	}
-}
-
-void Player::incrementMaxVitality() {
-
-	maxVitality += 20;
-	health = maxVitality;
 }

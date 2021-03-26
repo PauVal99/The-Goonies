@@ -24,6 +24,7 @@ public:
 	}
 	
 	void init();
+	void restart();
 	bool update(int deltaTime);
 	void render();
 	
