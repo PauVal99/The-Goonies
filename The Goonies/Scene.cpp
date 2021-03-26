@@ -6,6 +6,7 @@
 Scene::Scene()
 {
 	player = NULL;
+	camera = NULL;
 }
 
 Scene::~Scene()
@@ -14,6 +15,7 @@ Scene::~Scene()
 		if (map.second)
 			delete map.second;
 	delete collisionMap;
+	delete camera;
 	for(auto enemy : enemies)
 		delete enemy;
 }
@@ -23,6 +25,7 @@ void Scene::init()
 	currentTime = 0.0f;
 	initShaders();
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
+	camera = new Camera(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	setTileMaps();
 
@@ -38,6 +41,8 @@ void Scene::update(int deltaTime)
 	player->update(deltaTime);
 	for(auto enemy : enemies)
 		enemy->update(deltaTime);
+
+	camera->update(player->getPosition());
 
 	for(auto enemy : enemies) {
 		CollisionBox playerCollisionBox = player->getCollisionBox();
@@ -57,6 +62,10 @@ void Scene::render()
 	texProgram.setUniformMatrix4f("projection", projection);
 	texProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
 	
+	glm::mat4 camView = glm::mat4(1.f);
+	camView = glm::translate(camView, glm::vec3(camera->getTranslation(), 0.f));
+	texProgram.setUniformMatrix4f("cameraView", camView);
+
 	glm::mat4 modelview = glm::mat4(1.0f);
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
