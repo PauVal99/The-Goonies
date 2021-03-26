@@ -30,25 +30,42 @@ void Scene::init()
 	setTileMaps();
 
 	player = new Player();
-	player->init(setPlayerPosition(), OFFSET, collisionMap, texProgram);
+	player->init(setPlayerPosition(), OFFSET, texProgram);
+	player->setCollisionMap(collisionMap);
 
 	setEnemies();
+	setPowerUps();
 }
 
 void Scene::update(int deltaTime)
 {
 	currentTime += deltaTime;
+
+	updateActors(deltaTime);
+
+	CollisionBox playerCollisionBox = player->getCollisionBox();
+
+	for(auto enemy : enemies)
+		if(collision(playerCollisionBox, enemy->getCollisionBox()))
+			player->takeDamage(enemy->damage());
+
+	for (unsigned int i = 0; i < powerUps.size(); i++)
+		if (collision(playerCollisionBox, powerUps[i]->getCollisionBox())) {
+			powerUps[i]->activatePowerUp(player);
+			delete powerUps[i];
+			powerUps.erase(powerUps.begin() + i);
+		}
+}
+
+void Scene::updateActors(int deltaTime) {
 	player->update(deltaTime);
+	camera->update(player->getPosition());
+
 	for(auto enemy : enemies)
 		enemy->update(deltaTime);
 
-	camera->update(player->getPosition());
-
-	for(auto enemy : enemies) {
-		CollisionBox playerCollisionBox = player->getCollisionBox();
-		if(collision(playerCollisionBox, enemy->getCollisionBox()))
-			player->takeDamage(enemy->damage());
-	}
+	for (auto powerUp : powerUps)
+		powerUp->update(deltaTime);
 }
 
 bool Scene::collision(const CollisionBox &collisionBox1, const CollisionBox &collisionBox2) {
@@ -72,9 +89,15 @@ void Scene::render()
 	
 	for(auto map : tileMaps)
 		map.second->render();
+		
 	player->render();
+
 	for(auto enemy : enemies)
 		enemy->render();
+
+	for (auto powerUp : powerUps)
+		powerUp->render();
+
 }
 
 void Scene::initShaders()
@@ -106,6 +129,3 @@ void Scene::initShaders()
 	vShader.free();
 	fShader.free();
 }
-
-
-

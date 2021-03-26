@@ -3,8 +3,6 @@
 
 #include "Actor.h"
 
-#define HEALTH 100
-
 // Player is basically a Sprite that represents the player. As such it has
 // all properties it needs to track its movement, jumping, and collisions.
 
@@ -12,9 +10,11 @@ class Player: public Actor
 {
 public:
 	void takeDamage(const int &damage);
-
-public:
-	int health = HEALTH;
+	void addExperience(int exp);
+	void activateHyperShoes();
+	void activateShield();
+	void activateVitalityPotion();
+	void activateExperiencePotion();
 
 protected:
     string setImage();
@@ -29,10 +29,14 @@ private:
 	void climb();
 	void jump();
 	void wounded(int deltaTime);
+	void incrementMaxHealth();
 
 private:
 	bool jumping = false, climbing = false;
-	int jumpAngle, startY, damageCooldown = 0;
+	int  moveSpeed = 1, jumpAngle, startY;
+	int experience = 0;
+	int health = 100, maxHealth = 100;
+	int damageCooldown = 0, shieldHitsCounter = 0;
 
 };
 
