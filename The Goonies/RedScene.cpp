@@ -1,6 +1,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "RedScene.h"
+#include "Key.h"
+#include "Door.h"
 #include "Skull.h"
 #include "HyperShoes.h"
 #include "Shield.h"
@@ -28,7 +30,7 @@ void RedScene::setEnemies() {
 }
 
 void RedScene::setPowerUps() {
-	HyperShoes* hypershoes = new HyperShoes();
+	/*HyperShoes* hypershoes = new HyperShoes();
 	hypershoes->init(glm::ivec2(10, 14) * TILE_SIZE, OFFSET, texProgram);
 
 	powerUps.push_back(hypershoes);
@@ -48,5 +50,20 @@ void RedScene::setPowerUps() {
 
 	TimePowerUp* timePowerUp = new TimePowerUp();
 	timePowerUp->init(glm::ivec2(26, 14) * TILE_SIZE, OFFSET, texProgram);
-	powerUps.push_back(timePowerUp);
+	powerUps.push_back(timePowerUp);*/
+}
+
+void RedScene::setDoors() {
+
+	Door* door = new Door();
+	door->init(glm::ivec2(14, 12) * TILE_SIZE, OFFSET, texProgram);
+
+	doors.push_back(door);
+}
+
+void RedScene::setKeys() {
+	Key* key = new Key();
+	key->init(glm::ivec2(10, 14) * TILE_SIZE, OFFSET, texProgram);
+
+	keys.push_back(key);
 }

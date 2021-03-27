@@ -89,6 +89,29 @@ void Player::deactivateTimePowerUp() {
 
 }
 
+bool Player::addKey() {
+
+	if (hasKey)return false;
+	else {
+		hasKey = true;
+		return true;
+	}
+
+}
+
+bool Player::getHasKey() {
+
+	return hasKey;
+}
+
+
+void Player::removeKey() {
+
+	hasKey = false;
+
+}
+
+
 CollisionBox Player::setCollisionBox() {
 	CollisionBox collisionBox;
 	collisionBox.min = COLLISION_BOX_MIN;

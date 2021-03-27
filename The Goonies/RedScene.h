@@ -10,7 +10,8 @@ protected:
 	glm::ivec2 setPlayerPosition();
 	void setEnemies();
 	void setPowerUps();
-
+	void setDoors();
+	void setKeys();
 };
 
 

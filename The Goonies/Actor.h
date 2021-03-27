@@ -29,7 +29,7 @@ protected:
     virtual CollisionBox setCollisionBox() = 0;
     virtual void setAnimations() {}
     virtual void childUpdate(int deltaTime) {}
-
+   
 protected:
     CollisionMap* collisionMap;
     glm::ivec2 position, tileMapOffset;
