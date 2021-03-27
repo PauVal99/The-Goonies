@@ -48,9 +48,11 @@ protected:
 
 private:
 	bool collision(const CollisionBox &collisionBox1, const CollisionBox &collisionBox2);
+	void activateTimePowerUp(int deltaTime);
 
 private:
 	float currentTime;
+	int timeCooldown = 0;
 	glm::mat4 projection;
 	Player* player;
 	Camera* camera;

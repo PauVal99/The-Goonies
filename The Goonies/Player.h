@@ -15,7 +15,9 @@ public:
 	void activateShield();
 	void activateVitalityPotion();
 	void activateExperiencePotion();
-
+	bool isTimePowerUpActivated();
+	void activateTimePowerUp();
+	void deactivateTimePowerUp();
 protected:
     string setImage();
     glm::vec2 setSize();
@@ -32,7 +34,7 @@ private:
 	void incrementMaxHealth();
 
 private:
-	bool jumping = false, climbing = false;
+	bool jumping = false, climbing = false, timePowerUp = false;
 	int  moveSpeed = 1, jumpAngle, startY;
 	int experience = 0;
 	int health = 100, maxHealth = 100;

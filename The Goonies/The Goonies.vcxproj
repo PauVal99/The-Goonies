@@ -25,6 +25,7 @@
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="TimePowerUp.cpp" />
     <ClCompile Include="VitalityPotion.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -52,6 +53,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClInclude Include="Camera.h" />
     <ClCompile Include="Camera.cpp" />
+    <ClInclude Include="TimePowerUp.h" />
     <ClInclude Include="VitalityPotion.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

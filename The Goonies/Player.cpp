@@ -75,6 +75,19 @@ void Player::activateVitalityPotion() {
 void Player::activateExperiencePotion() {
 	addExperience(EXPERIENCE_POTION);
 }
+bool Player::isTimePowerUpActivated() {
+	return timePowerUp;
+}
+
+void Player::activateTimePowerUp() {
+	timePowerUp = true;
+}
+
+void Player::deactivateTimePowerUp() {
+
+	timePowerUp = false;
+
+}
 
 CollisionBox Player::setCollisionBox() {
 	CollisionBox collisionBox;

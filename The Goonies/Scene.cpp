@@ -3,6 +3,9 @@
 #include "Game.h"
 #include "Scene.h"
 
+
+#define MAX_TIME_COOLDOWN 10000
+
 Scene::Scene()
 {
 	player = NULL;
@@ -37,11 +40,24 @@ void Scene::init()
 	setPowerUps();
 }
 
+void Scene::activateTimePowerUp(int deltaTime) {
+
+	if (timeCooldown <= 0) {
+		if (Game::instance().getKey('t') && player -> isTimePowerUpActivated()) {
+			timeCooldown = MAX_TIME_COOLDOWN;
+			player->deactivateTimePowerUp();
+		}
+	}
+	else if (timeCooldown > 0)timeCooldown -= deltaTime;
+}
+
 void Scene::update(int deltaTime)
 {
 	currentTime += deltaTime;
 
 	updateActors(deltaTime);
+
+	activateTimePowerUp(deltaTime);
 
 	CollisionBox playerCollisionBox = player->getCollisionBox();
 
@@ -61,8 +77,10 @@ void Scene::updateActors(int deltaTime) {
 	player->update(deltaTime);
 	camera->update(player->getPosition());
 
-	for(auto enemy : enemies)
-		enemy->update(deltaTime);
+	if (timeCooldown <= 0) {
+		for (auto enemy : enemies)
+			enemy->update(deltaTime);
+	}
 
 	for (auto powerUp : powerUps)
 		powerUp->update(deltaTime);
