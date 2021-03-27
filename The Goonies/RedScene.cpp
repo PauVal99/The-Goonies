@@ -4,6 +4,7 @@
 #include "Skull.h"
 #include "HyperShoes.h"
 #include "Shield.h"
+#include "TimePowerUp.h"
 #include "VitalityPotion.h"
 #include "ExperiencePotion.h"
 
@@ -44,4 +45,8 @@ void RedScene::setPowerUps() {
 	ExperiencePotion* experiencePotion = new ExperiencePotion();
 	experiencePotion->init(glm::ivec2(22, 14) * TILE_SIZE, OFFSET, texProgram);
 	powerUps.push_back(experiencePotion);
+
+	TimePowerUp* timePowerUp = new TimePowerUp();
+	timePowerUp->init(glm::ivec2(26, 14) * TILE_SIZE, OFFSET, texProgram);
+	powerUps.push_back(timePowerUp);
 }
