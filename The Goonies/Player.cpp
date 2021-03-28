@@ -19,6 +19,8 @@
 #define MAX_EXPERIENCE 100
 #define EXPERIENCE_POTION 40
 
+#define TIME_POWER_UP_COOLDOWN 10000
+
 enum PlayerAnims
 {
 	STAND_LEFT, STAND_RIGHT, MOVE_LEFT, MOVE_RIGHT, JUMP_LEFT, JUMP_RIGHT, CLIMB
@@ -75,18 +77,13 @@ void Player::activateVitalityPotion() {
 void Player::activateExperiencePotion() {
 	addExperience(EXPERIENCE_POTION);
 }
-bool Player::isTimePowerUpActivated() {
-	return timePowerUp;
+
+bool Player::isTimePowerUpActive() {
+	return timePoweUpCooldown > 0;
 }
 
 void Player::activateTimePowerUp() {
 	timePowerUp = true;
-}
-
-void Player::deactivateTimePowerUp() {
-
-	timePowerUp = false;
-
 }
 
 CollisionBox Player::setCollisionBox() {
@@ -138,6 +135,7 @@ void Player::childUpdate(int deltaTime) {
 	if(!jumping && !climbing && !collisionMap->onGround(getCollisionBox()))
 		position.y += FALL_SPEED;
 
+	timePowerUpUpdate(deltaTime);
 	wounded(deltaTime);
 }
 
@@ -251,4 +249,14 @@ void Player::wounded(int deltaTime) {
 		damageCooldown = 0;
 		resetColor();
 	}
+}
+
+void Player::timePowerUpUpdate(int deltaTime) {
+	if (timePowerUp && Game::instance().getKey('t')) {
+		timePoweUpCooldown = TIME_POWER_UP_COOLDOWN;
+		timePowerUp = false;
+	}
+
+	if (timePoweUpCooldown > 0)
+		timePoweUpCooldown -= deltaTime;
 }

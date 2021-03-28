@@ -15,9 +15,9 @@ public:
 	void activateShield();
 	void activateVitalityPotion();
 	void activateExperiencePotion();
-	bool isTimePowerUpActivated();
+	bool isTimePowerUpActive();
 	void activateTimePowerUp();
-	void deactivateTimePowerUp();
+	
 protected:
     string setImage();
     glm::vec2 setSize();
@@ -31,14 +31,15 @@ private:
 	void climb();
 	void jump();
 	void wounded(int deltaTime);
+	void timePowerUpUpdate(int deltaTime);
 	void incrementMaxHealth();
 
 private:
 	bool jumping = false, climbing = false, timePowerUp = false;
-	int  moveSpeed = 1, jumpAngle, startY;
+	int moveSpeed = 1, jumpAngle, startY;
 	int experience = 0;
 	int health = 100, maxHealth = 100;
-	int damageCooldown = 0, shieldHitsCounter = 0;
+	int damageCooldown = 0, timePoweUpCooldown = 0, shieldHitsCounter = 0;
 
 };
 
