@@ -39,7 +39,6 @@ void Scene::init()
 	setEnemies();
 	setPowerUps();
 	setDoors();
-	setKeys();
 }
 
 void Scene::activateTimePowerUp(int deltaTime) {
@@ -73,21 +72,11 @@ void Scene::update(int deltaTime)
 			delete powerUps[i];
 			powerUps.erase(powerUps.begin() + i);
 		}
-	for (auto door : doors)
-		if (collision(playerCollisionBox, door->getCollisionBox())) {
-			bool hasKey = player->getHasKey();
-			
-			bool keyTaken = door->playerInteraction(hasKey);
-			if (keyTaken)player->removeKey();
-			
-		}
 
-	for (unsigned int i = 0; i < keys.size(); i++)
-		if (collision(playerCollisionBox, keys[i]->getCollisionBox())) {
-			bool res = player->addKey();
-			if (res)keys.erase(keys.begin() + i);
-		}
-			
+	for (auto door : doors)
+		if (collision(playerCollisionBox, door->getCollisionBox()))
+			if (door->playerInteraction(player->hasKey()))
+				player->removeKey();			
 }
 
 void Scene::updateActors(int deltaTime) {
@@ -102,12 +91,8 @@ void Scene::updateActors(int deltaTime) {
 	for (auto powerUp : powerUps)
 		powerUp->update(deltaTime);
 
-	for (auto door : doors) {
+	for (auto door : doors)
 		door->update(deltaTime);
-	}
-	for (auto key : keys) {
-		key->update(deltaTime);
-	}
 }
 
 bool Scene::collision(const CollisionBox &collisionBox1, const CollisionBox &collisionBox2) {
@@ -131,8 +116,6 @@ void Scene::render()
 	
 	for(auto map : tileMaps)
 		map.second->render();
-		
-	player->render();
 
 	for(auto enemy : enemies)
 		enemy->render();
@@ -140,14 +123,10 @@ void Scene::render()
 	for (auto powerUp : powerUps)
 		powerUp->render();
 
-	for (auto door : doors) {
+	for (auto door : doors) 
 		door->render();
-	}
 
-	for (auto key : keys) {
-		key->render();
-	}
-
+	player->render();
 }
 
 void Scene::initShaders()

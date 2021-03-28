@@ -2,25 +2,22 @@
 #include <GL/glut.h>
 #include "Door.h"
 
+#define COLLISION_BOX_MIN_CLOSED glm::ivec2(0, 10)
+#define COLLISION_BOX_MAX_CLOSED glm::ivec2(10, 46)
 
-#define COLLISION_BOX_MIN_CLOSED glm::ivec2(0, 0)
-#define COLLISION_BOX_MAX_CLOSED glm::ivec2(60, 54)
+#define COLLISION_BOX_MIN_OPEN glm::ivec2(26, 22)
+#define COLLISION_BOX_MAX_OPEN glm::ivec2(42, 52)
 
-#define COLLISION_BOX_MIN_OPEN glm::ivec2(15, 0)
-#define COLLISION_BOX_MAX_OPEN glm::ivec2(35, 54)
-
-enum DoorAnims
-{
+enum DoorAnims {
 	CLOSED1KEY, CLOSED2KEY, OPENFRIEND, OPEN
 };
-
 
 string Door::setImage() {
 	return "images/Doors/Doors.png";
 }
 
 glm::vec2 Door::setSize() {
-	return glm::vec2(48, 54);
+	return glm::vec2(58, 54);
 }
 
 glm::vec2 Door::setSizeInSpritesheet() {
@@ -42,7 +39,6 @@ CollisionBox Door::setCollisionBox() {
 }
 
 void Door::setAnimations() {
-	
 	sprite->setNumberAnimations(4);
 
 	sprite->setAnimationSpeed(CLOSED1KEY, 1);
@@ -60,22 +56,13 @@ void Door::setAnimations() {
 	sprite->changeAnimation(CLOSED1KEY);
 }
 
-void Door::childUpdate(int deltaTime) {
-	
-}
-
-
 bool Door::playerInteraction(bool hasKey) {
-
 	if (!itemCollected) {
-
 		if (sprite->animation() == CLOSED1KEY && hasKey) {
-
 			sprite->changeAnimation(OPENFRIEND);
 			open = true;
 			return true;
-		}
-		else if (sprite->animation() == OPENFRIEND) {
+		} else if (sprite->animation() == OPENFRIEND) {
 			sprite->changeAnimation(OPEN);
 			itemCollected = true;
 			return false;

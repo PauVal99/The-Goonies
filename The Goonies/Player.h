@@ -18,9 +18,10 @@ public:
 	bool isTimePowerUpActivated();
 	void activateTimePowerUp();
 	void deactivateTimePowerUp();
-	bool addKey();
-	bool getHasKey();
+	void addKey();
+	bool hasKey();
 	void removeKey();
+
 protected:
     string setImage();
     glm::vec2 setSize();
@@ -37,12 +38,11 @@ private:
 	void incrementMaxHealth();
 
 private:
-	bool jumping = false, climbing = false, timePowerUp = false, hasKey = false;
-	int  moveSpeed = 2, jumpAngle, startY;
+	bool jumping = false, climbing = false, timePowerUp = false, key = false;
+	int  moveSpeed = 1, jumpAngle, startY;
 	int experience = 0;
 	int health = 100, maxHealth = 100;
 	int damageCooldown = 0, shieldHitsCounter = 0;
-
 
 };
 

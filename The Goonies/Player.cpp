@@ -89,26 +89,16 @@ void Player::deactivateTimePowerUp() {
 
 }
 
-bool Player::addKey() {
-
-	if (hasKey)return false;
-	else {
-		hasKey = true;
-		return true;
-	}
-
+void Player::addKey() {
+	key = true;
 }
 
-bool Player::getHasKey() {
-
-	return hasKey;
+bool Player::hasKey() {
+	return key;
 }
-
 
 void Player::removeKey() {
-
-	hasKey = false;
-
+	key = false;
 }
 
 

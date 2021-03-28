@@ -1,26 +1,17 @@
-#pragma once
 #ifndef _KEY_INCLUDE
 #define _KEY_INCLUDE
 
-#include "Actor.h"
+#include "PowerUp.h"
+#include "Player.h"
 
-class Key : public Actor
+class Key : public PowerUp
 {
 
 public:
+    void activatePowerUp(Player* player);
 
 protected:
     virtual string setImage();
-    virtual glm::vec2 setSize();
-    virtual glm::vec2 setSizeInSpritesheet();
-    virtual CollisionBox setCollisionBox();
-    virtual void setAnimations() {}
-    virtual void childUpdate(int deltaTime);
-
-protected:
-
-
-private:
 
 };
 

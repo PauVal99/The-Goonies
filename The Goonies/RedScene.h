@@ -11,7 +11,7 @@ protected:
 	void setEnemies();
 	void setPowerUps();
 	void setDoors();
-	void setKeys();
+	
 };
 
 

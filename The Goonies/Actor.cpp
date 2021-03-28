@@ -60,4 +60,3 @@ void Actor::resetColor() {
 void Actor::discard() {
 	sprite->setColor(glm::vec4(0.f));
 }
-

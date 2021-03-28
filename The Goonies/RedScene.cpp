@@ -51,19 +51,15 @@ void RedScene::setPowerUps() {
 	TimePowerUp* timePowerUp = new TimePowerUp();
 	timePowerUp->init(glm::ivec2(26, 14) * TILE_SIZE, OFFSET, texProgram);
 	powerUps.push_back(timePowerUp);*/
+
+	Key* key = new Key();
+	key->init(glm::ivec2(10, 14) * TILE_SIZE, OFFSET, texProgram);
+	powerUps.push_back(key);
 }
 
 void RedScene::setDoors() {
-
 	Door* door = new Door();
 	door->init(glm::ivec2(14, 12) * TILE_SIZE, OFFSET, texProgram);
 
 	doors.push_back(door);
-}
-
-void RedScene::setKeys() {
-	Key* key = new Key();
-	key->init(glm::ivec2(10, 14) * TILE_SIZE, OFFSET, texProgram);
-
-	keys.push_back(key);
 }

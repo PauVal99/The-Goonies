@@ -37,7 +37,6 @@ protected:
 	virtual void setEnemies() {}
 	virtual void setPowerUps() {}
 	virtual void setDoors() {}
-	virtual void setKeys() {}
 
 private:
 	void initShaders();
@@ -49,7 +48,6 @@ protected:
 	std::vector<Enemy*> enemies;
 	std::vector<PowerUp*> powerUps;
 	std::vector<Door*> doors;
-	std::vector<Key*> keys;
 
 	ShaderProgram texProgram;
 
