@@ -5,6 +5,5 @@ string TimePowerUp::setImage() {
 }
 
 void TimePowerUp::activatePowerUp(Player* player) {
-
 	player->activateTimePowerUp();
 }
