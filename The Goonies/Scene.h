@@ -9,6 +9,8 @@
 #include "TileMap.h"
 #include "CollisionMap.h"
 #include "Player.h"
+#include "Door.h"
+#include "Key.h"
 #include "Enemy.h"
 #include "PowerUp.h"
 #include "Camera.h"
@@ -34,6 +36,7 @@ protected:
 	virtual glm::ivec2 setPlayerPosition() = 0;
 	virtual void setEnemies() {}
 	virtual void setPowerUps() {}
+	virtual void setDoors() {}
 
 private:
 	void initShaders();
@@ -44,6 +47,8 @@ protected:
 	CollisionMap* collisionMap;
 	std::vector<Enemy*> enemies;
 	std::vector<PowerUp*> powerUps;
+	std::vector<Door*> doors;
+
 	ShaderProgram texProgram;
 
 private:

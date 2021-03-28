@@ -86,6 +86,19 @@ void Player::activateTimePowerUp() {
 	timePowerUp = true;
 }
 
+void Player::addKey() {
+	key = true;
+}
+
+bool Player::hasKey() {
+	return key;
+}
+
+void Player::removeKey() {
+	key = false;
+}
+
+
 CollisionBox Player::setCollisionBox() {
 	CollisionBox collisionBox;
 	collisionBox.min = COLLISION_BOX_MIN;

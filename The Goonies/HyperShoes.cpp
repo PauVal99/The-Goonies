@@ -5,6 +5,5 @@ string HyperShoes::setImage() {
 }
 
 void HyperShoes::activatePowerUp(Player* player) {
-
 	player->activateHyperShoes();
 }

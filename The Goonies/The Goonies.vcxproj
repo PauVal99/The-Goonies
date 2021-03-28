@@ -10,7 +10,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Door.cpp" />
     <ClCompile Include="ExperiencePotion.cpp" />
+    <ClCompile Include="Key.cpp" />
     <ClCompile Include="Shield.cpp" />
     <ClCompile Include="Skull.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -29,7 +31,9 @@
     <ClCompile Include="VitalityPotion.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Door.h" />
     <ClInclude Include="ExperiencePotion.h" />
+    <ClInclude Include="Key.h" />
     <ClInclude Include="Shield.h" />
     <ClInclude Include="Skull.h" />
     <ClInclude Include="Game.h" />
