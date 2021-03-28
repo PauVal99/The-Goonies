@@ -13,7 +13,7 @@ enum DoorAnims {
 };
 
 string Door::setImage() {
-	return "images/Doors/Doors.png";
+	return "images/Doors.png";
 }
 
 glm::vec2 Door::setSize() {
