@@ -9,6 +9,7 @@ class Key : public PowerUp
 
 public:
     void activatePowerUp(Player* player);
+    bool activatable(Player* player);
 
 protected:
     virtual string setImage();

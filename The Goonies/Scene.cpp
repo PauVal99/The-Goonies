@@ -51,11 +51,12 @@ void Scene::update(int deltaTime)
 			player->takeDamage(enemy->damage());
 
 	for (unsigned int i = 0; i < powerUps.size(); i++)
-		if (collision(playerCollisionBox, powerUps[i]->getCollisionBox())) {
-			powerUps[i]->activatePowerUp(player);
-			delete powerUps[i];
-			powerUps.erase(powerUps.begin() + i);
-		}
+		if (collision(playerCollisionBox, powerUps[i]->getCollisionBox()))
+			if(powerUps[i]->activatable(player)) {
+				powerUps[i]->activatePowerUp(player);
+				delete powerUps[i];
+				powerUps.erase(powerUps.begin() + i);
+			}
 
 	for (auto door : doors)
 		if (collision(playerCollisionBox, door->getCollisionBox()))

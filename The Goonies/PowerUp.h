@@ -8,6 +8,7 @@ class PowerUp: public Actor
 {
 public:
 	virtual void activatePowerUp(Player* player) = 0;
+	virtual bool activatable(Player* player) { return true; };
 
 protected:
 	glm::vec2 setSize();
