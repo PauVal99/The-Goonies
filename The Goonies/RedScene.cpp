@@ -32,12 +32,10 @@ void RedScene::setEnemies() {
 void RedScene::setPowerUps() {
 	/*HyperShoes* hypershoes = new HyperShoes();
 	hypershoes->init(glm::ivec2(10, 14) * TILE_SIZE, OFFSET, texProgram);
-
 	powerUps.push_back(hypershoes);
 
 	Shield* shield = new Shield();
 	shield->init(glm::ivec2(14, 14) * TILE_SIZE, OFFSET, texProgram);
-
 	powerUps.push_back(shield);
 
 	VitalityPotion* vitalityPotion = new VitalityPotion();
@@ -60,6 +58,5 @@ void RedScene::setPowerUps() {
 void RedScene::setDoors() {
 	Door* door = new Door();
 	door->init(glm::ivec2(14, 12) * TILE_SIZE, OFFSET, texProgram);
-
 	doors.push_back(door);
 }
