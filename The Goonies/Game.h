@@ -1,7 +1,9 @@
 #ifndef _GAME_INCLUDE
 #define _GAME_INCLUDE
 
-#include "RedScene.h"
+#include <queue>
+#include <memory>
+#include "Scene.h"
 
 #define  GLUT_KEY_SPACEBAR 32
 
@@ -25,6 +27,7 @@ public:
 	
 	void init();
 	void restart();
+	void nextScene();
 	bool update(int deltaTime);
 	void render();
 	
@@ -41,10 +44,10 @@ public:
 	bool getSpecialKey(int key) const;
 
 private:
-	bool bPlay;                       // Continue to play game?
-	RedScene* scene;                   // Scene to render
-	bool keys[256], specialKeys[256]; // Store key states so that 
-	                                  // we can have access at any time
+	bool bPlay, next = false, restartGame = false;
+	std::queue<std::shared_ptr<Scene>> scenes;
+	Player player;
+	bool keys[256], specialKeys[256];
 
 };
 

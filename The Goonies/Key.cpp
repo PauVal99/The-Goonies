@@ -3,7 +3,7 @@
 #include "Key.h"
 
 string Key::setImage() {
-	return "images/Key.png";
+	return "images/PowerUps/Key.png";
 }
 
 bool Key::activatable(Player* player) {

@@ -2,11 +2,11 @@
 #include <GL/glut.h>
 #include "Door.h"
 
-#define COLLISION_BOX_MIN_CLOSED glm::ivec2(0, 10)
-#define COLLISION_BOX_MAX_CLOSED glm::ivec2(10, 46)
+#define COLLISION_BOX_MIN_CLOSED glm::ivec2(0, 32)
+#define COLLISION_BOX_MAX_CLOSED glm::ivec2(16, 48)
 
-#define COLLISION_BOX_MIN_OPEN glm::ivec2(26, 22)
-#define COLLISION_BOX_MAX_OPEN glm::ivec2(42, 52)
+#define COLLISION_BOX_MIN_OPEN glm::ivec2(32, 32)
+#define COLLISION_BOX_MAX_OPEN glm::ivec2(48, 60)
 
 enum DoorAnims {
 	CLOSED1KEY, CLOSED2KEY, OPENFRIEND, OPEN
@@ -17,7 +17,7 @@ string Door::setImage() {
 }
 
 glm::vec2 Door::setSize() {
-	return glm::vec2(58, 54);
+	return glm::vec2(64, 64);
 }
 
 glm::vec2 Door::setSizeInSpritesheet() {

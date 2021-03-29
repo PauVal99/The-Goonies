@@ -11,7 +11,9 @@
 #include "ExperiencePotion.h"
 
 void RedScene::setTileMaps() {
-	TileMap* tileMap = TileMap::createTileMap("levels/red/Red.tm", 1, OFFSET, texProgram);
+	TileMap* tileMap = TileMap::createTileMap("levels/red/Red.tm", 2, OFFSET, texProgram);
+	tileMaps[tileMap->getLayer()] = tileMap;
+	tileMap = TileMap::createTileMap("levels/red/Portals.tm", 1, OFFSET, texProgram);
 	tileMaps[tileMap->getLayer()] = tileMap;
 
 	collisionMap = CollisionMap::createCollisionMap("levels/red/Red.cm");
@@ -57,6 +59,6 @@ void RedScene::setPowerUps() {
 
 void RedScene::setDoors() {
 	Door* door = new Door();
-	door->init(glm::ivec2(14, 12) * TILE_SIZE, OFFSET, texProgram);
+	door->init(glm::ivec2(12, 12) * TILE_SIZE, OFFSET, texProgram);
 	doors.push_back(door);
 }

@@ -148,6 +148,9 @@ void Player::childUpdate(int deltaTime) {
 	if(!jumping && !climbing && !collisionMap->onGround(getCollisionBox()))
 		position.y += FALL_SPEED;
 
+	if(Game::instance().getSpecialKey(GLUT_KEY_UP) && collisionMap->onPortal(getCollisionBox()))
+		Game::instance().nextScene();
+
 	timePowerUpUpdate(deltaTime);
 	wounded(deltaTime);
 }
