@@ -5,9 +5,9 @@
 #include <string>
 #include "CollisionBox.h"
 
-#define AIR 0
-#define BLOCK 1
-#define VINE 2
+enum {
+	AIR, BLOCK, VINE, PORTAL
+};
 
 using namespace std;
 
@@ -32,6 +32,7 @@ public:
 	bool onGround(const CollisionBox &collisionBox);
 	glm::ivec2 onVine(const CollisionBox &collisionBox);
 	glm::ivec2 aboveVine(const CollisionBox &collisionBox);
+	bool onPortal(const CollisionBox &collisionBox);
 
 private:
 	bool loadLevel(const string &levelFile);

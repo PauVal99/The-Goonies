@@ -15,12 +15,22 @@ Scene::~Scene()
 		if (map.second)
 			delete map.second;
 	delete collisionMap;
-	delete camera;
 	for(auto enemy : enemies)
 		delete enemy;
+	for(auto powerUp : powerUps)
+		delete powerUp;
+	for(auto door : doors)
+		delete door;
+	delete player;
+	delete camera;
+
+	tileMaps.clear();
+	enemies.clear();
+	powerUps.clear();
+	doors.clear();
 }
 
-void Scene::init()
+void Scene::init(Player* player)
 {
 	currentTime = 0.0f;
 	initShaders();
@@ -29,7 +39,7 @@ void Scene::init()
 
 	setTileMaps();
 
-	player = new Player();
+	this->player = player;
 	player->init(setPlayerPosition(), OFFSET, texProgram);
 	player->setCollisionMap(collisionMap);
 

@@ -83,6 +83,15 @@ bool CollisionMap::collision(const CollisionBox &collisionBox) {
     return false;
 }
 
+bool CollisionMap::onPortal(const CollisionBox &collisionBox) {
+	Tiles tiles = getTiles(collisionBox);
+
+    for(int j = tiles.min.y; j <= tiles.max.y; ++j) 
+        for(int i = tiles.min.x; i <= tiles.max.x; ++i) 
+            if(map[j * mapSize.x + i] == PORTAL) return true;
+    return false;
+}
+
 bool CollisionMap::onGround(const CollisionBox &collisionBox) {
     Tiles tiles = getTiles(collisionBox);
     int yBlock = (collisionBox.max.y + 1 + OFFSET.y) / tileSize;

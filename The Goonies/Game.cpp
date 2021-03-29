@@ -1,25 +1,44 @@
 #include <GL/glew.h>
 #include <GL/glut.h>
 #include "Game.h"
+#include "RedScene.h"
 
 void Game::init()
 {
 	bPlay = true;
-	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
-	scene = new RedScene();
-	scene->init();
+
+	player = new Player();
+
+	scenes.push(new RedScene());
+	scenes.push(new RedScene());
+
+	setCurrentScene(scenes.front());
+}
+
+void Game::nextScene() {
+	delete currentScene;
+	scenes.pop();
+	setCurrentScene(scenes.front());
+}
+
+void Game::setCurrentScene(Scene* scene) {
+	currentScene = scene;
+	currentScene->init(player);
 }
 
 void Game::restart()
 {
-	delete scene;
-	scene = new RedScene();
-	scene->init();
+	while(!scenes.empty()) {
+		delete scenes.front();
+		scenes.pop();
+	}
+	
+	init();
 }
 
 bool Game::update(int deltaTime)
 {
-	scene->update(deltaTime);
+	currentScene->update(deltaTime);
 	
 	return bPlay;
 }
@@ -27,8 +46,8 @@ bool Game::update(int deltaTime)
 void Game::render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(0.f, 0.f, 0.f, 1.f);
-	scene->render();
+	glClearColor(0.f, 0.f, 0.f, 1.0f);
+	currentScene->render();
 }
 
 void Game::keyPressed(int key)
