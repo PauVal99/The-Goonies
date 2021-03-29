@@ -7,39 +7,31 @@ void Game::init()
 {
 	bPlay = true;
 
-	player = new Player();
+	player = Player();
 
-	scenes.push(new RedScene());
-	scenes.push(new RedScene());
+	scenes.push(RedScene());
+	scenes.push(RedScene());
 
-	setCurrentScene(scenes.front());
+	scenes.front().init(&player);
 }
 
 void Game::nextScene() {
-	delete currentScene;
 	scenes.pop();
-	setCurrentScene(scenes.front());
-}
-
-void Game::setCurrentScene(Scene* scene) {
-	currentScene = scene;
-	currentScene->init(player);
+	scenes.front().init(&player);
 }
 
 void Game::restart()
 {
-	while(!scenes.empty()) {
-		delete scenes.front();
+	while(!scenes.empty())
 		scenes.pop();
-	}
 	
 	init();
 }
 
 bool Game::update(int deltaTime)
 {
-	currentScene->update(deltaTime);
-	
+	scenes.front().update(deltaTime);
+
 	return bPlay;
 }
 
@@ -47,7 +39,7 @@ void Game::render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.f, 0.f, 0.f, 1.0f);
-	currentScene->render();
+	scenes.front().render();
 }
 
 void Game::keyPressed(int key)

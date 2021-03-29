@@ -43,13 +43,9 @@ public:
 	bool getSpecialKey(int key) const;
 
 private:
-	void setCurrentScene(Scene* scene);
-
-private:
 	bool bPlay;
-	std::queue<Scene*> scenes;
-	Scene* currentScene;
-	Player* player;
+	std::queue<Scene> scenes;
+	Player player;
 	bool keys[256], specialKeys[256];
 
 };

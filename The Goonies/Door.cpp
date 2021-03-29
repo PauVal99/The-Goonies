@@ -5,8 +5,8 @@
 #define COLLISION_BOX_MIN_CLOSED glm::ivec2(0, 10)
 #define COLLISION_BOX_MAX_CLOSED glm::ivec2(10, 46)
 
-#define COLLISION_BOX_MIN_OPEN glm::ivec2(26, 22)
-#define COLLISION_BOX_MAX_OPEN glm::ivec2(42, 52)
+#define COLLISION_BOX_MIN_OPEN glm::ivec2(26, 24)
+#define COLLISION_BOX_MAX_OPEN glm::ivec2(42, 54)
 
 enum DoorAnims {
 	CLOSED1KEY, CLOSED2KEY, OPENFRIEND, OPEN

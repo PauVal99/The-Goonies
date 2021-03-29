@@ -5,6 +5,7 @@
 
 void Actor::init(const glm::ivec2 &iniPos, const glm::ivec2 &tileMapOffset, ShaderProgram &shaderProgram)
 {
+	spritesheet = Texture();
 	spritesheet.loadFromFile(setImage(), TEXTURE_PIXEL_FORMAT_RGBA);
 	spritesheet.setMagFilter(GL_NEAREST);
 	sprite = Sprite::createSprite(setSize(), setSizeInSpritesheet(), &spritesheet, &shaderProgram);
