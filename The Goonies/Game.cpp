@@ -9,28 +9,33 @@ void Game::init()
 
 	player = Player();
 
-	scenes.push(RedScene());
-	scenes.push(RedScene());
+	scenes.push(std::make_shared<RedScene>());
 
-	scenes.front().init(&player);
+	scenes.front()->init(&player);
 }
 
 void Game::nextScene() {
-	scenes.pop();
-	scenes.front().init(&player);
+	next = true;
 }
 
-void Game::restart()
-{
-	while(!scenes.empty())
-		scenes.pop();
-	
-	init();
+void Game::restart() {
+	restartGame = true;
 }
 
 bool Game::update(int deltaTime)
 {
-	scenes.front().update(deltaTime);
+	if(next) {
+		next = false;
+		scenes.pop();
+		scenes.front()->init(&player);
+	} else if(restartGame) {
+		restartGame = false;
+		while(!scenes.empty())
+			scenes.pop();
+		init();
+	}
+
+	scenes.front()->update(deltaTime);
 
 	return bPlay;
 }
@@ -39,7 +44,7 @@ void Game::render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.f, 0.f, 0.f, 1.0f);
-	scenes.front().render();
+	scenes.front()->render();
 }
 
 void Game::keyPressed(int key)

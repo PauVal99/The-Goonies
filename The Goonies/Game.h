@@ -2,6 +2,7 @@
 #define _GAME_INCLUDE
 
 #include <queue>
+#include <memory>
 #include "Scene.h"
 
 #define  GLUT_KEY_SPACEBAR 32
@@ -43,8 +44,8 @@ public:
 	bool getSpecialKey(int key) const;
 
 private:
-	bool bPlay;
-	std::queue<Scene> scenes;
+	bool bPlay, next = false, restartGame = false;
+	std::queue<std::shared_ptr<Scene>> scenes;
 	Player player;
 	bool keys[256], specialKeys[256];
 

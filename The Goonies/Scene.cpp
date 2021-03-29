@@ -21,7 +21,6 @@ Scene::~Scene()
 		delete powerUp;
 	for(auto door : doors)
 		delete door;
-	delete player;
 	delete camera;
 
 	tileMaps.clear();
