@@ -13,6 +13,10 @@ public:
 
 protected:
     string setImage();
+    void childUpdate(int deltaTime);
+
+private:
+    int frames = 0;
 
 };
 
