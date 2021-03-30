@@ -15,11 +15,12 @@ public:
 	void activateShield();
 	void activateVitalityPotion();
 	void activateExperiencePotion();
-	bool isTimePowerUpActive();
 	void activateTimePowerUp();
+	bool isTimePowerUpActive();
 	void addKey();
 	bool hasKey();
 	void removeKey();
+	bool isAttacking();
 
 protected:
     string setImage();
@@ -30,6 +31,7 @@ protected:
     void childUpdate(int deltaTime);
 
 private:
+	void attack(int deltaTime);
 	void moveSideways();
 	void climb();
 	void jump();
@@ -42,7 +44,7 @@ private:
 	int  moveSpeed = 1, jumpAngle, startY;
 	int experience = 0;
 	int health = 100, maxHealth = 100;
-	int damageCooldown = 0, timePoweUpCooldown = 0, shieldHitsCounter = 0;
+	int damageCooldown = 0, timePoweUpCooldown = 0, shieldHitsCounter = 0, attacking = 0;
 
 };
 
