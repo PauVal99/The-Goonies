@@ -13,7 +13,7 @@ public:
 
 protected:
     string setImage();
-
+    
 };
 
 #endif

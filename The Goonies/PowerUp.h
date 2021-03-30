@@ -16,6 +16,9 @@ protected:
 	glm::vec2 setSize();
 	glm::vec2 setSizeInSpritesheet();
     CollisionBox setCollisionBox();
+	void setAnimations();
+	int setEndTime();
+    int setEndAnimation();
 
 };
 
