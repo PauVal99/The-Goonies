@@ -21,6 +21,7 @@ public:
 	bool hasKey();
 	void removeKey();
 	bool isAttacking();
+	CollisionBox getPunchCollisionBox();
 
 protected:
     string setImage();
@@ -48,7 +49,4 @@ private:
 
 };
 
-
 #endif // _PLAYER_INCLUDE
-
-

@@ -10,6 +10,9 @@
 #define COLLISION_BOX_MIN glm::ivec2(4, 0)
 #define COLLISION_BOX_MAX glm::ivec2(25, 31)
 
+#define PUNCH_COLLISION_BOX_MIN glm::ivec2(26, 8)
+#define PUNCH_COLLISION_BOX_MAX glm::ivec2(30, 16)
+
 #define DAMAGE_COOLDOWN 2000
 #define DAMAGE_COLOR glm::vec4(1.4f, 1.4f, 1.4f, 1.f)
 
@@ -108,6 +111,15 @@ CollisionBox Player::setCollisionBox() {
 	CollisionBox collisionBox;
 	collisionBox.min = COLLISION_BOX_MIN;
 	collisionBox.max = COLLISION_BOX_MAX;
+	return collisionBox;
+}
+
+CollisionBox Player::getPunchCollisionBox() {
+	CollisionBox collisionBox;
+	collisionBox.min = position + PUNCH_COLLISION_BOX_MIN;
+	collisionBox.max = position + PUNCH_COLLISION_BOX_MAX;
+	collisionBox.min += tileMapOffset;
+	collisionBox.max += tileMapOffset;
 	return collisionBox;
 }
 

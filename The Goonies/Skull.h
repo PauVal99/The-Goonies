@@ -8,7 +8,10 @@ class Skull: public Enemy
 
 public:
 	void setPatrolPoints(const int patrolPoint1, const int patrolPoint2);
+    void die();
     int damage();
+    bool isDead();
+    bool remove();
 
 protected:
     string setImage();
@@ -19,8 +22,8 @@ protected:
     void childUpdate(int deltaTime);
 
 private:
-	int patrolPoint1, patrolPoint2;
-	bool movingRight = true;
+	int patrolPoint1, patrolPoint2, dieTime = 0;
+	bool movingRight = true, removed = false;
 
 };
 

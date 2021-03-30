@@ -7,6 +7,9 @@ class Enemy: public Actor
 {
 public:
     virtual int damage() = 0;
+    virtual void die() = 0;
+    virtual bool isDead() = 0;
+    virtual bool remove() = 0;
 
 };
 

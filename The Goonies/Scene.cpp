@@ -55,13 +55,17 @@ void Scene::update(int deltaTime)
 
 	CollisionBox playerCollisionBox = player->getCollisionBox();
 
-	for(unsigned int i = 0; i < enemies.size(); ++i)
-		if(collision(playerCollisionBox, enemies[i]->getCollisionBox())) {
-			if (player->isAttacking()) {
-				delete enemies[i];
-				enemies.erase(enemies.begin() + i);
-			} else player->takeDamage(enemies[i]->damage());
+	for(unsigned int i = 0; i < enemies.size(); ++i) {
+		if(!enemies[i]->isDead()) {
+			if (player->isAttacking() && collision(player->getPunchCollisionBox(), enemies[i]->getCollisionBox())) 
+				enemies[i]->die();
+			else if(collision(playerCollisionBox, enemies[i]->getCollisionBox()))
+				player->takeDamage(enemies[i]->damage());
+		} else if (enemies[i]->remove()) {
+			delete enemies[i];
+			enemies.erase(enemies.begin() + i);
 		}
+	}
 
 	for (unsigned int i = 0; i < powerUps.size(); ++i)
 		if (collision(playerCollisionBox, powerUps[i]->getCollisionBox()))
