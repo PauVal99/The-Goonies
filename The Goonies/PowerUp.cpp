@@ -14,3 +14,12 @@ CollisionBox PowerUp::setCollisionBox() {
 	collisionBox.max = setSize();
 	return collisionBox;
 }
+
+bool PowerUp::isTaken() {
+	return isEnded();
+}
+
+void PowerUp::take(Player* player) {
+	activatePowerUp(player);
+	end();
+}

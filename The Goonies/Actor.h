@@ -14,6 +14,10 @@ public:
 	void update(int deltaTime);
 	void render();
 
+    void end();
+    bool isEnded();
+    inline bool remove() const { return removed; };
+
 	void setPosition(const glm::ivec2& pos);
     CollisionBox getCollisionBox();
 
@@ -29,6 +33,8 @@ protected:
     virtual CollisionBox setCollisionBox() = 0;
     virtual void setAnimations() {}
     virtual void childUpdate(int deltaTime) {}
+    virtual int setEndTime() { return 1; };
+    virtual int setEndAnimation() { return 0; };
    
 protected:
     CollisionMap* collisionMap;
@@ -37,8 +43,8 @@ protected:
 
 private:
 	Texture spritesheet;
+    bool removed = false;
+    int endTime = 0;
+
 };
-
 #endif
-
-

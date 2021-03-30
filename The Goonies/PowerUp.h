@@ -9,6 +9,8 @@ class PowerUp: public Actor
 public:
 	virtual void activatePowerUp(Player* player) = 0;
 	virtual bool activatable(Player* player) { return true; };
+	bool isTaken();
+	void take(Player* player);
 
 protected:
 	glm::vec2 setSize();
@@ -16,6 +18,5 @@ protected:
     CollisionBox setCollisionBox();
 
 };
-
 
 #endif // _POWERUP_INCLUDE

@@ -53,42 +53,31 @@ void Skull::setAnimations() {
 	sprite->changeAnimation(MOVE_RIGHT);
 }
 
-void Skull::die() {
-	dieTime = DIE_TIME;
-	sprite->changeAnimation(DIE);
+int Skull::setEndTime() {
+	return DIE_TIME;
+}
+
+int Skull::setEndAnimation() {
+	return DIE;
 }
 
 int Skull::damage() { 
 	return DAMAGE;
 }
 
-bool Skull::isDead() { 
-	return dieTime != 0;
-}
-
-bool Skull::remove() { 
-	return removed;
-};
-
 void Skull::childUpdate(int deltaTime) {
-	if(!isDead()) {
-		if (position.x <= patrolPoint1) movingRight = true;
-		else if (position.x >= patrolPoint2) movingRight = false;
+	if (position.x <= patrolPoint1) movingRight = true;
+	else if (position.x >= patrolPoint2) movingRight = false;
 
-		if (movingRight) {
-			if (sprite->animation() != MOVE_RIGHT)
-				sprite->changeAnimation(MOVE_RIGHT);
-			position.x += MOVE_SPEED;
-		}
-		else {
-			if (sprite->animation() != MOVE_LEFT) 
-				sprite->changeAnimation(MOVE_LEFT);
-			position.x -= MOVE_SPEED;
-		}
-	} else {
-		dieTime -= deltaTime;
-		if(dieTime <= 0)
-			removed = true;
+	if (movingRight) {
+		if (sprite->animation() != MOVE_RIGHT)
+			sprite->changeAnimation(MOVE_RIGHT);
+		position.x += MOVE_SPEED;
+	}
+	else {
+		if (sprite->animation() != MOVE_LEFT) 
+			sprite->changeAnimation(MOVE_LEFT);
+		position.x -= MOVE_SPEED;
 	}
 }
 
