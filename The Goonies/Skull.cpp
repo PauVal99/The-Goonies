@@ -9,7 +9,7 @@
 
 #define DAMAGE 5
 
-#define DIE_TIME 1000
+#define DIE_TIME 500
 
 enum SkullAnims
 {
@@ -46,7 +46,7 @@ void Skull::setAnimations() {
 	sprite->addKeyframe(MOVE_RIGHT, glm::vec2(0.f, 0.5f));
 	sprite->addKeyframe(MOVE_RIGHT, glm::vec2(0.34f, 0.5f));
 
-	sprite->setAnimationSpeed(DIE, 2);
+	sprite->setAnimationSpeed(DIE, 4);
 	sprite->addKeyframe(DIE, glm::vec2(0.67f, 0.f));
 	sprite->addKeyframe(DIE, glm::vec2(0.67f, 0.5f));
 

@@ -13,14 +13,3 @@ bool Key::activatable(Player* player) {
 void Key::activatePowerUp(Player* player) {
 	player->addKey();
 }
-
-void Key::childUpdate(int deltaTime) {
-	++frames;
-	if(frames >= 1000) 
-		frames = 0; 
-
-	if((frames/20) % 2 == 0)
-		discard();
-	else 
-		resetColor();
-}
