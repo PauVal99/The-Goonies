@@ -17,6 +17,8 @@ protected:
     CollisionBox setCollisionBox();
     void setAnimations();
     void childUpdate(int deltaTime);
+    int setEndTime();
+    int setEndAnimation();
 
 private:
 	int patrolPoint1, patrolPoint2;

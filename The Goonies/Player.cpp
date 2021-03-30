@@ -10,6 +10,9 @@
 #define COLLISION_BOX_MIN glm::ivec2(4, 0)
 #define COLLISION_BOX_MAX glm::ivec2(25, 31)
 
+#define PUNCH_COLLISION_BOX_MIN glm::ivec2(26, 8)
+#define PUNCH_COLLISION_BOX_MAX glm::ivec2(30, 16)
+
 #define DAMAGE_COOLDOWN 2000
 #define DAMAGE_COLOR glm::vec4(1.4f, 1.4f, 1.4f, 1.f)
 
@@ -21,9 +24,11 @@
 
 #define TIME_POWER_UP_COOLDOWN 10000
 
+#define ATTACK_DURATION 300
+
 enum PlayerAnims
 {
-	STAND_LEFT, STAND_RIGHT, MOVE_LEFT, MOVE_RIGHT, JUMP_LEFT, JUMP_RIGHT, CLIMB
+	STAND_LEFT, STAND_RIGHT, MOVE_LEFT, MOVE_RIGHT, JUMP_LEFT, JUMP_RIGHT, CLIMB, PUNCH_RIGHT, PUNCH_LEFT
 };
 
 string Player::setImage() {
@@ -98,6 +103,9 @@ void Player::removeKey() {
 	key = false;
 }
 
+bool Player::isAttacking() {
+	return attacking > 0;
+}
 
 CollisionBox Player::setCollisionBox() {
 	CollisionBox collisionBox;
@@ -106,8 +114,17 @@ CollisionBox Player::setCollisionBox() {
 	return collisionBox;
 }
 
+CollisionBox Player::getPunchCollisionBox() {
+	CollisionBox collisionBox;
+	collisionBox.min = position + PUNCH_COLLISION_BOX_MIN;
+	collisionBox.max = position + PUNCH_COLLISION_BOX_MAX;
+	collisionBox.min += tileMapOffset;
+	collisionBox.max += tileMapOffset;
+	return collisionBox;
+}
+
 void Player::setAnimations() {
-	sprite->setNumberAnimations(7);
+	sprite->setNumberAnimations(9);
 	
 	sprite->setAnimationSpeed(STAND_LEFT, 6);
 	sprite->addKeyframe(STAND_LEFT, glm::vec2(0.f, 0.25f));
@@ -136,11 +153,18 @@ void Player::setAnimations() {
 	sprite->setAnimationSpeed(CLIMB, 6);
 	sprite->addKeyframe(CLIMB, glm::vec2(0.f, 0.75f));
 	sprite->addKeyframe(CLIMB, glm::vec2(0.25f, 0.75f));
+
+	sprite->setAnimationSpeed(PUNCH_RIGHT, 6);
+	sprite->addKeyframe(PUNCH_RIGHT, glm::vec2(0.75f, 0.f));
+
+	sprite->setAnimationSpeed(PUNCH_LEFT, 6);
+	sprite->addKeyframe(PUNCH_LEFT, glm::vec2(0.75f, 0.25f));
 		
 	sprite->changeAnimation(STAND_RIGHT);
 }
 
 void Player::childUpdate(int deltaTime) {	
+	attack(deltaTime);
 	moveSideways();
 	climb();
 	jump();
@@ -155,8 +179,24 @@ void Player::childUpdate(int deltaTime) {
 	wounded(deltaTime);
 }
 
+void Player::attack(int deltaTime) {
+	if(!jumping && !climbing && !isAttacking() && Game::instance().getKey('v')) {
+		attacking = ATTACK_DURATION;
+		if(sprite->animation() == STAND_RIGHT || sprite->animation() == MOVE_RIGHT)
+			sprite->changeAnimation(PUNCH_RIGHT);
+		else
+			sprite->changeAnimation(PUNCH_LEFT);
+	}
+
+	if(isAttacking()) {
+		attacking -= deltaTime;
+		if(attacking < 0)
+			attacking = 0;
+	}
+}
+
 void Player::moveSideways() {
-	if(!climbing) {
+	if(!climbing && !isAttacking()) {
 		if(Game::instance().getSpecialKey(GLUT_KEY_LEFT)) {
 			position.x -= moveSpeed;
 			if(jumping)
@@ -182,9 +222,9 @@ void Player::moveSideways() {
 					sprite->changeAnimation(STAND_RIGHT);
 			}
 		} else {
-			if(sprite->animation() == MOVE_LEFT)
+			if(sprite->animation() == MOVE_LEFT || sprite->animation() == PUNCH_LEFT)
 				sprite->changeAnimation(STAND_LEFT);
-			else if(sprite->animation() == MOVE_RIGHT)
+			else if(sprite->animation() == MOVE_RIGHT || sprite->animation() == PUNCH_RIGHT)
 				sprite->changeAnimation(STAND_RIGHT);
 		}
 	}
@@ -195,7 +235,7 @@ void Player::climb() {
 	glm::ivec2 onVine = collisionMap->onVine(getCollisionBox());
 	glm::ivec2 aboveVine = collisionMap->aboveVine(getCollisionBox());
 
-	if(!jumping) {
+	if(!jumping && !isAttacking()) {
 		if(climbing) {
 			if (onGround || (onVine == glm::ivec2(-1, -1))) {
 				climbing = false;
@@ -223,7 +263,7 @@ void Player::climb() {
 }
 
 void Player::jump() {
-	if(!climbing) {
+	if(!climbing && !isAttacking()) {
 		if(jumping) {
 			jumpAngle += JUMP_ANGLE_STEP;
 			if(jumpAngle == 180) {

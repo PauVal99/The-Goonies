@@ -12,7 +12,7 @@ public:
     bool activatable(Player* player);
 
 protected:
-    virtual string setImage();
+    string setImage();
 
 };
 

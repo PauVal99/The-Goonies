@@ -25,13 +25,18 @@ void Actor::update(int deltaTime)
 {
 	sprite->update(deltaTime);
 	
-    childUpdate(deltaTime);
-
-    setPosition(position);
+	if(!isEnded()) {
+    	childUpdate(deltaTime);
+		setPosition(position);
+	} else {
+		endTime -= deltaTime;
+		if(endTime <= 0)
+			removed = true;
+	}
+    
 }
 
-void Actor::render()
-{
+void Actor::render() {
 	sprite->render();
 }
 
@@ -60,4 +65,13 @@ void Actor::resetColor() {
 
 void Actor::discard() {
 	sprite->setColor(glm::vec4(0.f));
+}
+
+void Actor::end() {
+	endTime = setEndTime();
+	sprite->changeAnimation(setEndAnimation());
+}
+
+bool Actor::isEnded() {
+	return endTime != 0;
 }

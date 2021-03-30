@@ -56,21 +56,20 @@ void Scene::update(int deltaTime)
 	CollisionBox playerCollisionBox = player->getCollisionBox();
 
 	for(auto enemy : enemies)
-		if(collision(playerCollisionBox, enemy->getCollisionBox()))
-			player->takeDamage(enemy->damage());
+		if(!enemy->isDead()) {
+			if (player->isAttacking() && collision(player->getPunchCollisionBox(), enemy->getCollisionBox())) 
+				enemy->die();
+			else if(collision(playerCollisionBox, enemy->getCollisionBox()))
+				player->takeDamage(enemy->damage());
+		}
 
-	for (unsigned int i = 0; i < powerUps.size(); i++)
-		if (collision(playerCollisionBox, powerUps[i]->getCollisionBox()))
-			if(powerUps[i]->activatable(player)) {
-				powerUps[i]->activatePowerUp(player);
-				delete powerUps[i];
-				powerUps.erase(powerUps.begin() + i);
-			}
+	for (auto powerUp : powerUps)
+		if (!powerUp->isTaken() && powerUp->activatable(player) && collision(playerCollisionBox, powerUp->getCollisionBox()))
+			powerUp->take(player);
 
 	for (auto door : doors)
-		if (collision(playerCollisionBox, door->getCollisionBox()))
-			if (door->playerInteraction(player->hasKey()))
-				player->removeKey();			
+		if (collision(playerCollisionBox, door->getCollisionBox()) && door->playerInteraction(player->hasKey()))
+			player->removeKey();			
 }
 
 void Scene::updateActors(int deltaTime) {
@@ -78,11 +77,21 @@ void Scene::updateActors(int deltaTime) {
 	camera->update(player->getPosition());
 
 	if (!player->isTimePowerUpActive())
-		for (auto enemy : enemies)
-			enemy->update(deltaTime);
+		for (unsigned int i = 0; i < enemies.size(); ++i) {
+			enemies[i]->update(deltaTime);
+			if(enemies[i]->remove()) {
+				delete enemies[i];
+				enemies.erase(enemies.begin() + i);
+			}
+		}
 
-	for (auto powerUp : powerUps)
-		powerUp->update(deltaTime);
+	for (unsigned int i = 0; i < powerUps.size(); ++i) {
+		powerUps[i]->update(deltaTime);
+		if(powerUps[i]->remove()) {
+			delete powerUps[i];
+			powerUps.erase(powerUps.begin() + i);
+		}
+	}
 
 	for (auto door : doors)
 		door->update(deltaTime);

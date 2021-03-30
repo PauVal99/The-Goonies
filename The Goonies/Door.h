@@ -10,11 +10,11 @@ public:
     bool playerInteraction(bool hasKey);
 
 protected:
-    virtual string setImage();
-    virtual glm::vec2 setSize();
-    virtual glm::vec2 setSizeInSpritesheet();
-    virtual CollisionBox setCollisionBox();
-    virtual void setAnimations();
+    string setImage();
+    glm::vec2 setSize();
+    glm::vec2 setSizeInSpritesheet();
+    CollisionBox setCollisionBox();
+    void setAnimations();
 
 protected:
     
