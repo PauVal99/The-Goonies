@@ -41,8 +41,9 @@ private:
 	void incrementMaxHealth();
 
 private:
+	bool prevSpace = false, prevUp = false;
 	bool jumping = false, climbing = false, timePowerUp = false, key = false;
-	int  moveSpeed = 1, jumpAngle, startY;
+	int moveSpeed = 1, jumpAngle, startY;
 	int experience = 0;
 	int health = 100, maxHealth = 100;
 	int damageCooldown = 0, timePoweUpCooldown = 0, shieldHitsCounter = 0, attacking = 0;

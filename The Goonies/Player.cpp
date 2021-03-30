@@ -180,7 +180,7 @@ void Player::childUpdate(int deltaTime) {
 }
 
 void Player::attack(int deltaTime) {
-	if(!jumping && !climbing && !isAttacking() && Game::instance().getKey('v')) {
+	if(!jumping && !climbing && !isAttacking() && !prevSpace && Game::instance().getKey(GLUT_KEY_SPACEBAR)) {
 		attacking = ATTACK_DURATION;
 		if(sprite->animation() == STAND_RIGHT || sprite->animation() == MOVE_RIGHT)
 			sprite->changeAnimation(PUNCH_RIGHT);
@@ -193,6 +193,8 @@ void Player::attack(int deltaTime) {
 		if(attacking < 0)
 			attacking = 0;
 	}
+
+	prevSpace = Game::instance().getKey(GLUT_KEY_SPACEBAR);
 }
 
 void Player::moveSideways() {
@@ -282,7 +284,7 @@ void Player::jump() {
 				else sprite->changeAnimation(STAND_RIGHT);
 			} else
 				position.y = int(startY - JUMP_HEIGHT * sin(3.14159f * jumpAngle / 180.f));
-		} else if(Game::instance().getKey(GLUT_KEY_SPACEBAR) && collisionMap->onGround(getCollisionBox())) {
+		} else if(!prevUp && Game::instance().getSpecialKey(GLUT_KEY_UP) && collisionMap->onGround(getCollisionBox())) {
 			if((sprite->animation() == MOVE_LEFT) || (sprite->animation() == STAND_LEFT))
 				sprite->changeAnimation(JUMP_LEFT);
 			else sprite->changeAnimation(JUMP_RIGHT);
@@ -292,6 +294,8 @@ void Player::jump() {
 			startY = position.y;
 		}
 	}
+
+	prevUp = Game::instance().getSpecialKey(GLUT_KEY_UP);
 }
 
 void Player::wounded(int deltaTime) {
