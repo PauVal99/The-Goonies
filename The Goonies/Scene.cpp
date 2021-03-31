@@ -105,14 +105,6 @@ void Scene::updateActors(int deltaTime) {
 
 	for (auto door : doors)
 		door->update(deltaTime);
-
-	for (unsigned int i = 0; i < obstacles.size(); ++i) {
-		obstacles[i]->update(deltaTime);
-		if (obstacles[i]->remove()) {
-			delete obstacles[i];
-			obstacles.erase(obstacles.begin() + i);
-		}
-	}
 }
 
 bool Scene::collision(const CollisionBox &collisionBox1, const CollisionBox &collisionBox2) {
