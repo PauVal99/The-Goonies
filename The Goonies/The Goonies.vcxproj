@@ -11,8 +11,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Door.cpp" />
+    <ClCompile Include="Drop.cpp" />
     <ClCompile Include="ExperiencePotion.cpp" />
     <ClCompile Include="Key.cpp" />
+    <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="Shield.cpp" />
     <ClCompile Include="Skull.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -32,8 +34,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Door.h" />
+    <ClInclude Include="Drop.h" />
     <ClInclude Include="ExperiencePotion.h" />
     <ClInclude Include="Key.h" />
+    <ClInclude Include="Obstacle.h" />
     <ClInclude Include="Shield.h" />
     <ClInclude Include="Skull.h" />
     <ClInclude Include="Game.h" />

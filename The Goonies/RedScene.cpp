@@ -9,6 +9,7 @@
 #include "TimePowerUp.h"
 #include "VitalityPotion.h"
 #include "ExperiencePotion.h"
+#include "Drop.h"
 
 void RedScene::setTileMaps() {
 	TileMap* tileMap = TileMap::createTileMap("levels/red/Red.tm", 2, OFFSET, texProgram);
@@ -32,7 +33,7 @@ void RedScene::setEnemies() {
 }
 
 void RedScene::setPowerUps() {
-	HyperShoes* hypershoes = new HyperShoes();
+	/*HyperShoes* hypershoes = new HyperShoes();
 	hypershoes->init(glm::ivec2(10, 14) * TILE_SIZE, OFFSET, texProgram);
 	powerUps.push_back(hypershoes);
 
@@ -50,7 +51,7 @@ void RedScene::setPowerUps() {
 
 	TimePowerUp* timePowerUp = new TimePowerUp();
 	timePowerUp->init(glm::ivec2(26, 14) * TILE_SIZE, OFFSET, texProgram);
-	powerUps.push_back(timePowerUp);
+	powerUps.push_back(timePowerUp); */
 
 	/*Key* key = new Key();
 	key->init(glm::ivec2(10, 14) * TILE_SIZE, OFFSET, texProgram);
@@ -61,4 +62,12 @@ void RedScene::setDoors() {
 	/*Door* door = new Door();
 	door->init(glm::ivec2(12, 12) * TILE_SIZE, OFFSET, texProgram);
 	doors.push_back(door);*/
+}
+
+void RedScene::setObstacles() {
+
+	Drop* drop = new Drop();
+	drop->init(glm::ivec2(12, 11) * TILE_SIZE, OFFSET, texProgram);
+	drop->setCollisionMap(collisionMap);
+	obstacles.push_back(drop);
 }

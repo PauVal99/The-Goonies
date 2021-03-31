@@ -12,7 +12,7 @@ public:
 	void init(const glm::ivec2 &iniPos, const glm::ivec2 &tileMapOffset, ShaderProgram &shaderProgram);
     void setCollisionMap(CollisionMap* collisionMap);
 	void update(int deltaTime);
-	void render();
+	virtual void render();
 
     void end();
     bool isEnded();
@@ -40,10 +40,9 @@ protected:
     CollisionMap* collisionMap;
     glm::ivec2 position, tileMapOffset;
     Sprite* sprite;
-
+    bool removed = false;
 private:
 	Texture spritesheet;
-    bool removed = false;
     int endTime = 0;
 
 };
