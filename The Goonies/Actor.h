@@ -9,7 +9,7 @@ class Actor
 {
 
 public:
-	void init(const glm::ivec2 &iniPos, const glm::ivec2 &tileMapOffset, ShaderProgram &shaderProgram);
+	virtual void init(const glm::ivec2 &iniPos, const glm::ivec2 &tileMapOffset, ShaderProgram &shaderProgram);
     void setCollisionMap(CollisionMap* collisionMap);
 	void update(int deltaTime);
 	virtual void render();
@@ -41,8 +41,9 @@ protected:
     glm::ivec2 position, tileMapOffset;
     Sprite* sprite;
     bool removed = false;
+    Texture spritesheet;
 private:
-	Texture spritesheet;
+	
     int endTime = 0;
 
 };

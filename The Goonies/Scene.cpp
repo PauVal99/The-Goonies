@@ -78,6 +78,9 @@ void Scene::update(int deltaTime)
 				obstacle->changeAnimation(2);
 				if(!obstacle->isRestarting())player->takeDamage(obstacle->damage());
 			}
+			else if (obstacle->getType() == 2) {
+				if (!obstacle->isRestarting())player->takeDamage(obstacle->damage());
+			}
 		}
 	}
 }
@@ -105,6 +108,11 @@ void Scene::updateActors(int deltaTime) {
 
 	for (auto door : doors)
 		door->update(deltaTime);
+
+	for (unsigned int i = 0; i < obstacles.size(); ++i) {
+		obstacles[i]->update(deltaTime);
+
+	}
 }
 
 bool Scene::collision(const CollisionBox &collisionBox1, const CollisionBox &collisionBox2) {

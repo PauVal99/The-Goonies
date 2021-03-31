@@ -10,6 +10,7 @@
 #include "VitalityPotion.h"
 #include "ExperiencePotion.h"
 #include "Drop.h"
+#include "ValveWater.h"
 
 void RedScene::setTileMaps() {
 	TileMap* tileMap = TileMap::createTileMap("levels/red/Red.tm", 2, OFFSET, texProgram);
@@ -70,4 +71,10 @@ void RedScene::setObstacles() {
 	drop->init(glm::ivec2(12, 11) * TILE_SIZE, OFFSET, texProgram);
 	drop->setCollisionMap(collisionMap);
 	obstacles.push_back(drop);
+
+	ValveWater* valveWater = new ValveWater();
+	valveWater->setOrientation(1);
+	valveWater->init(glm::ivec2(18, 12) * TILE_SIZE, OFFSET, texProgram);
+	valveWater->setCollisionMap(collisionMap);
+	obstacles.push_back(valveWater);
 }

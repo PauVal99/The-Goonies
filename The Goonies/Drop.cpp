@@ -2,8 +2,6 @@
 #include <GL/glut.h>
 #include "Drop.h"
 
-#define MOVE_SPEED 1
-
 #define COLLISION_BOX_MIN glm::ivec2(0, 0)
 #define COLLISION_BOX_MAX glm::ivec2(16, 16)
 
