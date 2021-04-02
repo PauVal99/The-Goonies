@@ -4,6 +4,7 @@
 #include "Key.h"
 #include "Door.h"
 #include "Skull.h"
+#include "Bat.h"
 #include "HyperShoes.h"
 #include "Shield.h"
 #include "TimePowerUp.h"
@@ -29,6 +30,12 @@ void RedScene::setEnemies() {
 	skull->setCollisionMap(collisionMap);
 	skull->setPatrolPoints(8 * TILE_SIZE, 14 * TILE_SIZE);
 	enemies.push_back(skull);
+
+	Bat* bat = new Bat();
+	bat->init(glm::ivec2(16, 6) * TILE_SIZE, OFFSET, texProgram);
+	bat->setCollisionMap(collisionMap);
+	bat->setPlayer(player);
+	enemies.push_back(bat);
 }
 
 void RedScene::setPowerUps() {
