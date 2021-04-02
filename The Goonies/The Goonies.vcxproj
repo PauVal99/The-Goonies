@@ -59,6 +59,8 @@
     <ClCompile Include="Camera.cpp" />
     <ClInclude Include="TimePowerUp.h" />
     <ClInclude Include="VitalityPotion.h" />
+    <ClCompile Include="Bat.cpp" />
+    <ClInclude Include="Bat.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5BE6CA2A-E5A8-40CC-9015-047CE0C78036}</ProjectGuid>

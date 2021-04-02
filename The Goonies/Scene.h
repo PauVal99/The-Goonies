@@ -43,6 +43,7 @@ private:
 	void updateActors(int deltaTime);
 
 protected:
+	Player* player;
 	std::map<int, TileMap*> tileMaps;
 	CollisionMap* collisionMap;
 	std::vector<Enemy*> enemies;
@@ -57,8 +58,8 @@ private:
 private:
 	float currentTime;
 	glm::mat4 projection;
-	Player* player;
 	Camera* camera;
+
 };
 
 
