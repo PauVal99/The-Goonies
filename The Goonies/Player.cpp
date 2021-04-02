@@ -219,6 +219,13 @@ void Player::moveSideways() {
 				sprite->changeAnimation(MOVE_RIGHT);
 
 			if(collisionMap->collision(getCollisionBox())) {
+
+				#include <windows.h>
+
+				char buffer[100];
+				sprintf_s(buffer, "hello\n");
+				OutputDebugStringA(buffer);
+
 				position.x -= moveSpeed;
 				if(sprite->animation() == MOVE_RIGHT)
 					sprite->changeAnimation(STAND_RIGHT);

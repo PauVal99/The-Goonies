@@ -14,7 +14,7 @@
 #include "Enemy.h"
 #include "PowerUp.h"
 #include "Camera.h"
-#include "Obstacle.h";
+#include "Obstacle.h"
 
 #define OFFSET glm::vec2(0, 0)
 #define TILE_SIZE 16

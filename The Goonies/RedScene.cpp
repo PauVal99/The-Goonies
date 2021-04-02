@@ -11,12 +11,12 @@
 #include "ExperiencePotion.h"
 #include "Drop.h"
 #include "ValveWater.h"
+#include "Stone.h"
 
 void RedScene::setTileMaps() {
 	TileMap* tileMap = TileMap::createTileMap("levels/red/Red.tm", 2, OFFSET, texProgram);
 	tileMaps[tileMap->getLayer()] = tileMap;
-	tileMap = TileMap::createTileMap("levels/red/Portals.tm", 1, OFFSET, texProgram);
-	tileMaps[tileMap->getLayer()] = tileMap;
+	
 
 	collisionMap = CollisionMap::createCollisionMap("levels/red/Red.cm");
 }
@@ -77,4 +77,9 @@ void RedScene::setObstacles() {
 	valveWater->init(glm::ivec2(18, 12) * TILE_SIZE, OFFSET, texProgram);
 	valveWater->setCollisionMap(collisionMap);
 	obstacles.push_back(valveWater);
+
+	Stone* stone = new Stone();
+	stone->init(glm::ivec2(24, 6) * TILE_SIZE, OFFSET, texProgram);
+	stone->setCollisionMap(collisionMap);
+	obstacles.push_back(stone);
 }
