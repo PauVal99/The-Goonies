@@ -33,11 +33,11 @@ void RedScene::setEnemies() {
 	skull->setPatrolPoints(8 * TILE_SIZE, 14 * TILE_SIZE);
 	enemies.push_back(skull);
 
-	Bat* bat = new Bat();
+	/*Bat* bat = new Bat();
 	bat->init(glm::ivec2(16, 6) * TILE_SIZE, OFFSET, texProgram);
 	bat->setCollisionMap(collisionMap);
 	bat->setPlayer(player);
-	enemies.push_back(bat);
+	enemies.push_back(bat);*/
 }
 
 void RedScene::setPowerUps() {

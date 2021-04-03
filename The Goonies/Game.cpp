@@ -2,6 +2,7 @@
 #include <GL/glut.h>
 #include "Game.h"
 #include "RedScene.h"
+#include "GreenScene.h"
 
 void Game::init()
 {
@@ -10,6 +11,7 @@ void Game::init()
 	player = Player();
 
 	scenes.push(std::make_shared<RedScene>());
+	scenes.push(std::make_shared<GreenScene>());
 
 	scenes.front()->init(&player);
 }
