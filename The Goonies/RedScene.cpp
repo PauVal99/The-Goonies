@@ -78,8 +78,8 @@ void RedScene::setObstacles() {
 	valveWater->setCollisionMap(collisionMap);
 	obstacles.push_back(valveWater);
 
-	Stone* stone = new Stone();
+	/*Stone* stone = new Stone();
 	stone->init(glm::ivec2(24, 6) * TILE_SIZE, OFFSET, texProgram);
 	stone->setCollisionMap(collisionMap);
-	obstacles.push_back(stone);
+	obstacles.push_back(stone);*/
 }
