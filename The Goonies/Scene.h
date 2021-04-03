@@ -14,6 +14,7 @@
 #include "Enemy.h"
 #include "PowerUp.h"
 #include "Camera.h"
+#include "Obstacle.h"
 
 #define OFFSET glm::vec2(0, 0)
 #define TILE_SIZE 16
@@ -37,6 +38,7 @@ protected:
 	virtual void setEnemies() {}
 	virtual void setPowerUps() {}
 	virtual void setDoors() {}
+	virtual void setObstacles() {}
 
 private:
 	void initShaders();
@@ -49,6 +51,7 @@ protected:
 	std::vector<Enemy*> enemies;
 	std::vector<PowerUp*> powerUps;
 	std::vector<Door*> doors;
+	std::vector<Obstacle*>obstacles;
 
 	ShaderProgram texProgram;
 

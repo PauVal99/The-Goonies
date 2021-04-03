@@ -67,6 +67,41 @@ bool CollisionMap::loadLevel(const string &levelFile)
 	return true;
 }
 
+
+void CollisionMap::setStone(glm::ivec2 position) {
+	int iniPosX = position.x;
+	int iniPosY = position.y;
+
+	for (int i = 0; i <  3; i++) {
+		for (int j = 0; j < 2; j++) {
+			map[(i) * mapSize.x + (j)] = BLOCK;
+		}
+	}
+
+}
+
+
+void CollisionMap::updateStone(glm::ivec2 position, bool goingDown) {
+
+	int iniPosX = position.x;
+	int iniPosY = position.y;
+
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 2; j++) {
+			map[(iniPosY + i) * mapSize.x + (iniPosX + j)] = BLOCK;
+		}
+	}
+
+	if (goingDown) {
+		map[(iniPosY - 1) * mapSize.x + iniPosX] = AIR;
+		map[(iniPosY - 1) * mapSize.x + (iniPosX + 1)] = AIR;
+	}
+	else {
+		map[(iniPosY + 3) * mapSize.x + iniPosX] = AIR;
+		map[(iniPosY + 3) * mapSize.x + (iniPosX + 1)] = AIR;
+	}
+}
+
 Tiles CollisionMap::getTiles(const CollisionBox &collisionBox) {
 	Tiles tiles;
 	tiles.min = glm::ivec2((collisionBox.min.x + OFFSET.x) / tileSize, (collisionBox.min.y + OFFSET.y) / tileSize);

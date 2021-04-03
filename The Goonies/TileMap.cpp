@@ -52,7 +52,7 @@ TileMap::TileMap(const string &levelFile, const int &layer, const glm::vec2 &min
 		for(int i=0; i<mapSize.x; i++) {
 			fin.get(tileChar);
 			if(tileChar != ' ') {
-				tile = tileChar - int('`');
+				tile = tileChar - int(' ');
 
 				nTiles++;
 				posTile = glm::vec2(minCoords.x + i * tileSize, minCoords.y + j * tileSize);

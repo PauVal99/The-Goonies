@@ -45,6 +45,7 @@ void Scene::init(Player* player)
 	setEnemies();
 	setPowerUps();
 	setDoors();
+	setObstacles();
 }
 
 void Scene::update(int deltaTime)
@@ -69,7 +70,19 @@ void Scene::update(int deltaTime)
 
 	for (auto door : doors)
 		if (collision(playerCollisionBox, door->getCollisionBox()) && door->playerInteraction(player->hasKey()))
-			player->removeKey();			
+			player->removeKey();
+
+	for (auto obstacle : obstacles) {
+		if (collision(playerCollisionBox, obstacle->getCollisionBox())) {
+			if (obstacle->getType() == 1) { 
+				obstacle->changeAnimation(2);
+				if(!obstacle->isRestarting())player->takeDamage(obstacle->damage());
+			}
+			else if (obstacle->getType() == 2) {
+				if (!obstacle->isRestarting())player->takeDamage(obstacle->damage());
+			}
+		}
+	}
 }
 
 void Scene::updateActors(int deltaTime) {
@@ -95,6 +108,11 @@ void Scene::updateActors(int deltaTime) {
 
 	for (auto door : doors)
 		door->update(deltaTime);
+
+	for (unsigned int i = 0; i < obstacles.size(); ++i) {
+		obstacles[i]->update(deltaTime);
+
+	}
 }
 
 bool Scene::collision(const CollisionBox &collisionBox1, const CollisionBox &collisionBox2) {
@@ -127,6 +145,9 @@ void Scene::render()
 
 	for (auto door : doors) 
 		door->render();
+
+	for (auto obstacle : obstacles)
+		obstacle->render();
 
 	player->render();
 }

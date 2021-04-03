@@ -33,7 +33,8 @@ public:
 	glm::ivec2 onVine(const CollisionBox &collisionBox);
 	glm::ivec2 aboveVine(const CollisionBox &collisionBox);
 	bool onPortal(const CollisionBox &collisionBox);
-
+	void setStone(glm::ivec2 position);
+	void updateStone(glm::ivec2 position, bool goingDown);
 private:
 	bool loadLevel(const string &levelFile);
 	Tiles getTiles(const CollisionBox &collisionBox);

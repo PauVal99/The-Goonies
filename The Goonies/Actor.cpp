@@ -10,11 +10,12 @@ void Actor::init(const glm::ivec2 &iniPos, const glm::ivec2 &tileMapOffset, Shad
 	spritesheet.setMagFilter(GL_NEAREST);
 	sprite = Sprite::createSprite(setSize(), setSizeInSpritesheet(), &spritesheet, &shaderProgram);
 
+	setPosition(iniPos);
     setAnimations();
 
 	this->tileMapOffset = tileMapOffset;
     
-    setPosition(iniPos);
+    
 }
 
 void Actor::setCollisionMap(CollisionMap* collisionMap) {
