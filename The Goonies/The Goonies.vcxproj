@@ -17,6 +17,7 @@
     <ClCompile Include="GreenScene.cpp" />
     <ClCompile Include="Key.cpp" />
     <ClCompile Include="Obstacle.cpp" />
+    <ClCompile Include="OrangeScene.cpp" />
     <ClCompile Include="PurpleScene.cpp" />
     <ClCompile Include="Shield.cpp" />
     <ClCompile Include="Skull.cpp" />
@@ -46,6 +47,7 @@
     <ClInclude Include="GreenScene.h" />
     <ClInclude Include="Key.h" />
     <ClInclude Include="Obstacle.h" />
+    <ClInclude Include="OrangeScene.h" />
     <ClInclude Include="PurpleScene.h" />
     <ClInclude Include="Shield.h" />
     <ClInclude Include="Skull.h" />

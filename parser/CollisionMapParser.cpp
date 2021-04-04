@@ -23,8 +23,8 @@ int main() {
     int air[30] = {0,6,7,8,9,10,11,17,18,19,20,21,22,28,29,30,31,32,33};
     int number;
 
-    int filas = 60;
-    int columnas = 32;
+    int filas = 20;
+    int columnas = 96;
 
     char output_map[filas][columnas];
 

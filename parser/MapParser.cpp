@@ -7,8 +7,8 @@ using namespace std;
 int main() {
     ofstream fout;
     fout.open("output");
-    int filas = 60;
-    int columnas = 32;
+    int filas = 20;
+    int columnas = 96;
     char output_map[filas][columnas];
 
     int number;
