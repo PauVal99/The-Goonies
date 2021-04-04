@@ -2,6 +2,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "Game.h"
 #include "Scene.h"
+#include "Skull.h"
 
 Scene::Scene()
 {
@@ -28,6 +29,17 @@ Scene::~Scene()
 	powerUps.clear();
 	doors.clear();
 }
+
+
+void Scene::createSkull(glm::ivec2 pos, glm::ivec2 patrolPoints) {
+
+	Skull* skull = new Skull();
+	skull->init(pos * TILE_SIZE, OFFSET, texProgram);
+	skull->setCollisionMap(collisionMap);
+	skull->setPatrolPoints(patrolPoints.x * TILE_SIZE, patrolPoints.y * TILE_SIZE);
+	enemies.push_back(skull);
+}
+
 
 void Scene::init(Player* player)
 {

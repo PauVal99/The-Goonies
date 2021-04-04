@@ -39,6 +39,7 @@ protected:
 	virtual void setPowerUps() {}
 	virtual void setDoors() {}
 	virtual void setObstacles() {}
+	void createSkull(glm::ivec2 pos, glm::ivec2 patrolPoints);
 
 private:
 	void initShaders();
