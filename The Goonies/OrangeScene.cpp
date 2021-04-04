@@ -18,7 +18,6 @@ void OrangeScene::setTileMaps() {
 	TileMap* tileMap = TileMap::createTileMap("levels/orange/Orange_TM.tm", 2, OFFSET, texProgram);
 	tileMaps[tileMap->getLayer()] = tileMap;
 
-
 	collisionMap = CollisionMap::createCollisionMap("levels/orange/Orange_CM.cm", OFFSET);
 }
 
@@ -27,7 +26,11 @@ glm::ivec2 OrangeScene::setPlayerPosition() {
 }
 
 void OrangeScene::setEnemies() {
-
+	Bat* bat = new Bat();
+	bat->init(glm::ivec2(24, 8) * TILE_SIZE, OFFSET, texProgram);
+	bat->setCollisionMap(collisionMap);
+	bat->setPlayer(player);
+	enemies.push_back(bat);
 }
 
 void OrangeScene::setPowerUps() {

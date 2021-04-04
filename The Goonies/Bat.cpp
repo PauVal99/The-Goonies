@@ -63,7 +63,7 @@ int Bat::damage() {
 	return DAMAGE;
 }
 
-int experience() {
+int Bat::experience() {
     return EXPERIENCE;
 }
 
@@ -91,7 +91,6 @@ void Bat::childUpdate(int deltaTime) {
         if(collisionMap->collision(getCollisionBox())) {
             position -= float(MOVE_SPEED) * glm::normalize(direction);
             randomUpdateCooldown = 0;
-            childUpdate(deltaTime);
         }
     }
 }
