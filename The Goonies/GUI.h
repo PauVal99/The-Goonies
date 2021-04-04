@@ -31,5 +31,7 @@ private:
     Sprite* savedFriend;
     Sprite* clock;
     Sprite* boots;
+    Sprite* marginTop;
+    Sprite* marginBot;
 };
 #endif

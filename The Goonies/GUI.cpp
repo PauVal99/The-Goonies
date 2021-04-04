@@ -6,7 +6,13 @@ void GUI::init(ShaderProgram *shaderProgram)
 	barTexture.loadFromFile("images/bar.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	barTexture.setMagFilter(GL_NEAREST);
 
-	bar = Sprite::createSprite(glm::vec2(128, 16), glm::vec2(1.f), &barTexture, shaderProgram);
+	bar = Sprite::createSprite(glm::vec2(128, 16), glm::vec2(1.f, 0.5f), &barTexture, shaderProgram);
+	marginTop = Sprite::createSprite(glm::vec2(512, 44), glm::vec2(1.f, 0.5f), &barTexture, shaderProgram);
+	setSprite(marginTop, glm::vec2(0, 0.5f));
+	marginTop->setPosition(glm::vec2(0, 0));
+	marginBot = Sprite::createSprite(glm::vec2(512, 24), glm::vec2(1.f, 0.5f), &barTexture, shaderProgram);
+	setSprite(marginBot, glm::vec2(0, 0.5f));
+	marginBot->setPosition(glm::vec2(0, 364));
 
 	clockTexture = Texture();
 	clockTexture.loadFromFile("images/PowerUps/Clock.png", TEXTURE_PIXEL_FORMAT_RGBA);
@@ -64,6 +70,8 @@ void GUI::update(int deltaTime) {
 }
 
 void GUI::render() {
+	marginTop->render();
+	marginBot->render();
 	health->render();
 	experience->render();
 	
