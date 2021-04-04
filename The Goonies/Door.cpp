@@ -2,8 +2,8 @@
 #include <GL/glut.h>
 #include "Door.h"
 
-#define COLLISION_BOX_MIN_CLOSED glm::ivec2(0, 32)
-#define COLLISION_BOX_MAX_CLOSED glm::ivec2(16, 48)
+#define COLLISION_BOX_MIN_CLOSED glm::ivec2(0, 0)
+#define COLLISION_BOX_MAX_CLOSED glm::ivec2(64, 64)
 
 #define COLLISION_BOX_MIN_OPEN glm::ivec2(32, 32)
 #define COLLISION_BOX_MAX_OPEN glm::ivec2(48, 60)
