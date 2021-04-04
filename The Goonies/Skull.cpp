@@ -8,6 +8,7 @@
 #define COLLISION_BOX_MAX glm::ivec2(16, 20)
 
 #define DAMAGE 5
+#define EXPERIENCE 10
 
 #define DIE_TIME 500
 
@@ -63,6 +64,10 @@ int Skull::setEndAnimation() {
 
 int Skull::damage() { 
 	return DAMAGE;
+}
+
+int Skull::experience() { 
+	return EXPERIENCE;
 }
 
 void Skull::childUpdate(int deltaTime) {

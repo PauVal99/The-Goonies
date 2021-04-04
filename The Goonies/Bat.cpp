@@ -9,6 +9,7 @@
 #define COLLISION_BOX_MAX glm::ivec2(16, 13)
 
 #define DAMAGE 10
+#define EXPERIENCE 20
 
 #define DIE_TIME 500
 
@@ -60,6 +61,10 @@ int Bat::setEndAnimation() {
 
 int Bat::damage() { 
 	return DAMAGE;
+}
+
+int experience() {
+    return EXPERIENCE;
 }
 
 void Bat::setPlayer(Player* player) {

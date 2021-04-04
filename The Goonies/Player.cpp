@@ -3,7 +3,7 @@
 #include "Game.h"
 #include "Player.h"
 
-#define JUMP_HEIGHT 48
+#define JUMP_HEIGHT 32
 #define JUMP_ANGLE_STEP 4
 #define FALL_SPEED 4
 
@@ -23,7 +23,7 @@
 #define SHIELD_HITS 3
 
 #define MAX_EXPERIENCE 100
-#define EXPERIENCE_POTION 40
+#define EXPERIENCE_POTION 60
 
 #define TIME_POWER_UP_COOLDOWN 10000
 

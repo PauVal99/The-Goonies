@@ -9,6 +9,7 @@ class Skull: public Enemy
 public:
 	void setPatrolPoints(const int patrolPoint1, const int patrolPoint2);
     int damage();
+    int experience();
 
 protected:
     string setImage();

@@ -63,9 +63,10 @@ void Scene::update(int deltaTime)
 
 	for(auto enemy : enemies)
 		if(!enemy->isDead()) {
-			if (player->isAttacking() && collision(player->getPunchCollisionBox(), enemy->getCollisionBox())) 
+			if (player->isAttacking() && collision(player->getPunchCollisionBox(), enemy->getCollisionBox())) {
+				player->addExperience(enemy->experience());
 				enemy->die();
-			else if(collision(playerCollisionBox, enemy->getCollisionBox()))
+			} else if(collision(playerCollisionBox, enemy->getCollisionBox()))
 				player->takeDamage(enemy->damage());
 		}
 
@@ -118,10 +119,8 @@ void Scene::updateActors(int deltaTime) {
 	for (auto door : doors)
 		door->update(deltaTime);
 
-	for (unsigned int i = 0; i < obstacles.size(); ++i) {
-		obstacles[i]->update(deltaTime);
-
-	}
+	for (auto obstacle : obstacles)
+		obstacle->update(deltaTime);
 }
 
 bool Scene::collision(const CollisionBox &collisionBox1, const CollisionBox &collisionBox2) {

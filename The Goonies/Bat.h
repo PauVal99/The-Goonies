@@ -9,6 +9,7 @@ class Bat: public Enemy
 
 public:
     int damage();
+    int experience();
     void setPlayer(Player* playe);
 
 protected:
