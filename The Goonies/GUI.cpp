@@ -91,7 +91,6 @@ void GUI::render() {
 		voidKey->render();
 
 	int savedFriends = player->getSavedFirends();
-	savedFriends = 3;
 
 	if(savedFriends < 6) {
 		voidFriend->setPosition(glm::vec2(104, 368));
