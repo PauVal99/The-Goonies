@@ -7,6 +7,7 @@ Scene::Scene()
 {
 	player = NULL;
 	camera = NULL;
+	gui = NULL;
 }
 
 Scene::~Scene()
@@ -42,6 +43,10 @@ void Scene::init(Player* player)
 	player->init(setPlayerPosition(), OFFSET, texProgram);
 	player->setCollisionMap(collisionMap);
 
+	gui = new GUI();
+	gui->init(&texProgram);
+	gui->setPlayer(player);
+
 	setEnemies();
 	setPowerUps();
 	setDoors();
@@ -69,7 +74,9 @@ void Scene::update(int deltaTime)
 
 	for (auto door : doors)
 		if (collision(playerCollisionBox, door->getCollisionBox()) && door->playerInteraction(player->hasKey()))
-			player->removeKey();			
+			player->removeKey();	
+
+	gui->update(deltaTime);		
 }
 
 void Scene::updateActors(int deltaTime) {
@@ -107,7 +114,7 @@ void Scene::render()
 	texProgram.use();
 	texProgram.setUniformMatrix4f("projection", projection);
 	texProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
-	
+
 	glm::mat4 camView = glm::mat4(1.f);
 	camView = glm::translate(camView, glm::vec3(camera->getTranslation(), 0.f));
 	texProgram.setUniformMatrix4f("cameraView", camView);
@@ -129,6 +136,10 @@ void Scene::render()
 		door->render();
 
 	player->render();
+
+	camView = glm::mat4(1.f);
+	texProgram.setUniformMatrix4f("cameraView", camView);
+	gui->render();
 }
 
 void Scene::initShaders()

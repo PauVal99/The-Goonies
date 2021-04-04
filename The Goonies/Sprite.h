@@ -35,7 +35,7 @@ public:
 	int animation() const;
 	
 	void setPosition(const glm::vec2 &pos);
-
+	void setSize(const glm::vec2 &size);
 	void setColor(const glm::vec4 &color);
 
 private:
@@ -43,12 +43,12 @@ private:
 	ShaderProgram *shaderProgram;
 	GLuint vao, vbo;
 	GLint posLocation, texCoordLocation;
-	glm::vec2 position, texCoordDispl;
-	int currentAnimation, currentKeyframe;
+	glm::vec2 position = glm::vec2(0.f), texCoordDispl, sizeInSpritesheet;
+	int currentAnimation = -1, currentKeyframe;
 	float timeAnimation;
 	vector<AnimKeyframes> animations;
-	bool pause;
-	glm::vec4 color;
+	bool pause = false;
+	glm::vec4 color = glm::vec4(1.0f);
 };
 
 

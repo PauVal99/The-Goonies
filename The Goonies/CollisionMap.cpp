@@ -7,16 +7,15 @@ using namespace std;
 
 #define OFFSET glm::ivec2(0, -12)
 
-CollisionMap *CollisionMap::createCollisionMap(const string &levelFile)
-{
-	CollisionMap *map = new CollisionMap(levelFile);
+CollisionMap *CollisionMap::createCollisionMap(const string &levelFile, const glm::ivec2 &tileMapOffset) {
+	CollisionMap *map = new CollisionMap(levelFile, tileMapOffset);
 	
 	return map;
 }
 
 
-CollisionMap::CollisionMap(const string &levelFile)
-{
+CollisionMap::CollisionMap(const string &levelFile, const glm::ivec2 &tileMapOffset) {
+	collisionMapOffset = OFFSET - tileMapOffset;
 	loadLevel(levelFile);
 }
 
@@ -69,8 +68,8 @@ bool CollisionMap::loadLevel(const string &levelFile)
 
 Tiles CollisionMap::getTiles(const CollisionBox &collisionBox) {
 	Tiles tiles;
-	tiles.min = glm::ivec2((collisionBox.min.x + OFFSET.x) / tileSize, (collisionBox.min.y + OFFSET.y) / tileSize);
-	tiles.max = glm::ivec2((collisionBox.max.x + OFFSET.x) / tileSize, (collisionBox.max.y + OFFSET.y) / tileSize);
+	tiles.min = glm::ivec2((collisionBox.min.x + collisionMapOffset.x) / tileSize, (collisionBox.min.y + collisionMapOffset.y) / tileSize);
+	tiles.max = glm::ivec2((collisionBox.max.x + collisionMapOffset.x) / tileSize, (collisionBox.max.y + collisionMapOffset.y) / tileSize);
 	return tiles;
 }
 
@@ -94,7 +93,7 @@ bool CollisionMap::onPortal(const CollisionBox &collisionBox) {
 
 bool CollisionMap::onGround(const CollisionBox &collisionBox) {
     Tiles tiles = getTiles(collisionBox);
-    int yBlock = (collisionBox.max.y + 1 + OFFSET.y) / tileSize;
+    int yBlock = (collisionBox.max.y + 1 + collisionMapOffset.y) / tileSize;
 
 	for(int i = tiles.min.x; i <= tiles.max.x; ++i) 
 		if(map[yBlock * mapSize.x + i] == BLOCK) {
@@ -118,7 +117,7 @@ glm::ivec2 CollisionMap::onVine(const CollisionBox &collisionBox) {
 
 glm::ivec2 CollisionMap::aboveVine(const CollisionBox &collisionBox) {
 	Tiles tiles = getTiles(collisionBox);
-	int y = (collisionBox.max.y + 1 + OFFSET.y) / tileSize;
+	int y = (collisionBox.max.y + 1 + collisionMapOffset.y) / tileSize;
 
 	for(int i = tiles.min.x; i <= tiles.max.x; ++i) 
 		if(map[y * mapSize.x + i] == VINE) 

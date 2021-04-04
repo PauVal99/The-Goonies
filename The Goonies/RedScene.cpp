@@ -17,7 +17,7 @@ void RedScene::setTileMaps() {
 	tileMap = TileMap::createTileMap("levels/red/Portals.tm", 1, OFFSET, texProgram);
 	tileMaps[tileMap->getLayer()] = tileMap;
 
-	collisionMap = CollisionMap::createCollisionMap("levels/red/Red.cm");
+	collisionMap = CollisionMap::createCollisionMap("levels/red/Red.cm", OFFSET);
 }
 
 glm::ivec2 RedScene::setPlayerPosition() {
@@ -39,9 +39,9 @@ void RedScene::setEnemies() {
 }
 
 void RedScene::setPowerUps() {
-	HyperShoes* hypershoes = new HyperShoes();
-	hypershoes->init(glm::ivec2(10, 14) * TILE_SIZE, OFFSET, texProgram);
-	powerUps.push_back(hypershoes);
+	//HyperShoes* hypershoes = new HyperShoes();
+	//hypershoes->init(glm::ivec2(10, 14) * TILE_SIZE, OFFSET, texProgram);
+	//powerUps.push_back(hypershoes);
 
 	Shield* shield = new Shield();
 	shield->init(glm::ivec2(14, 14) * TILE_SIZE, OFFSET, texProgram);
@@ -59,9 +59,9 @@ void RedScene::setPowerUps() {
 	timePowerUp->init(glm::ivec2(26, 14) * TILE_SIZE, OFFSET, texProgram);
 	powerUps.push_back(timePowerUp);
 
-	/*Key* key = new Key();
+	Key* key = new Key();
 	key->init(glm::ivec2(10, 14) * TILE_SIZE, OFFSET, texProgram);
-	powerUps.push_back(key);*/
+	powerUps.push_back(key);
 }
 
 void RedScene::setDoors() {

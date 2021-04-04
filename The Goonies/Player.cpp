@@ -11,9 +11,9 @@
 #define COLLISION_BOX_MAX glm::ivec2(25, 31)
 
 #define PUNCH_COLLISION_BOX_MIN_RIGHT glm::ivec2(24, 6)
-#define PUNCH_COLLISION_BOX_MAX_RIGHT glm::ivec2(32, 18)
+#define PUNCH_COLLISION_BOX_MAX_RIGHT glm::ivec2(36, 18)
 
-#define PUNCH_COLLISION_BOX_MIN_LEFT glm::ivec2(0, 6)
+#define PUNCH_COLLISION_BOX_MIN_LEFT glm::ivec2(-4, 6)
 #define PUNCH_COLLISION_BOX_MAX_LEFT glm::ivec2(8, 18)
 
 #define DAMAGE_COOLDOWN 2000

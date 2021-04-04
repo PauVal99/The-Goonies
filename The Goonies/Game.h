@@ -8,7 +8,7 @@
 #define  GLUT_KEY_SPACEBAR 32
 
 #define SCREEN_WIDTH 512
-#define SCREEN_HEIGHT 320
+#define SCREEN_HEIGHT 320 + 44 + 24
 
 // Game is a singleton (a class with a single instance) that represents our whole application
 
