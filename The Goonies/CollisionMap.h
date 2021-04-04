@@ -21,9 +21,9 @@ class CollisionMap
 {
 
 public:
-	static CollisionMap *createCollisionMap(const string &levelFile);
+	static CollisionMap *createCollisionMap(const string &levelFile, const glm::ivec2 &tileMapOffset);
 
-	CollisionMap(const string &levelFile);
+	CollisionMap(const string &levelFile, const glm::ivec2 &tileMapOffset);
 	~CollisionMap();
 	
 	int getTileSize() const { return tileSize; }
@@ -40,12 +40,9 @@ private:
 	Tiles getTiles(const CollisionBox &collisionBox);
 
 private:
-	glm::ivec2 mapSize;
+	glm::ivec2 mapSize, collisionMapOffset;
 	int tileSize;
 	int *map;
 };
 
-
 #endif // _TILE_MAP_INCLUDE
-
-

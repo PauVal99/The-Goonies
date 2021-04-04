@@ -14,26 +14,27 @@ Sprite *Sprite::createSprite(const glm::vec2 &quadSize, const glm::vec2 &sizeInS
 
 Sprite::Sprite(const glm::vec2 &quadSize, const glm::vec2 &sizeInSpritesheet, Texture *spritesheet, ShaderProgram *program)
 {
+	this->sizeInSpritesheet = sizeInSpritesheet;
+	texture = spritesheet;
+	shaderProgram = program;
+	setSize(quadSize);
+}
+
+void Sprite::setSize(const glm::vec2 &size) {
 	float vertices[24] = {0.f, 0.f, 0.f, 0.f, 
-												quadSize.x, 0.f, sizeInSpritesheet.x, 0.f, 
-												quadSize.x, quadSize.y, sizeInSpritesheet.x, sizeInSpritesheet.y, 
-												0.f, 0.f, 0.f, 0.f, 
-												quadSize.x, quadSize.y, sizeInSpritesheet.x, sizeInSpritesheet.y, 
-												0.f, quadSize.y, 0.f, sizeInSpritesheet.y};
+											size.x, 0.f, sizeInSpritesheet.x, 0.f, 
+											size.x, size.y, sizeInSpritesheet.x, sizeInSpritesheet.y, 
+											0.f, 0.f, 0.f, 0.f, 
+											size.x, size.y, sizeInSpritesheet.x, sizeInSpritesheet.y, 
+											0.f, size.y, 0.f, sizeInSpritesheet.y};
 
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBufferData(GL_ARRAY_BUFFER, 24 * sizeof(float), vertices, GL_STATIC_DRAW);
-	posLocation = program->bindVertexAttribute("position", 2, 4*sizeof(float), 0);
-	texCoordLocation = program->bindVertexAttribute("texCoord", 2, 4*sizeof(float), (void *)(2*sizeof(float)));
-	texture = spritesheet;
-	shaderProgram = program;
-	currentAnimation = -1;
-	pause = false;
-	position = glm::vec2(0.f);
-	color = glm::vec4(1.0f);
+	posLocation = shaderProgram->bindVertexAttribute("position", 2, 4*sizeof(float), 0);
+	texCoordLocation = shaderProgram->bindVertexAttribute("texCoord", 2, 4*sizeof(float), (void *)(2*sizeof(float)));
 }
 
 void Sprite::update(int deltaTime)

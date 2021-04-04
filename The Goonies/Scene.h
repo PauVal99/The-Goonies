@@ -15,8 +15,9 @@
 #include "PowerUp.h"
 #include "Camera.h"
 #include "Obstacle.h"
+#include "GUI.h"
 
-#define OFFSET glm::vec2(0, 0)
+#define OFFSET glm::ivec2(0, 44)
 #define TILE_SIZE 16
 
 // Scene contains all the entities of our game.
@@ -51,7 +52,7 @@ protected:
 	std::vector<Enemy*> enemies;
 	std::vector<PowerUp*> powerUps;
 	std::vector<Door*> doors;
-	std::vector<Obstacle*>obstacles;
+	std::vector<Obstacle*> obstacles;
 
 	ShaderProgram texProgram;
 
@@ -62,6 +63,7 @@ private:
 	float currentTime;
 	glm::mat4 projection;
 	Camera* camera;
+	GUI* gui;
 
 };
 

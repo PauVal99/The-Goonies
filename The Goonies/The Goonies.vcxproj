@@ -79,6 +79,8 @@
     <ClCompile Include="Bat.cpp" />
     <ClInclude Include="Bat.h" />
     <ClInclude Include="YellowScene.h" />
+    <ClInclude Include="GUI.h" />
+    <ClCompile Include="GUI.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5BE6CA2A-E5A8-40CC-9015-047CE0C78036}</ProjectGuid>

@@ -25,7 +25,7 @@ glm::vec2 Skull::setSize() {
 }
 
 glm::vec2 Skull::setSizeInSpritesheet() {
-	return glm::vec2(0.34f, 0.5);
+	return glm::vec2(0.25f, 0.5);
 }
 
 CollisionBox Skull::setCollisionBox() {
@@ -40,15 +40,15 @@ void Skull::setAnimations() {
 
 	sprite->setAnimationSpeed(MOVE_LEFT, 2);
 	sprite->addKeyframe(MOVE_LEFT, glm::vec2(0.f, 0.f));
-	sprite->addKeyframe(MOVE_LEFT, glm::vec2(0.34f, 0.f));
+	sprite->addKeyframe(MOVE_LEFT, glm::vec2(0.25f, 0.f));
 	
 	sprite->setAnimationSpeed(MOVE_RIGHT, 2);
 	sprite->addKeyframe(MOVE_RIGHT, glm::vec2(0.f, 0.5f));
-	sprite->addKeyframe(MOVE_RIGHT, glm::vec2(0.34f, 0.5f));
+	sprite->addKeyframe(MOVE_RIGHT, glm::vec2(0.25f, 0.5f));
 
 	sprite->setAnimationSpeed(DIE, 4);
-	sprite->addKeyframe(DIE, glm::vec2(0.67f, 0.f));
-	sprite->addKeyframe(DIE, glm::vec2(0.67f, 0.5f));
+	sprite->addKeyframe(DIE, glm::vec2(0.5f, 0.f));
+	sprite->addKeyframe(DIE, glm::vec2(0.5f, 0.5f));
 
 	sprite->changeAnimation(MOVE_RIGHT);
 }
