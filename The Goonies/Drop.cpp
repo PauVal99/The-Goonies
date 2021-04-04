@@ -82,8 +82,11 @@ void Drop::childUpdate(int deltaTime) {
 	else if (sprite->animation() == DROP) {
 	
 		position.y += FALL_SPEED;
-		if (collisionMap->collision(getCollisionBox())) {
-			sprite->changeAnimation(CRASH);
+		if (animationCooldown == 0)animationCooldown = 100;
+		if (computeCooldown(deltaTime)) {
+			if (collisionMap->collision(getCollisionBox())) {
+				sprite->changeAnimation(CRASH);
+			}
 		}
 	}
 	else if (sprite->animation() == CRASH && !restarting) {
