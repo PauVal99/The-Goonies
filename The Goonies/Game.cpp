@@ -4,14 +4,16 @@
 #include "RedScene.h"
 #include "GreenScene.h"
 #include "PurpleScene.h"
+#include "YellowScene.h"
 
 void Game::init()
 {
 	bPlay = true;
 
 	player = Player();
-	scenes.push(std::make_shared<PurpleScene>());
 	scenes.push(std::make_shared<RedScene>());
+	scenes.push(std::make_shared<YellowScene>());
+	scenes.push(std::make_shared<PurpleScene>());
 	scenes.push(std::make_shared<GreenScene>());
 	
 

@@ -7,12 +7,14 @@ using namespace std;
 int main() {
     ofstream fout;
     fout.open("output");
-    char output_map[20][96];
+    int filas = 60;
+    int columnas = 32;
+    char output_map[filas][columnas];
 
     int number;
-    for (int i = 0; i < 20; i++) {
+    for (int i = 0; i < filas; i++) {
 
-        for (int p = 0; p < 96; p++) {
+        for (int p = 0; p < columnas; p++) {
 
             cin >> number;
        
@@ -27,8 +29,8 @@ int main() {
         }
     }
 
-    for (int i = 0; i < 20; i++) {
-        for (int p = 0; p < 96; p++) {
+    for (int i = 0; i < filas; i++) {
+        for (int p = 0; p < columnas; p++) {
             cout << output_map[i][p];
             fout << output_map[i][p];
         }

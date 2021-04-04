@@ -18,15 +18,19 @@ bool inArray(int number, int array[30]){
 int main() {
     ofstream fout;
     fout.open("output_cm");
-    char output_map[20][96];
+   
 
     int air[30] = {0,6,7,8,9,10,11,17,18,19,20,21,22,28,29,30,31,32,33};
     int number;
 
+    int filas = 60;
+    int columnas = 32;
 
-    for (int i = 0; i < 20; i++) {
+    char output_map[filas][columnas];
 
-        for (int p = 0; p < 96; p++) {
+    for (int i = 0; i < filas; i++) {
+
+        for (int p = 0; p < columnas; p++) {
 
             cin >> number;
        
@@ -43,8 +47,8 @@ int main() {
         }
     }
 
-    for (int i = 0; i < 20; i++) {
-        for (int p = 0; p < 96; p++) {
+    for (int i = 0; i < filas; i++) {
+        for (int p = 0; p < columnas; p++) {
             cout << output_map[i][p];
             fout << output_map[i][p];
         }

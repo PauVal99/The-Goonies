@@ -36,6 +36,7 @@
     <ClCompile Include="TimePowerUp.cpp" />
     <ClCompile Include="ValveWater.cpp" />
     <ClCompile Include="VitalityPotion.cpp" />
+    <ClCompile Include="YellowScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Chain.h" />
@@ -75,6 +76,7 @@
     <ClInclude Include="VitalityPotion.h" />
     <ClCompile Include="Bat.cpp" />
     <ClInclude Include="Bat.h" />
+    <ClInclude Include="YellowScene.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5BE6CA2A-E5A8-40CC-9015-047CE0C78036}</ProjectGuid>
