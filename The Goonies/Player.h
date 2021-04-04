@@ -27,6 +27,7 @@ public:
 	int getExperience() { return experience; };
 	int getArmour() { return shieldHitsCounter; };
 	int getSavedFirends() { return savedFriends; };
+	bool hasBoots() { return moveSpeed == 2; };
 
 protected:
     string setImage();

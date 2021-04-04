@@ -13,7 +13,14 @@ void GUI::init(ShaderProgram *shaderProgram)
 	clockTexture.setMagFilter(GL_NEAREST);
 
 	clock = Sprite::createSprite(glm::vec2(32, 32), glm::vec2(0.25f, 1.f), &clockTexture, shaderProgram);
-	clock->setPosition(glm::vec2(436, 6));
+	clock->setPosition(glm::vec2(400, 6));
+
+	bootsTexture = Texture();
+	bootsTexture.loadFromFile("images/PowerUps/HyperShoes.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	bootsTexture.setMagFilter(GL_NEAREST);
+
+	boots = Sprite::createSprite(glm::vec2(32, 32), glm::vec2(0.25f, 1.f), &bootsTexture, shaderProgram);
+	boots->setPosition(glm::vec2(436, 6));
 
 	spritesheet = Texture();
 	spritesheet.loadFromFile("images/GUI.png", TEXTURE_PIXEL_FORMAT_RGBA);
@@ -144,6 +151,9 @@ void GUI::render() {
 
 	if(player->hasTimePowerUp())
 		clock->render();
+	
+	if(player->hasBoots())
+		boots->render();
 }
 
 void GUI::setSprite(Sprite* sprite, glm::vec2 displacement) {

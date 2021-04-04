@@ -18,7 +18,7 @@ private:
    
 private:
     Player* player;
-	Texture spritesheet, barTexture, clockTexture;
+	Texture spritesheet, barTexture, clockTexture, bootsTexture;
 
     Sprite* health;
     Sprite* experience;
@@ -30,6 +30,6 @@ private:
     Sprite* voidFriend;
     Sprite* savedFriend;
     Sprite* clock;
-
+    Sprite* boots;
 };
 #endif
