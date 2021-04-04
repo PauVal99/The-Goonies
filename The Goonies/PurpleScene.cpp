@@ -19,7 +19,7 @@ void PurpleScene::setTileMaps() {
 	tileMaps[tileMap->getLayer()] = tileMap;
 
 
-	collisionMap = CollisionMap::createCollisionMap("levels/purple/Purple_CM.cm");
+	collisionMap = CollisionMap::createCollisionMap("levels/purple/Purple_CM.cm", OFFSET);
 }
 
 glm::ivec2 PurpleScene::setPlayerPosition() {

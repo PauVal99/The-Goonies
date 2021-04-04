@@ -19,7 +19,7 @@ void GreenScene::setTileMaps() {
 	tileMaps[tileMap->getLayer()] = tileMap;
 
 
-	collisionMap = CollisionMap::createCollisionMap("levels/green/Green_CM.cm");
+	collisionMap = CollisionMap::createCollisionMap("levels/green/Green_CM.cm", OFFSET);
 }
 
 glm::ivec2 GreenScene::setPlayerPosition() {

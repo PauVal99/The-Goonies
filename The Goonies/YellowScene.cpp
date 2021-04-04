@@ -19,7 +19,7 @@ void YellowScene::setTileMaps() {
 	tileMaps[tileMap->getLayer()] = tileMap;
 
 
-	collisionMap = CollisionMap::createCollisionMap("levels/yellow/Yellow_CM.cm");
+	collisionMap = CollisionMap::createCollisionMap("levels/yellow/Yellow_CM.cm", OFFSET);
 }
 
 glm::ivec2 YellowScene::setPlayerPosition() {

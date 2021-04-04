@@ -18,7 +18,6 @@ void Game::init()
 	scenes.push(std::make_shared<PurpleScene>());
 	scenes.push(std::make_shared<GreenScene>());
 	
-
 	scenes.front()->init(&player);
 }
 

@@ -19,7 +19,7 @@ void OrangeScene::setTileMaps() {
 	tileMaps[tileMap->getLayer()] = tileMap;
 
 
-	collisionMap = CollisionMap::createCollisionMap("levels/orange/Orange_CM.cm");
+	collisionMap = CollisionMap::createCollisionMap("levels/orange/Orange_CM.cm", OFFSET);
 }
 
 glm::ivec2 OrangeScene::setPlayerPosition() {
