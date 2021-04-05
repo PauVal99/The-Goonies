@@ -1,5 +1,5 @@
 TILEMAP
-32 60 -- Size of tile map in tiles
+32 68 -- Size of tile map in tiles
 16 16 -- Tile size & block size
 images/yellow/Yellow.png -- Tilesheet
 11 6 -- Number of tiles in tilesheet
@@ -23,6 +23,10 @@ B 9  ?@ACB?@A      9    9      C
 M"D""JKLNMJKL""""""D""""D""""""N
 SRSRSRSRSRSRSRSRSRSRSRSRSRRSQ.U-
 RSRSRSRSRSRSRSRSRSRSRSRSRSRS 9 /
+                                
+                                
+                                
+                                
 SRSRSRSRSRSRSRSRSRSRSRSRSRRS 9 :
 RSRSRSRSRSRSRSRSRSRSRSRSRSRS 9 8
 SRSRSRSRSRSRSRSRSRSRSRSRSRRS 9 C
@@ -43,6 +47,10 @@ B 9 Z            Z  9 CB 9  ?@AC
 M"D"\""""""""""""\""D"NM"D""JKLN
 RSRSRSRSRQU.VQSRSRSRSRSRSRSRSRSR
 SRSRSRSRS  9  SRSRSRSRSRSRSRSRSR
+                                
+                                
+                                
+                                
 RSRSRSRSR  9  RSRSRSRSRSRSRSRSRS
 SRSRSRSRS  9  SRSRSRSRSRSRSRSRSR
 ,QOPUVO-,  9  -,OPQUVQVOPQVUVOP-

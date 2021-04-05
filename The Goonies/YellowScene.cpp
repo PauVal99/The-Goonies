@@ -30,11 +30,10 @@ void YellowScene::setEnemies() {
 	createSkull(glm::ivec2(1, 8), glm::ivec2(1, 7));
 	createSkull(glm::ivec2(10, 8), glm::ivec2(10, 20));
 	createSkull(glm::ivec2(23, 8), glm::ivec2(23, 26));
-	createSkull(glm::ivec2(23, 28), glm::ivec2(23, 30));
-	createSkull(glm::ivec2(7, 51), glm::ivec2(7, 18));
-	createSkull(glm::ivec2(3, 58), glm::ivec2(3, 14));
-	createSkull(glm::ivec2(17, 58), glm::ivec2(17, 25));
-	
+	createSkull(glm::ivec2(23, 32), glm::ivec2(23, 30));
+	createSkull(glm::ivec2(7, 59), glm::ivec2(7, 18));
+	createSkull(glm::ivec2(3, 66), glm::ivec2(3, 14));
+	createSkull(glm::ivec2(17, 66), glm::ivec2(17, 25));
 }
 
 void YellowScene::setPowerUps() {
@@ -43,11 +42,11 @@ void YellowScene::setPowerUps() {
 	powerUps.push_back(key);
 
 	key = new Key();
-	key->init(glm::ivec2(29, 36) * TILE_SIZE, OFFSET, texProgram);
+	key->init(glm::ivec2(29, 40) * TILE_SIZE, OFFSET, texProgram);
 	powerUps.push_back(key);
 
 	key = new Key();
-	key->init(glm::ivec2(27, 58) * TILE_SIZE, OFFSET, texProgram);
+	key->init(glm::ivec2(27, 66) * TILE_SIZE, OFFSET, texProgram);
 	powerUps.push_back(key);
 
 	Shield* shield = new Shield();
@@ -55,7 +54,7 @@ void YellowScene::setPowerUps() {
 	powerUps.push_back(shield);
 
 	TimePowerUp* timePowerUp = new TimePowerUp();
-	timePowerUp->init(glm::ivec2(21, 28) * TILE_SIZE, OFFSET, texProgram);
+	timePowerUp->init(glm::ivec2(21, 32) * TILE_SIZE, OFFSET, texProgram);
 	powerUps.push_back(timePowerUp);
 }
 
@@ -65,11 +64,11 @@ void YellowScene::setDoors() {
 	doors.push_back(door);
 
 	door = new Door();
-	door->init(glm::ivec2(6, 28) * TILE_SIZE, OFFSET, texProgram);
+	door->init(glm::ivec2(6, 32) * TILE_SIZE, OFFSET, texProgram);
 	doors.push_back(door);
 
 	door = new Door();
-	door->init(glm::ivec2(3, 45) * TILE_SIZE, OFFSET, texProgram);
+	door->init(glm::ivec2(3, 53) * TILE_SIZE, OFFSET, texProgram);
 	doors.push_back(door);
 }
 
@@ -77,31 +76,29 @@ void YellowScene::setObstacles() {
 
 	ValveWater* valveWater = new ValveWater();
 	valveWater->setOrientation(0);
-	valveWater->init(glm::ivec2(2, 29) * TILE_SIZE, OFFSET, texProgram);
+	valveWater->init(glm::ivec2(2, 33) * TILE_SIZE, OFFSET, texProgram);
 	valveWater->setCollisionMap(collisionMap);
 	obstacles.push_back(valveWater);
 
 	valveWater = new ValveWater();
 	valveWater->setOrientation(1);
-	valveWater->init(glm::ivec2(5, 35) * TILE_SIZE, OFFSET, texProgram);
+	valveWater->init(glm::ivec2(5, 39) * TILE_SIZE, OFFSET, texProgram);
 	valveWater->setCollisionMap(collisionMap);
 	obstacles.push_back(valveWater);
 
-
 	valveWater = new ValveWater();
 	valveWater->setOrientation(0);
-	valveWater->init(glm::ivec2(15, 35) * TILE_SIZE, OFFSET, texProgram);
+	valveWater->init(glm::ivec2(15, 39) * TILE_SIZE, OFFSET, texProgram);
 	valveWater->setCollisionMap(collisionMap);
 	obstacles.push_back(valveWater);
 
 	Drop* drop = new Drop();
-	drop->init(glm::ivec2(27, 31) * TILE_SIZE, OFFSET, texProgram);
+	drop->init(glm::ivec2(27, 35) * TILE_SIZE, OFFSET, texProgram);
 	drop->setCollisionMap(collisionMap);
 	obstacles.push_back(drop);
 
 	drop = new Drop();
-	drop->init(glm::ivec2(10, 54) * TILE_SIZE, OFFSET, texProgram);
+	drop->init(glm::ivec2(10, 62) * TILE_SIZE, OFFSET, texProgram);
 	drop->setCollisionMap(collisionMap);
 	obstacles.push_back(drop);
-
 }

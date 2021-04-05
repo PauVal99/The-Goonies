@@ -31,9 +31,7 @@ Scene::~Scene()
 	doors.clear();
 }
 
-
 void Scene::createSkull(glm::ivec2 pos, glm::ivec2 patrolPoints) {
-
 	Skull* skull = new Skull();
 	skull->init(pos * TILE_SIZE, OFFSET, texProgram);
 	skull->setCollisionMap(collisionMap);
