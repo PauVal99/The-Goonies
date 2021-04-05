@@ -47,7 +47,7 @@ glm::vec2 Player::setSizeInSpritesheet() {
 }
 
 void Player::takeDamage(const int &damage) {
-	if(damageCooldown == 0) {
+	if(!godModeActivated && damageCooldown == 0) {
 		if(shieldHitsCounter == 0) {
 			health -= damage;
 			if(health <= 0)
@@ -179,6 +179,7 @@ void Player::childUpdate(int deltaTime) {
 	moveSideways();
 	climb();
 	jump();
+	godMode();
 
 	if(!jumping && !climbing && !collisionMap->onGround(getCollisionBox()))
 		position.y += FALL_SPEED;
@@ -188,6 +189,8 @@ void Player::childUpdate(int deltaTime) {
 
 	prevUp = Game::instance().getSpecialKey(GLUT_KEY_UP);
 	prevSpace = Game::instance().getKey(GLUT_KEY_SPACEBAR);
+	prevG = Game::instance().getKey('g');
+	prevS = Game::instance().getKey('s');
 	timePowerUpUpdate(deltaTime);
 	wounded(deltaTime);
 }
@@ -305,6 +308,21 @@ void Player::jump() {
 			startY = position.y;
 		}
 	}
+}
+
+void Player::godMode() {
+	if(!prevG && Game::instance().getKey('g')) {
+		godModeActivated = !godModeActivated;
+		if(godModeActivated) {
+			activateHyperShoes();
+			activateTimePowerUp();
+			activateShield();
+			addKey();
+		}
+	}
+
+	if(godModeActivated && !prevS && Game::instance().getKey('s'))
+		Game::instance().nextScene();
 }
 
 void Player::wounded(int deltaTime) {

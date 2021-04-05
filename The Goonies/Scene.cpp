@@ -94,21 +94,29 @@ void Scene::update(int deltaTime)
 		if (collision(playerCollisionBox, obstacle->getCollisionBox()) && obstacle->hit())
 			player->takeDamage(obstacle->damage());
 
-	gui->update(deltaTime);		
+	if(player->isGodMode() && prevF && Game::instance().getKey('f'))
+		for (auto door : doors) {
+			door->playerInteraction(true);
+			door->playerInteraction(true);
+		}
+
+	gui->update(deltaTime);
+	prevF = Game::instance().getKey('f');
 }
 
 void Scene::updateActors(int deltaTime) {
 	player->update(deltaTime);
 	camera->update(player->getPosition());
 
-	if (!player->isTimePowerUpActive())
-		for (unsigned int i = 0; i < enemies.size(); ++i) {
+	for (unsigned int i = 0; i < enemies.size(); ++i) {
+		if(!player->isTimePowerUpActive() || enemies[i]->isDead()) {
 			enemies[i]->update(deltaTime);
 			if(enemies[i]->remove()) {
 				delete enemies[i];
 				enemies.erase(enemies.begin() + i);
 			}
 		}
+	}
 
 	for (unsigned int i = 0; i < powerUps.size(); ++i) {
 		powerUps[i]->update(deltaTime);

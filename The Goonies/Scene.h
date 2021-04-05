@@ -61,6 +61,7 @@ private:
 	bool collision(const CollisionBox &collisionBox1, const CollisionBox &collisionBox2);
 
 private:
+	int prevF = false;
 	float currentTime;
 	glm::mat4 projection;
 	Camera* camera;

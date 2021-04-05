@@ -32,32 +32,36 @@ void GUI::init(ShaderProgram *shaderProgram)
 	spritesheet.loadFromFile("images/GUI.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	spritesheet.setMagFilter(GL_NEAREST);
 
-	health = Sprite::createSprite(glm::vec2(124, 16), glm::vec2(0.25f, 0.5f), &spritesheet, shaderProgram);
+	health = Sprite::createSprite(glm::vec2(124, 16), glm::vec2(0.2f, 0.5f), &spritesheet, shaderProgram);
 	health->setPosition(glm::vec2(6, 4));
 
-	experience = Sprite::createSprite(glm::vec2(0, 16), glm::vec2(0.25f, 0.5f), &spritesheet, shaderProgram);
+	experience = Sprite::createSprite(glm::vec2(0, 16), glm::vec2(0.2f, 0.5f), &spritesheet, shaderProgram);
 	setSprite(experience, glm::vec2(0, 0.5f));
 	experience->setPosition(glm::vec2(6, 24));
 
-	voidShield = Sprite::createSprite(glm::vec2(32, 32), glm::vec2(0.25f, 0.5f), &spritesheet, shaderProgram);
-    setSprite(voidShield, glm::vec2(0.5f, 0.5f));
+	voidShield = Sprite::createSprite(glm::vec2(32, 32), glm::vec2(0.2f, 0.5f), &spritesheet, shaderProgram);
+    setSprite(voidShield, glm::vec2(0.4f, 0.5f));
 
-	shield = Sprite::createSprite(glm::vec2(32, 32), glm::vec2(0.25f, 0.5f), &spritesheet, shaderProgram);
-    setSprite(shield, glm::vec2(0.5f, 0.f));
+	shield = Sprite::createSprite(glm::vec2(32, 32), glm::vec2(0.2f, 0.5f), &spritesheet, shaderProgram);
+    setSprite(shield, glm::vec2(0.4f, 0.f));
 
-	voidKey = Sprite::createSprite(glm::vec2(32, 32), glm::vec2(0.25f, 0.5f), &spritesheet, shaderProgram);
-    setSprite(voidKey, glm::vec2(0.75f, 0.5f));
+	voidKey = Sprite::createSprite(glm::vec2(32, 32), glm::vec2(0.2f, 0.5f), &spritesheet, shaderProgram);
+    setSprite(voidKey, glm::vec2(0.6f, 0.5f));
 	voidKey->setPosition(glm::vec2(472, 6));
 
-	key = Sprite::createSprite(glm::vec2(32, 32), glm::vec2(0.25f, 0.5f), &spritesheet, shaderProgram);
-    setSprite(key, glm::vec2(0.75f, 0.f));
+	key = Sprite::createSprite(glm::vec2(32, 32), glm::vec2(0.2f, 0.5f), &spritesheet, shaderProgram);
+    setSprite(key, glm::vec2(0.6f, 0.f));
 	key->setPosition(glm::vec2(472, 6));
 
-	voidFriend = Sprite::createSprite(glm::vec2(16, 16), glm::vec2(0.25f, 0.5f), &spritesheet, shaderProgram);
-    setSprite(voidFriend, glm::vec2(0.25f, 0.5f));
+	voidFriend = Sprite::createSprite(glm::vec2(16, 16), glm::vec2(0.2f, 0.5f), &spritesheet, shaderProgram);
+    setSprite(voidFriend, glm::vec2(0.2f, 0.5f));
 
-	savedFriend = Sprite::createSprite(glm::vec2(16, 16), glm::vec2(0.25f, 0.5f), &spritesheet, shaderProgram);
-    setSprite(savedFriend, glm::vec2(0.25f, 0.f));
+	savedFriend = Sprite::createSprite(glm::vec2(16, 16), glm::vec2(0.2f, 0.5f), &spritesheet, shaderProgram);
+    setSprite(savedFriend, glm::vec2(0.2f, 0.f));
+
+	godMode = Sprite::createSprite(glm::vec2(16, 16), glm::vec2(0.2f, 0.5f), &spritesheet, shaderProgram);
+	setSprite(godMode, glm::vec2(0.8f, 0.f));
+	godMode->setPosition(glm::vec2(492, 368));
 }
 
 void GUI::setPlayer(Player* player) {
@@ -156,6 +160,9 @@ void GUI::render() {
 			}
 		}
 	}
+
+	if(player->isGodMode())
+		godMode->render();
 
 	if(player->hasTimePowerUp())
 		clock->render();
