@@ -1,6 +1,7 @@
 #include <GL/glew.h>
 #include <GL/glut.h>
 #include "Door.h"
+#include "SoundEngine.h"
 
 #define COLLISION_BOX_MIN_CLOSED glm::ivec2(2, 32)
 #define COLLISION_BOX_MAX_CLOSED glm::ivec2(12, 46)
@@ -61,6 +62,7 @@ bool Door::playerInteraction(bool hasKey) {
 		if (sprite->animation() == CLOSED1KEY && hasKey) {
 			sprite->changeAnimation(OPENFRIEND);
 			open = true;
+			SoundEngine::getInstance()->playOpenDoor();
 			return true;
 		} else if (sprite->animation() == OPENFRIEND) {
 			sprite->changeAnimation(OPEN);

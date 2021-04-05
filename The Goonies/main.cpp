@@ -82,10 +82,7 @@ static void idleCallback()
 
 int main(int argc, char **argv)
 {
-
-	irrklang::ISoundEngine* engine = irrklang::createIrrKlangDevice();
-	// play some sound stream, looped
-	engine->play2D("sounds/MainTrack.mp3", true);
+	
 	// GLUT initialization
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
