@@ -14,29 +14,32 @@ Sprite *Sprite::createSprite(const glm::vec2 &quadSize, const glm::vec2 &sizeInS
 
 Sprite::Sprite(const glm::vec2 &quadSize, const glm::vec2 &sizeInSpritesheet, Texture *spritesheet, ShaderProgram *program)
 {
+	this->sizeInSpritesheet = sizeInSpritesheet;
+	texture = spritesheet;
+	shaderProgram = program;
+	setSize(quadSize);
+}
+
+void Sprite::setSize(const glm::vec2 &size) {
 	float vertices[24] = {0.f, 0.f, 0.f, 0.f, 
-												quadSize.x, 0.f, sizeInSpritesheet.x, 0.f, 
-												quadSize.x, quadSize.y, sizeInSpritesheet.x, sizeInSpritesheet.y, 
-												0.f, 0.f, 0.f, 0.f, 
-												quadSize.x, quadSize.y, sizeInSpritesheet.x, sizeInSpritesheet.y, 
-												0.f, quadSize.y, 0.f, sizeInSpritesheet.y};
+											size.x, 0.f, sizeInSpritesheet.x, 0.f, 
+											size.x, size.y, sizeInSpritesheet.x, sizeInSpritesheet.y, 
+											0.f, 0.f, 0.f, 0.f, 
+											size.x, size.y, sizeInSpritesheet.x, sizeInSpritesheet.y, 
+											0.f, size.y, 0.f, sizeInSpritesheet.y};
 
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBufferData(GL_ARRAY_BUFFER, 24 * sizeof(float), vertices, GL_STATIC_DRAW);
-	posLocation = program->bindVertexAttribute("position", 2, 4*sizeof(float), 0);
-	texCoordLocation = program->bindVertexAttribute("texCoord", 2, 4*sizeof(float), (void *)(2*sizeof(float)));
-	texture = spritesheet;
-	shaderProgram = program;
-	currentAnimation = -1;
-	position = glm::vec2(0.f);
+	posLocation = shaderProgram->bindVertexAttribute("position", 2, 4*sizeof(float), 0);
+	texCoordLocation = shaderProgram->bindVertexAttribute("texCoord", 2, 4*sizeof(float), (void *)(2*sizeof(float)));
 }
 
 void Sprite::update(int deltaTime)
 {
-	if(currentAnimation >= 0)
+	if(!pause && currentAnimation >= 0)
 	{
 		timeAnimation += deltaTime;
 		while(timeAnimation > animations[currentAnimation].millisecsPerKeyframe)
@@ -53,6 +56,7 @@ void Sprite::render() const
 	glm::mat4 modelview = glm::translate(glm::mat4(1.0f), glm::vec3(position.x, position.y, 0.f));
 	shaderProgram->setUniformMatrix4f("modelview", modelview);
 	shaderProgram->setUniform2f("texCoordDispl", texCoordDispl.x, texCoordDispl.y);
+	shaderProgram->setUniform4f("color", color.x, color.y, color.z, color.a);
 	glEnable(GL_TEXTURE_2D);
 	texture->use();
 	glBindVertexArray(vao);
@@ -96,6 +100,14 @@ void Sprite::changeAnimation(int animId)
 	}
 }
 
+void Sprite::startAnimation() {
+	pause = false;
+}
+
+void Sprite::pauseAnimation() {
+	pause = true;
+}
+
 int Sprite::animation() const
 {
 	return currentAnimation;
@@ -104,6 +116,10 @@ int Sprite::animation() const
 void Sprite::setPosition(const glm::vec2 &pos)
 {
 	position = pos;
+}
+
+void Sprite::setColor(const glm::vec4 &color) {
+	this->color = color;
 }
 
 

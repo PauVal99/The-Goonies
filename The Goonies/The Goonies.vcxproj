@@ -1,4 +1,3 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -11,26 +10,77 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Chain.cpp" />
+    <ClCompile Include="Door.cpp" />
+    <ClCompile Include="Drop.cpp" />
+    <ClCompile Include="ExperiencePotion.cpp" />
+    <ClCompile Include="GreenScene.cpp" />
+    <ClCompile Include="Key.cpp" />
+    <ClCompile Include="Obstacle.cpp" />
+    <ClCompile Include="OrangeScene.cpp" />
+    <ClCompile Include="PurpleScene.cpp" />
+    <ClCompile Include="Shield.cpp" />
+    <ClCompile Include="Skull.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="HyperShoes.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PowerUp.cpp" />
+    <ClCompile Include="RedScene.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
+    <ClCompile Include="Stone.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="TimePowerUp.cpp" />
+    <ClCompile Include="ValveWater.cpp" />
+    <ClCompile Include="VitalityPotion.cpp" />
+    <ClCompile Include="YellowScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Chain.h" />
+    <ClInclude Include="Door.h" />
+    <ClInclude Include="Drop.h" />
+    <ClInclude Include="ExperiencePotion.h" />
+    <ClInclude Include="GreenScene.h" />
+    <ClInclude Include="Key.h" />
+    <ClInclude Include="Obstacle.h" />
+    <ClInclude Include="OrangeScene.h" />
+    <ClInclude Include="PurpleScene.h" />
+    <ClInclude Include="Shield.h" />
+    <ClInclude Include="Skull.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="HyperShoes.h" />
+    <ClInclude Include="PowerUp.h" />
+    <ClInclude Include="RedScene.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderProgram.h" />
+    <ClInclude Include="Stone.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="AnimKeyframes.h" />
+    <ClCompile Include="CollisionMap.cpp" />
+    <ClInclude Include="CollisionMap.h" />
+    <ClInclude Include="CollisionBox.h" />
+    <ClCompile Include="Actor.cpp" />
+    <ClInclude Include="Actor.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClInclude Include="Camera.h" />
+    <ClCompile Include="Camera.cpp" />
+    <ClInclude Include="TimePowerUp.h" />
+    <ClInclude Include="ValveWater.h" />
+    <ClInclude Include="VitalityPotion.h" />
+    <ClCompile Include="Bat.cpp" />
+    <ClInclude Include="Bat.h" />
+    <ClInclude Include="YellowScene.h" />
+    <ClInclude Include="GUI.h" />
+    <ClCompile Include="GUI.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5BE6CA2A-E5A8-40CC-9015-047CE0C78036}</ProjectGuid>
@@ -53,8 +103,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-  <ImportGroup Label="ExtensionSettings">
-  </ImportGroup>
+  <ImportGroup Label="ExtensionSettings" />
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -70,8 +119,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader />
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -87,8 +135,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader />
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -105,6 +152,5 @@
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets" />
 </Project>
