@@ -183,9 +183,11 @@ void Player::childUpdate(int deltaTime) {
 	if(!jumping && !climbing && !collisionMap->onGround(getCollisionBox()))
 		position.y += FALL_SPEED;
 
-	if(Game::instance().getSpecialKey(GLUT_KEY_UP) && collisionMap->onPortal(getCollisionBox()))
+	if(!prevUp && Game::instance().getSpecialKey(GLUT_KEY_UP) && collisionMap->onPortal(getCollisionBox()))
 		Game::instance().nextScene();
 
+	prevUp = Game::instance().getSpecialKey(GLUT_KEY_UP);
+	prevSpace = Game::instance().getKey(GLUT_KEY_SPACEBAR);
 	timePowerUpUpdate(deltaTime);
 	wounded(deltaTime);
 }
@@ -204,8 +206,6 @@ void Player::attack(int deltaTime) {
 		if(attacking < 0)
 			attacking = 0;
 	}
-
-	prevSpace = Game::instance().getKey(GLUT_KEY_SPACEBAR);
 }
 
 void Player::moveSideways() {
@@ -230,13 +230,6 @@ void Player::moveSideways() {
 				sprite->changeAnimation(MOVE_RIGHT);
 
 			if(collisionMap->collision(getCollisionBox())) {
-
-				#include <windows.h>
-
-				char buffer[100];
-				sprintf_s(buffer, "hello\n");
-				OutputDebugStringA(buffer);
-
 				position.x -= moveSpeed;
 				if(sprite->animation() == MOVE_RIGHT)
 					sprite->changeAnimation(STAND_RIGHT);
@@ -267,12 +260,12 @@ void Player::climb() {
 				sprite->startAnimation();
 				position.y += moveSpeed;
 			} else sprite->pauseAnimation();
-		} else if(onGround && (onVine != glm::ivec2(-1, -1)) && Game::instance().getSpecialKey(GLUT_KEY_UP)) {
+		} else if(onGround && (onVine != glm::ivec2(-1, -1)) && !prevUp && Game::instance().getSpecialKey(GLUT_KEY_UP)) {
 			climbing = true;
 			sprite->changeAnimation(CLIMB);
 			position.x = onVine.x - 6;
 			position.y -= moveSpeed;
-		} else if((aboveVine != glm::ivec2(-1, -1)) && Game::instance().getSpecialKey(GLUT_KEY_DOWN)) {
+		} else if((aboveVine != glm::ivec2(-1, -1)) && !prevUp && Game::instance().getSpecialKey(GLUT_KEY_DOWN)) {
 			climbing = true;
 			sprite->changeAnimation(CLIMB);
 			position.x = aboveVine.x - 6;
@@ -312,8 +305,6 @@ void Player::jump() {
 			startY = position.y;
 		}
 	}
-
-	prevUp = Game::instance().getSpecialKey(GLUT_KEY_UP);
 }
 
 void Player::wounded(int deltaTime) {
