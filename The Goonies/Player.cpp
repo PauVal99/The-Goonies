@@ -300,7 +300,7 @@ void Player::jump() {
 				else sprite->changeAnimation(STAND_RIGHT);
 			} else
 				position.y = int(startY - JUMP_HEIGHT * sin(3.14159f * jumpAngle / 180.f));
-		} else if(!prevUp && Game::instance().getSpecialKey(GLUT_KEY_UP) && collisionMap->onGround(getCollisionBox())) {
+		} else if(!prevUp && Game::instance().getSpecialKey(GLUT_KEY_UP) && collisionMap->onGround(getCollisionBox()) && !collisionMap->onPortal(getCollisionBox())) {
 			
 			SoundEngine::getInstance()->playJump();
 			

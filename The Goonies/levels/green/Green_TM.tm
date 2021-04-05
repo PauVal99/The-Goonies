@@ -8,11 +8,11 @@ images/green/green.png -- Tilesheet
 7                     CB456    87                                   Z          Y  87 456       C
 B                     CB?@A    CB                !""""""""""""""""""\"""#      Y  CB ?@A       8
 M"""""""""""""""""""""NMJKL""""N7 )*+            VOP.VQUVOPQUOP-,QVOPUQ.V      Y  NM"JKL"""""""N
-,QUVOPQUVOPVQUOPU.VOPUVOPQUVU.V$B 456               9          CB      9       Y  QVOPVUQOPVUQ.-
-B                9           9 87 ?@A               9          87 )*+  9       Y              9C
-7                9           9 CM"JKL"""""""""""""""D""""""""# CB 456  9       Y              98
-B                9           9 8,QOPVQU.VOPQ:;OPVQOPVUVQOPUQ.V 87 ?@A  9       Z              9C
-7                9           9 CB      9    /0              9  CM"JKL""D""#   !\""""""""""""""DN
+,QUVOPQUVOPVQUOPU.VOPUVOPQUVU.V$B 456               9          CB      9       Y  QVOPVUQOPVU.Q-
+B                9           9 87 ?@A               9          87 )*+  9       Y             9 C
+7                9           9 CM"JKL"""""""""""""""D""""""""# CB 456  9       Y             9 8
+B                9           9 8,QOPVQU.VOPQ:;OPVQOPVUVQOPUQ.V 87 ?@A  9       Z             9 C
+7                9           9 CB      9    /0              9  CM"JKL""D""#   !\"""""""""""""D"N
 B                9           9 87      9    :;              9  8,OPQV.QOPUV   VQOPVQUQOPUQUOPVQ-
 7                9           9 CB      9    /0              9  CB    9                         8
 B    !"""""""""""D"""""""""""D"NM""""""D""# :; !""""""""""""D""NB    9                         C
