@@ -1,5 +1,6 @@
 #include <GL/glew.h>
 #include <GL/glut.h>
+#include <irrKlang.h>
 #include "Game.h"
 #include "RedScene.h"
 #include "GreenScene.h"
@@ -12,6 +13,7 @@ void Game::init()
 	bPlay = true;
 
 	player = Player();
+
 
 	scenes.push(std::make_shared<PurpleScene>());
 	scenes.push(std::make_shared<YellowScene>());
