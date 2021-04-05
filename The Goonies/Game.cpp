@@ -1,17 +1,20 @@
 #include <GL/glew.h>
 #include <GL/glut.h>
+#include <irrKlang.h>
 #include "Game.h"
 #include "RedScene.h"
 #include "GreenScene.h"
 #include "PurpleScene.h"
 #include "YellowScene.h"
 #include "OrangeScene.h"
+#include "SoundEngine.h"
 
 void Game::init()
 {
 	bPlay = true;
 
 	player = Player();
+
 
 	scenes.push(std::make_shared<PurpleScene>());
 	scenes.push(std::make_shared<YellowScene>());
@@ -22,6 +25,7 @@ void Game::init()
 	scenes.push(std::make_shared<PurpleScene>());
 	
 	scenes.front()->init(&player);
+	SoundEngine::getInstance()->playMainTheme();
 }
 
 void Game::nextScene() {
@@ -36,6 +40,7 @@ bool Game::update(int deltaTime)
 {
 	if(next) {
 		next = false;
+		SoundEngine::getInstance()->playPortal();
 		scenes.pop();
 		scenes.front()->init(&player);
 	} else if(restartGame) {

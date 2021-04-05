@@ -2,6 +2,7 @@
 #include <GL/glut.h>
 #include "Game.h"
 #include "Player.h"
+#include "SoundEngine.h"
 
 #define JUMP_HEIGHT 32
 #define JUMP_ANGLE_STEP 4
@@ -49,6 +50,7 @@ glm::vec2 Player::setSizeInSpritesheet() {
 void Player::takeDamage(const int &damage) {
 	if(!godModeActivated && damageCooldown == 0) {
 		if(shieldHitsCounter == 0) {
+			SoundEngine::getInstance()->playHit();
 			health -= damage;
 			if(health <= 0)
 				Game::instance().restart();
@@ -299,6 +301,9 @@ void Player::jump() {
 			} else
 				position.y = int(startY - JUMP_HEIGHT * sin(3.14159f * jumpAngle / 180.f));
 		} else if(!prevUp && Game::instance().getSpecialKey(GLUT_KEY_UP) && collisionMap->onGround(getCollisionBox())) {
+			
+			SoundEngine::getInstance()->playJump();
+			
 			if((sprite->animation() == MOVE_LEFT) || (sprite->animation() == STAND_LEFT))
 				sprite->changeAnimation(JUMP_LEFT);
 			else sprite->changeAnimation(JUMP_RIGHT);
