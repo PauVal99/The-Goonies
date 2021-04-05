@@ -50,14 +50,6 @@ void Drop::setAnimations() {
 	iniPos = getPosition();
 }
 
-int Drop::setEndTime() {
-	return DIE_TIME;
-}
-
-int Drop::setEndAnimation() {
-	return CRASH;
-}
-
 void Drop::render() {
 	if (!restarting)
 		sprite -> render();
@@ -117,14 +109,8 @@ int Drop::damage() {
 	return 10;
 }
 
-int Drop::getType() {
-	return 1;
-}
-
-void Drop::changeAnimation(int animation) {
-	sprite->changeAnimation(animation);
-}
-
-bool Drop::isRestarting() {
-	return restarting;
+bool Drop::hit() {
+	if(!restarting)
+		sprite->changeAnimation(CRASH);
+	return !restarting;
 }

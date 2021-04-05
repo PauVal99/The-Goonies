@@ -90,19 +90,9 @@ void Scene::update(int deltaTime)
 		if (collision(playerCollisionBox, door->getCollisionBox()) && door->playerInteraction(player->hasKey()))
 			player->removeKey();
 
-	for (auto obstacle : obstacles) {
-		if (collision(playerCollisionBox, obstacle->getCollisionBox())) {
-			if (obstacle->getType() == 1) { 
-				obstacle->changeAnimation(2);
-				if(!obstacle->isRestarting())
-					player->takeDamage(obstacle->damage());
-			} else if (obstacle->getType() == 2) {
-				if (!obstacle->isRestarting())
-					player->takeDamage(obstacle->damage());
-			}
-		}
-	}
-			player->removeKey();	
+	for (auto obstacle : obstacles)
+		if (collision(playerCollisionBox, obstacle->getCollisionBox()) && obstacle->hit())
+			player->takeDamage(obstacle->damage());
 
 	gui->update(deltaTime);		
 }
