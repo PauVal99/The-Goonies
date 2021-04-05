@@ -110,11 +110,53 @@ void RedScene::setObstacles() {
 	drop->setCollisionMap(collisionMap);
 	obstacles.push_back(drop);
 
-	/*ValveWater* valveWater = new ValveWater();
-	valveWater->setOrientation(1);
-	valveWater->init(glm::ivec2(18, 12) * TILE_SIZE, OFFSET, texProgram);
+	ValveWater* valveWater = new ValveWater();
+	valveWater->setOrientation(0);
+	valveWater->init(glm::ivec2(53, 8) * TILE_SIZE, OFFSET, texProgram);
 	valveWater->setCollisionMap(collisionMap);
-	obstacles.push_back(valveWater);*/
+	obstacles.push_back(valveWater);
+
+	valveWater = new ValveWater();
+	valveWater->setOrientation(1);
+	valveWater->init(glm::ivec2(56, 8) * TILE_SIZE, OFFSET, texProgram);
+	valveWater->setCollisionMap(collisionMap);
+	obstacles.push_back(valveWater);
+
+	valveWater = new ValveWater();
+	valveWater->setOrientation(1);
+	valveWater->init(glm::ivec2(68, 8) * TILE_SIZE, OFFSET, texProgram);
+	valveWater->setCollisionMap(collisionMap);
+	obstacles.push_back(valveWater);
+
+	valveWater = new ValveWater();
+	valveWater->setOrientation(0);
+	valveWater->init(glm::ivec2(81, 15) * TILE_SIZE, OFFSET, texProgram);
+	valveWater->setCollisionMap(collisionMap);
+	obstacles.push_back(valveWater);
+
+	valveWater = new ValveWater();
+	valveWater->setOrientation(1);
+	valveWater->init(glm::ivec2(84, 15) * TILE_SIZE, OFFSET, texProgram);
+	valveWater->setCollisionMap(collisionMap);
+	obstacles.push_back(valveWater);
+
+	valveWater = new ValveWater();
+	valveWater->setOrientation(1);
+	valveWater->init(glm::ivec2(91, 15) * TILE_SIZE, OFFSET, texProgram);
+	valveWater->setCollisionMap(collisionMap);
+	obstacles.push_back(valveWater);
+
+	valveWater = new ValveWater();
+	valveWater->setOrientation(1);
+	valveWater->init(glm::ivec2(91, 9) * TILE_SIZE, OFFSET, texProgram);
+	valveWater->setCollisionMap(collisionMap);
+	obstacles.push_back(valveWater);
+
+	valveWater = new ValveWater();
+	valveWater->setOrientation(0);
+	valveWater->init(glm::ivec2(88, 9) * TILE_SIZE, OFFSET, texProgram);
+	valveWater->setCollisionMap(collisionMap);
+	obstacles.push_back(valveWater);
 
 	/*Stone* stone = new Stone();
 	stone->init(glm::ivec2(24, 6) * TILE_SIZE, OFFSET, texProgram);
