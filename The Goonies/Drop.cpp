@@ -43,7 +43,7 @@ void Drop::setAnimations() {
 	sprite->setAnimationSpeed(DROP, 1);
 	sprite->addKeyframe(DROP, glm::vec2(0.5f, 0.f));
 
-	sprite->setAnimationSpeed(CRASH, 0.5);
+	sprite->setAnimationSpeed(CRASH, 1);
 	sprite->addKeyframe(CRASH, glm::vec2(0.75f, 0.f));
 
 	sprite->changeAnimation(CREATE);
@@ -59,14 +59,17 @@ int Drop::setEndAnimation() {
 }
 
 void Drop::render() {
-	if (!restarting)sprite -> render();
+	if (!restarting)
+		sprite -> render();
 }
 
 bool Drop::computeCooldown(int deltaTime) {
 
 	animationCooldown -= deltaTime;
-	if (animationCooldown <= 0)return true;
-	else return false;
+	if (animationCooldown <= 0)
+		return true;
+	else 
+		return false;
 }
 
 void Drop::childUpdate(int deltaTime) {
@@ -85,13 +88,14 @@ void Drop::childUpdate(int deltaTime) {
 		if (animationCooldown == 0)animationCooldown = 100;
 		if (computeCooldown(deltaTime)) {
 			if (collisionMap->collision(getCollisionBox())) {
+				animationCooldown = 0;
 				sprite->changeAnimation(CRASH);
 			}
 		}
 	}
 	else if (sprite->animation() == CRASH && !restarting) {
 
-		if (animationCooldown == 0)animationCooldown = 100;
+		if (animationCooldown == 0) animationCooldown = 200;
 		if (computeCooldown(deltaTime)) {
 			animationCooldown = 0;
 			restarting = true;
