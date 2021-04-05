@@ -147,17 +147,17 @@ void Scene::render()
 	for(auto map : tileMaps)
 		map.second->render();
 
-	for(auto enemy : enemies)
-		enemy->render();
-
-	for (auto powerUp : powerUps)
-		powerUp->render();
-
 	for (auto door : doors) 
 		door->render();
 
 	for (auto obstacle : obstacles)
 		obstacle->render();
+
+	for (auto powerUp : powerUps)
+		powerUp->render();
+
+	for(auto enemy : enemies)
+		enemy->render();
 
 	player->render();
 
