@@ -40,5 +40,28 @@ void YellowScene::setDoors() {
 
 void YellowScene::setObstacles() {
 
+	ValveWater* valveWater = new ValveWater();
+	valveWater->setOrientation(0);
+	valveWater->init(glm::ivec2(2, 29) * TILE_SIZE, OFFSET, texProgram);
+	valveWater->setCollisionMap(collisionMap);
+	obstacles.push_back(valveWater);
+
+	valveWater = new ValveWater();
+	valveWater->setOrientation(1);
+	valveWater->init(glm::ivec2(5, 35) * TILE_SIZE, OFFSET, texProgram);
+	valveWater->setCollisionMap(collisionMap);
+	obstacles.push_back(valveWater);
+
+	valveWater = new ValveWater();
+	valveWater->setOrientation(1);
+	valveWater->init(glm::ivec2(18, 35) * TILE_SIZE, OFFSET, texProgram);
+	valveWater->setCollisionMap(collisionMap);
+	obstacles.push_back(valveWater);
+
+	valveWater = new ValveWater();
+	valveWater->setOrientation(0);
+	valveWater->init(glm::ivec2(15, 35) * TILE_SIZE, OFFSET, texProgram);
+	valveWater->setCollisionMap(collisionMap);
+	obstacles.push_back(valveWater);
 
 }

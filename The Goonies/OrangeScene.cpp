@@ -113,4 +113,45 @@ void OrangeScene::setObstacles() {
 	drop->setCollisionMap(collisionMap);
 	obstacles.push_back(drop);
 
+	ValveWater* valveWater = new ValveWater();
+	valveWater->setOrientation(0);
+	valveWater->init(glm::ivec2(37, 16) * TILE_SIZE, OFFSET, texProgram);
+	valveWater->setCollisionMap(collisionMap);
+	obstacles.push_back(valveWater);
+
+	valveWater = new ValveWater();
+	valveWater->setOrientation(1);
+	valveWater->init(glm::ivec2(40, 16) * TILE_SIZE, OFFSET, texProgram);
+	valveWater->setCollisionMap(collisionMap);
+	obstacles.push_back(valveWater);
+
+	valveWater = new ValveWater();
+	valveWater->setOrientation(0);
+	valveWater->init(glm::ivec2(44, 16) * TILE_SIZE, OFFSET, texProgram);
+	valveWater->setCollisionMap(collisionMap);
+	obstacles.push_back(valveWater);
+
+	valveWater = new ValveWater();
+	valveWater->setOrientation(1);
+	valveWater->init(glm::ivec2(47, 16) * TILE_SIZE, OFFSET, texProgram);
+	valveWater->setCollisionMap(collisionMap);
+	obstacles.push_back(valveWater);
+
+	valveWater = new ValveWater();
+	valveWater->setOrientation(0);
+	valveWater->init(glm::ivec2(56, 11) * TILE_SIZE, OFFSET, texProgram);
+	valveWater->setCollisionMap(collisionMap);
+	obstacles.push_back(valveWater);
+
+	valveWater = new ValveWater();
+	valveWater->setOrientation(1);
+	valveWater->init(glm::ivec2(59, 11) * TILE_SIZE, OFFSET, texProgram);
+	valveWater->setCollisionMap(collisionMap);
+	obstacles.push_back(valveWater);
+
+	valveWater = new ValveWater();
+	valveWater->setOrientation(1);
+	valveWater->init(glm::ivec2(65, 11) * TILE_SIZE, OFFSET, texProgram);
+	valveWater->setCollisionMap(collisionMap);
+	obstacles.push_back(valveWater);
 }
