@@ -33,5 +33,6 @@ private:
     Sprite* boots;
     Sprite* marginTop;
     Sprite* marginBot;
+    Sprite* godMode;
 };
 #endif

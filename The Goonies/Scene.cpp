@@ -101,14 +101,15 @@ void Scene::updateActors(int deltaTime) {
 	player->update(deltaTime);
 	camera->update(player->getPosition());
 
-	if (!player->isTimePowerUpActive())
-		for (unsigned int i = 0; i < enemies.size(); ++i) {
+	for (unsigned int i = 0; i < enemies.size(); ++i) {
+		if(!player->isTimePowerUpActive() || enemies[i]->isDead()) {
 			enemies[i]->update(deltaTime);
 			if(enemies[i]->remove()) {
 				delete enemies[i];
 				enemies.erase(enemies.begin() + i);
 			}
 		}
+	}
 
 	for (unsigned int i = 0; i < powerUps.size(); ++i) {
 		powerUps[i]->update(deltaTime);
