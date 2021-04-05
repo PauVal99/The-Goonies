@@ -28,6 +28,7 @@ public:
 	int getArmour() { return shieldHitsCounter; };
 	int getSavedFirends() { return savedFriends; };
 	bool hasBoots() { return moveSpeed == 2; };
+	int getMaxHealth() { return maxHealth; };
 
 protected:
     string setImage();

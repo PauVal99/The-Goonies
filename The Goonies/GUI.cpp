@@ -65,7 +65,7 @@ void GUI::setPlayer(Player* player) {
 }
 
 void GUI::update(int deltaTime) {
-	health->setSize(glm::vec2((player->getHealth() * 124) / 100, 16));
+	health->setSize(glm::vec2((player->getHealth() * 124) / player->getMaxHealth(), 16));
 	experience->setSize(glm::vec2((player->getExperience() * 124) / 100, 16));
 }
 
