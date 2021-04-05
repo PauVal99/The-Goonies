@@ -190,6 +190,7 @@ void Player::childUpdate(int deltaTime) {
 	prevUp = Game::instance().getSpecialKey(GLUT_KEY_UP);
 	prevSpace = Game::instance().getKey(GLUT_KEY_SPACEBAR);
 	prevG = Game::instance().getKey('g');
+	prevS = Game::instance().getKey('s');
 	timePowerUpUpdate(deltaTime);
 	wounded(deltaTime);
 }
@@ -319,6 +320,9 @@ void Player::godMode() {
 			addKey();
 		}
 	}
+
+	if(godModeActivated && !prevS && Game::instance().getKey('s'))
+		Game::instance().nextScene();
 }
 
 void Player::wounded(int deltaTime) {

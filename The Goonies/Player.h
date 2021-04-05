@@ -50,7 +50,7 @@ private:
 	void godMode();
 
 private:
-	bool prevSpace = false, prevUp = false, prevG = false;
+	bool prevSpace = false, prevUp = false, prevG = false, prevS = false;
 	bool jumping = false, climbing = false, timePowerUp = false, key = false, godModeActivated = false;
 	int moveSpeed = 1, jumpAngle, startY;
 	int experience = 0, savedFriends = 0;

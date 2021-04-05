@@ -94,7 +94,14 @@ void Scene::update(int deltaTime)
 		if (collision(playerCollisionBox, obstacle->getCollisionBox()) && obstacle->hit())
 			player->takeDamage(obstacle->damage());
 
-	gui->update(deltaTime);		
+	if(player->isGodMode() && prevF && Game::instance().getKey('f'))
+		for (auto door : doors) {
+			door->playerInteraction(true);
+			door->playerInteraction(true);
+		}
+
+	gui->update(deltaTime);
+	prevF = Game::instance().getKey('f');
 }
 
 void Scene::updateActors(int deltaTime) {
