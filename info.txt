@@ -1,0 +1,43 @@
+Integrants
+- Sergi Doce
+- Pau Val
+
+Funcionalitats
+ - Hi ha cinc escenes de tres pantalles cadascuna. Cada una és d'un color diferent, la de color groc és vertical.
+ - Entre escenes estan implementats els portals. Només pots passar per un portal si has rescatat tots els amics de l'escena.
+ - Hi ha lianes per pujar i baixar plataformes.
+ - El jugador pot saltar per evitar obstacles.
+ - El jugador pot prémer espai per atacar i eliminar enemics.
+ - Hi ha un total de 13 amics per rescatar. Cada amic està tancat en una porta que cal una o dues claus per obrir.
+ - Hi ha dos enemics, la calavera es mou d'un costat a l'altre per terra i el ratpenat vola i et persegueix.
+ - Hi ha tres obstacles:
+     * Gota d'aigua: cau una gota del sostre.
+     * Pedra: una pedra que puja i baixa.
+     * Fuga d'aigua: una fuga que s'activa cada cert temps.
+ - El jugador té 100 punts de vida que augmenta amb cada nivell. Es puja de nivell cada 100 punts d'experiència. Matar enemics dona experiència.
+ - Hi ha cinc power ups diferents:
+     * Poció de vitalitat: recuperes tota la vida.
+     * Poció d'experiència: augmenta en 60 punts l'experiència.
+     * Escut: ignora els tres següents cops.
+     * Botes de mobilitat: et mous el doble de ràpid.
+     * Rellotge del temps: prement la tecla T para el temps 10 segons.
+ - Prement la tecla G actives el God Mode, ets invulnerable i dóna una clau, les botes de mobilitat i un rellotge màgic. Si tornes a prémer G desactiva la invulnerabilitat.
+ - Si tens el God Mode activat en prémer S passes a la següent escena.
+ - Si tens el God Mode activat en prémer F rescates tots els amics de l'escena automàticament.
+ - Hi ha un menú principal amb els crèdits, si prems la barra espaiadora surten les instruccions i comença el joc.
+ - Hi ha una pantalla en cas de Game Over i en cas de passar-te el joc.
+ - Hi ha sons per totes les interaccions i una banda sonora de fons.
+
+Instruccions
+↑ Jump / Move Up (on Vine) / Take Portal (on Portal)
+← Move Left
+→ Move Rigt
+↓ Move Down (on Vine)
+
+Space Attack
+T Use Time Clock
+
+-- God Mode
+G Activate God Mode
+S Skip Scene in God Mode
+F Save Friend in God Mode
