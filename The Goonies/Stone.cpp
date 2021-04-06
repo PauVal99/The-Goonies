@@ -20,15 +20,15 @@ void Stone::init(const glm::ivec2& iniPos, const glm::ivec2& tileMapOffset, Shad
 	spritesheet.setMagFilter(GL_NEAREST);
 	sprite = Sprite::createSprite(setSize(), setSizeInSpritesheet(), &spritesheet, &shaderProgram);
 
-	setPosition(iniPos);
-	setAnimations();
 	this->iniPos = iniPos;
+	this->iniPos.y -= 8;
+	setPosition(this->iniPos);
+	setAnimations();
 	this->tileMapOffset = tileMapOffset;
 	setChains(shaderProgram);
 }
 
 void Stone::setChains(ShaderProgram& shaderProgram) {
-	
 	int posYCounter = iniPos.y + 32;
 	for (int i = 0; i < 15; i++) {
 		Chain* x = new Chain();
@@ -113,6 +113,9 @@ void Stone::childUpdate(int deltaTime) {
 			renderChain[lastChainRendered] = true;
 
 			if (collisionMap->collision(getCollisionBox())) {
+				renderChain[lastChainRendered] = false;
+				lastChainRendered--;
+				position.y -= 16;
 				goingDown = false;
 			}
 		}
@@ -128,14 +131,6 @@ void Stone::childUpdate(int deltaTime) {
 	}
 }
 
-int Stone::getType() {
-	return 3;
-}
-
 void Stone::changeAnimation(int animation) {
 	sprite->changeAnimation(animation);
-}
-
-bool Stone::isRestarting() {
-	return restarting;
 }
