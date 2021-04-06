@@ -83,6 +83,8 @@
     <ClInclude Include="YellowScene.h" />
     <ClInclude Include="GUI.h" />
     <ClCompile Include="GUI.cpp" />
+    <ClCompile Include="GameOver.cpp" />
+    <ClInclude Include="GameOver.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5BE6CA2A-E5A8-40CC-9015-047CE0C78036}</ProjectGuid>

@@ -7,14 +7,12 @@
 #include "PurpleScene.h"
 #include "YellowScene.h"
 #include "OrangeScene.h"
+#include "GameOver.h"
 #include "SoundEngine.h"
 
 void Game::init()
 {
-	bPlay = true;
-
 	player = Player();
-
 
 	scenes.push(std::make_shared<PurpleScene>());
 	scenes.push(std::make_shared<YellowScene>());
@@ -22,9 +20,9 @@ void Game::init()
 	scenes.push(std::make_shared<GreenScene>());
 	scenes.push(std::make_shared<RedScene>());
 	
-	scenes.push(std::make_shared<PurpleScene>());
-	
-	scenes.front()->init(&player);
+	currentScene = scenes.front();
+	currentScene->init(&player);
+	SoundEngine::getInstance()->stopAllSounds();
 	SoundEngine::getInstance()->playMainTheme();
 }
 
@@ -42,16 +40,23 @@ bool Game::update(int deltaTime)
 		next = false;
 		SoundEngine::getInstance()->playPortal();
 		scenes.pop();
-		scenes.front()->init(&player);
+		currentScene = scenes.front();
+		currentScene->init(&player);
 	} else if(restartGame) {
-		restartGame = false;
-		while(!scenes.empty())
-			scenes.pop();
-		init();
+		if(gameOverCooldown == 5000) {
+			currentScene = std::make_shared<GameOver>();
+			currentScene->init(&player);
+		}
+		gameOverCooldown -= deltaTime;
+		if(gameOverCooldown <= 0) {
+			gameOverCooldown = 5000;
+			restartGame = false;
+			while(!scenes.empty())
+				scenes.pop();
+			init();
+		}
 	}
-
-	scenes.front()->update(deltaTime);
-
+	currentScene->update(deltaTime);
 	return bPlay;
 }
 
@@ -59,7 +64,7 @@ void Game::render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.f, 0.f, 0.f, 1.0f);
-	scenes.front()->render();
+	currentScene->render();
 }
 
 void Game::keyPressed(int key)

@@ -12,6 +12,7 @@ private:
 
 public:
 	static SoundEngine* getInstance();
+	void stopAllSounds();
 	void playMainTheme();
 	void playHit();
 	void playJump();
@@ -23,7 +24,6 @@ public:
 	void playEnemyDeath();
 
 private:
-
 	ISoundEngine* engine;
 	ISoundSource* mainTheme;
 	ISoundSource* hit;
@@ -34,6 +34,7 @@ private:
 	ISoundSource* putKey;
 	ISoundSource* pickUpPowerUp;
 	ISoundSource* enemyDeath;
+
 };
 
 
