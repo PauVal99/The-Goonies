@@ -196,6 +196,7 @@ void Player::childUpdate(int deltaTime) {
 
 void Player::attack(int deltaTime) {
 	if(!jumping && !climbing && !isAttacking() && !prevSpace && Game::instance().getKey(GLUT_KEY_SPACEBAR)) {
+		SoundEngine::getInstance()->playPunch();
 		attacking = ATTACK_DURATION;
 		if(sprite->animation() == STAND_RIGHT || sprite->animation() == MOVE_RIGHT)
 			sprite->changeAnimation(PUNCH_RIGHT);

@@ -67,6 +67,7 @@ void Door::setNumberOfKeys(int numKeys) {
 }
 
 void Door::rescueFriend() {
+	SoundEngine::getInstance()->playRescue();
 	sprite->changeAnimation(OPEN);
 	itemCollected = true;
 }

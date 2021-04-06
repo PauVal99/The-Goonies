@@ -33,6 +33,8 @@ void Game::nextScene() {
 
 void Game::gameOver() {
 	gameOverBool = true;
+	SoundEngine::getInstance()->stopAllSounds();
+	SoundEngine::getInstance()->playGameOver();
 }
 
 bool Game::update(int deltaTime)
@@ -59,6 +61,8 @@ bool Game::update(int deltaTime)
 		scenes.pop();
 		if(scenes.empty()) {
 			theEndCooldown -= deltaTime;
+			SoundEngine::getInstance()->stopAllSounds();
+			SoundEngine::getInstance()->playTheEnd();
 			currentScene = std::make_shared<TheEnd>();
 			currentScene->init(&player);
 		} else {
