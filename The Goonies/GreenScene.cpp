@@ -35,6 +35,18 @@ void GreenScene::setEnemies() {
 	createSkull(glm::ivec2(52, 6), glm::ivec2(52, 61));
 	createSkull(glm::ivec2(68, 18), glm::ivec2(68, 77));
 	createSkull(glm::ivec2(79, 8), glm::ivec2(79, 93));
+
+	Bat* bat = new Bat();
+	bat->init(glm::ivec2(42, 17) * TILE_SIZE, OFFSET, texProgram);
+	bat->setCollisionMap(collisionMap);
+	bat->setPlayer(player);
+	enemies.push_back(bat);
+
+	bat = new Bat();
+	bat->init(glm::ivec2(75, 17) * TILE_SIZE, OFFSET, texProgram);
+	bat->setCollisionMap(collisionMap);
+	bat->setPlayer(player);
+	enemies.push_back(bat);
 }
 
 void GreenScene::setPowerUps() {

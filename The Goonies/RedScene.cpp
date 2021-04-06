@@ -32,15 +32,14 @@ void RedScene::setEnemies() {
 	createSkull(glm::ivec2(45, 9), glm::ivec2(45, 59));
 	createSkull(glm::ivec2(40, 4), glm::ivec2(40, 51));
 	createSkull(glm::ivec2(68, 4), glm::ivec2(68, 75));
-	createSkull(glm::ivec2(68, 16), glm::ivec2(68, 78));
 	createSkull(glm::ivec2(85,10), glm::ivec2(85, 93));
 	createSkull(glm::ivec2(83, 4), glm::ivec2(83, 91));
 
-	/*Bat* bat = new Bat();
-	bat->init(glm::ivec2(16, 6) * TILE_SIZE, OFFSET, texProgram);
+	Bat* bat = new Bat();
+	bat->init(glm::ivec2(72, 15) * TILE_SIZE, OFFSET, texProgram);
 	bat->setCollisionMap(collisionMap);
 	bat->setPlayer(player);
-	enemies.push_back(bat);*/
+	enemies.push_back(bat);
 }
 
 void RedScene::setPowerUps() {
@@ -51,19 +50,6 @@ void RedScene::setPowerUps() {
 	Shield* shield = new Shield();
 	shield->init(glm::ivec2(8, 9) * TILE_SIZE, OFFSET, texProgram);
 	powerUps.push_back(shield);
-
-	/*
-	VitalityPotion* vitalityPotion = new VitalityPotion();
-	vitalityPotion->init(glm::ivec2(18, 14) * TILE_SIZE, OFFSET, texProgram);
-	powerUps.push_back(vitalityPotion);
-
-	ExperiencePotion* experiencePotion = new ExperiencePotion();
-	experiencePotion->init(glm::ivec2(22, 14) * TILE_SIZE, OFFSET, texProgram);
-	powerUps.push_back(experiencePotion);
-
-	TimePowerUp* timePowerUp = new TimePowerUp();
-	timePowerUp->init(glm::ivec2(26, 14) * TILE_SIZE, OFFSET, texProgram);
-	powerUps.push_back(timePowerUp); */
 
 	Key* key = new Key();
 	key->init(glm::ivec2(57, 4) * TILE_SIZE, OFFSET, texProgram);

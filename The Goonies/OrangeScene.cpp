@@ -32,6 +32,12 @@ void OrangeScene::setEnemies() {
 	bat->setPlayer(player);
 	enemies.push_back(bat);
 
+	bat = new Bat();
+	bat->init(glm::ivec2(83, 3) * TILE_SIZE, OFFSET, texProgram);
+	bat->setCollisionMap(collisionMap);
+	bat->setPlayer(player);
+	enemies.push_back(bat);
+
 	createSkull(glm::ivec2(2, 8), glm::ivec2(2, 11));
 	createSkull(glm::ivec2(1, 12), glm::ivec2(1, 14));
 	createSkull(glm::ivec2(1, 17), glm::ivec2(1, 14));
