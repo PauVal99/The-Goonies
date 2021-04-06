@@ -10,8 +10,14 @@ void GameOver::init(Player* player) {
     gameOverTexture = Texture();
 	gameOverTexture.loadFromFile("images/GameOver.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	gameOverTexture.setMagFilter(GL_NEAREST);
-	gameOver = Sprite::createSprite(glm::vec2(SCREEN_WIDTH, SCREEN_HEIGHT), glm::vec2(1.f), &gameOverTexture, &texProgram);
+	gameOver = Sprite::createSprite(glm::vec2(SCREEN_WIDTH, SCREEN_HEIGHT), glm::vec2(0.5f, 1.f), &gameOverTexture, &texProgram);
     gameOver->setPosition(glm::vec2(0.f));
+
+	gameOver->setNumberAnimations(1);
+	gameOver->setAnimationSpeed(0, 2);
+	gameOver->addKeyframe(0, glm::vec2(0.f));
+	gameOver->addKeyframe(0, glm::vec2(0.5f, 0.f));
+    gameOver->changeAnimation(0);
 }
 
 void GameOver::update(int deltaTime) {

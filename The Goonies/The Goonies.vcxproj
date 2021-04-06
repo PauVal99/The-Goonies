@@ -85,6 +85,8 @@
     <ClCompile Include="GUI.cpp" />
     <ClCompile Include="GameOver.cpp" />
     <ClInclude Include="GameOver.h" />
+    <ClCompile Include="TheEnd.cpp" />
+    <ClInclude Include="TheEnd.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5BE6CA2A-E5A8-40CC-9015-047CE0C78036}</ProjectGuid>
