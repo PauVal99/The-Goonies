@@ -99,8 +99,9 @@ void Scene::update(int deltaTime)
 
 	if(player->isGodMode() && prevF && Game::instance().getKey('f'))
 		for (auto door : doors) {
+			if(!door->isRescued())
+				++savedFriends;
 			door->rescueFriend();
-			++savedFriends;
 		}
 
 	if((savedFriends == getFriendsToSave()) && !prevUp && Game::instance().getSpecialKey(GLUT_KEY_UP) && collisionMap->onPortal(player->getCollisionBox()))

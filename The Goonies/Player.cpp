@@ -53,7 +53,7 @@ void Player::takeDamage(const int &damage) {
 			SoundEngine::getInstance()->playHit();
 			health -= damage;
 			if(health <= 0)
-				Game::instance().restart();
+				Game::instance().gameOver();
 		} else --shieldHitsCounter;
 		damageCooldown = DAMAGE_COOLDOWN;
 	}

@@ -8,6 +8,7 @@
 #include "YellowScene.h"
 #include "OrangeScene.h"
 #include "GameOver.h"
+#include "TheEnd.h"
 #include "SoundEngine.h"
 
 void Game::init()
@@ -30,32 +31,52 @@ void Game::nextScene() {
 	next = true;
 }
 
-void Game::restart() {
-	restartGame = true;
+void Game::gameOver() {
+	gameOverBool = true;
 }
 
 bool Game::update(int deltaTime)
 {
+	if(theEndCooldown < 5000) {
+		theEndCooldown -= deltaTime;
+		if(theEndCooldown <= 0) {
+			theEndCooldown = 5000;
+			restartGame = true;
+		}
+	}
+
+	if(gameOverCooldown < 5000) {
+		gameOverCooldown -= deltaTime;
+		if(gameOverCooldown <= 0) {
+			gameOverCooldown = 5000;
+			restartGame = true;
+		}
+	}
+
 	if(next) {
 		next = false;
 		SoundEngine::getInstance()->playPortal();
 		scenes.pop();
-		currentScene = scenes.front();
-		currentScene->init(&player);
-	} else if(restartGame) {
-		if(gameOverCooldown == 5000) {
-			currentScene = std::make_shared<GameOver>();
+		if(scenes.empty()) {
+			theEndCooldown -= deltaTime;
+			currentScene = std::make_shared<TheEnd>();
+			currentScene->init(&player);
+		} else {
+			currentScene = scenes.front();
 			currentScene->init(&player);
 		}
+	} else if(gameOverBool) {
+		gameOverBool = false;
 		gameOverCooldown -= deltaTime;
-		if(gameOverCooldown <= 0) {
-			gameOverCooldown = 5000;
-			restartGame = false;
-			while(!scenes.empty())
-				scenes.pop();
-			init();
-		}
+		currentScene = std::make_shared<GameOver>();
+		currentScene->init(&player);
+	} else if(restartGame) {
+		restartGame = false;
+		while(!scenes.empty())
+			scenes.pop();
+		init();
 	}
+
 	currentScene->update(deltaTime);
 	return bPlay;
 }

@@ -10,6 +10,7 @@ public:
     bool playerInteraction(bool hasKey);
     void setNumberOfKeys(int numKeys);
     void rescueFriend();
+    bool isRescued() { return itemCollected; };
 
 protected:
     string setImage();
