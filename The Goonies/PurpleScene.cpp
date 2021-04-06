@@ -67,6 +67,10 @@ void PurpleScene::setPowerUps() {
 	key->init(glm::ivec2(60, 16) * TILE_SIZE, OFFSET, texProgram);
 	powerUps.push_back(key);
 
+	key = new Key();
+	key->init(glm::ivec2(34, 16) * TILE_SIZE, OFFSET, texProgram);
+	powerUps.push_back(key);
+
 	Shield* shield = new Shield();
 	shield->init(glm::ivec2(2, 3) * TILE_SIZE, OFFSET, texProgram);
 	powerUps.push_back(shield);
