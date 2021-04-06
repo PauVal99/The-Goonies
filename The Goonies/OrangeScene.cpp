@@ -32,6 +32,12 @@ void OrangeScene::setEnemies() {
 	bat->setPlayer(player);
 	enemies.push_back(bat);
 
+	bat = new Bat();
+	bat->init(glm::ivec2(83, 3) * TILE_SIZE, OFFSET, texProgram);
+	bat->setCollisionMap(collisionMap);
+	bat->setPlayer(player);
+	enemies.push_back(bat);
+
 	createSkull(glm::ivec2(2, 8), glm::ivec2(2, 11));
 	createSkull(glm::ivec2(1, 12), glm::ivec2(1, 14));
 	createSkull(glm::ivec2(1, 17), glm::ivec2(1, 14));
@@ -82,14 +88,17 @@ void OrangeScene::setPowerUps() {
 void OrangeScene::setDoors() {
 
 	Door* door = new Door();
+	door->setNumberOfKeys(1);
 	door->init(glm::ivec2(59, 4) * TILE_SIZE, OFFSET, texProgram);
 	doors.push_back(door);
 
 	door = new Door();
+	door->setNumberOfKeys(2);
 	door->init(glm::ivec2(66, 1) * TILE_SIZE, OFFSET, texProgram);
 	doors.push_back(door);
 
 	door = new Door();
+	door->setNumberOfKeys(1);
 	door->init(glm::ivec2(90, 15) * TILE_SIZE, OFFSET, texProgram);
 	doors.push_back(door);
 

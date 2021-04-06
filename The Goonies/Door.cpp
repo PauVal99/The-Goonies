@@ -54,19 +54,37 @@ void Door::setAnimations() {
 	sprite->setAnimationSpeed(OPEN, 1);
 	sprite->addKeyframe(OPEN, glm::vec2(0.75f, 0.0f));
 
-	sprite->changeAnimation(CLOSED1KEY);
+
+	if (numberOfKeys == 1)
+		sprite->changeAnimation(CLOSED1KEY);
+	else
+		sprite->changeAnimation(CLOSED2KEY);
+	
+}
+
+void Door::setNumberOfKeys(int numKeys) {
+	this->numberOfKeys = numKeys;
+}
+
+void Door::openDoor() {
+	sprite->changeAnimation(OPEN);
+	itemCollected = true;
 }
 
 bool Door::playerInteraction(bool hasKey) {
 	if (!itemCollected) {
+		if (sprite->animation() == CLOSED2KEY && hasKey) {
+			sprite->changeAnimation(CLOSED1KEY);
+			SoundEngine::getInstance()->playPutKey();
+			return true;
+		}
 		if (sprite->animation() == CLOSED1KEY && hasKey) {
 			sprite->changeAnimation(OPENFRIEND);
 			open = true;
 			SoundEngine::getInstance()->playOpenDoor();
 			return true;
 		} else if (sprite->animation() == OPENFRIEND) {
-			sprite->changeAnimation(OPEN);
-			itemCollected = true;
+			openDoor();
 			return false;
 		}
 	}

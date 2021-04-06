@@ -93,10 +93,9 @@ void Scene::update(int deltaTime)
 			player->takeDamage(obstacle->damage());
 
 	if(player->isGodMode() && prevF && Game::instance().getKey('f'))
-		for (auto door : doors) {
-			door->playerInteraction(true);
-			door->playerInteraction(true);
-		}
+		for (auto door : doors) 
+			door->openDoor();
+		
 
 	gui->update(deltaTime);
 	prevF = Game::instance().getKey('f');

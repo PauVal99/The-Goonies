@@ -34,6 +34,18 @@ void PurpleScene::setEnemies() {
 	createSkull(glm::ivec2(69, 17), glm::ivec2(69, 78));
 	createSkull(glm::ivec2(82, 17), glm::ivec2(82, 90));
 	createSkull(glm::ivec2(84, 3), glm::ivec2(84, 90));
+
+	Bat* bat = new Bat();
+	bat->init(glm::ivec2(18, 16) * TILE_SIZE, OFFSET, texProgram);
+	bat->setCollisionMap(collisionMap);
+	bat->setPlayer(player);
+	enemies.push_back(bat);
+
+	bat = new Bat();
+	bat->init(glm::ivec2(36, 16) * TILE_SIZE, OFFSET, texProgram);
+	bat->setCollisionMap(collisionMap);
+	bat->setPlayer(player);
+	enemies.push_back(bat);
 }
 
 void PurpleScene::setPowerUps() {
@@ -65,14 +77,17 @@ void PurpleScene::setPowerUps() {
 
 void PurpleScene::setDoors() {
 	Door* door = new Door();
+	door->setNumberOfKeys(1);
 	door->init(glm::ivec2(27, 1) * TILE_SIZE, OFFSET, texProgram);
 	doors.push_back(door);
 
 	door = new Door();
+	door->setNumberOfKeys(1);
 	door->init(glm::ivec2(65, 2) * TILE_SIZE, OFFSET, texProgram);
 	doors.push_back(door);
 
 	door = new Door();
+	door->setNumberOfKeys(2);
 	door->init(glm::ivec2(91, 1) * TILE_SIZE, OFFSET, texProgram);
 	doors.push_back(door);
 }
