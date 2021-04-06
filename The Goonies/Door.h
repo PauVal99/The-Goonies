@@ -9,7 +9,8 @@ class Door: public Actor
 public:
     bool playerInteraction(bool hasKey);
     void setNumberOfKeys(int numKeys);
-    void openDoor();
+    void rescueFriend();
+    bool isRescued() { return itemCollected; };
 
 protected:
     string setImage();

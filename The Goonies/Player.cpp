@@ -53,7 +53,7 @@ void Player::takeDamage(const int &damage) {
 			SoundEngine::getInstance()->playHit();
 			health -= damage;
 			if(health <= 0)
-				Game::instance().restart();
+				Game::instance().gameOver();
 		} else --shieldHitsCounter;
 		damageCooldown = DAMAGE_COOLDOWN;
 	}
@@ -185,9 +185,6 @@ void Player::childUpdate(int deltaTime) {
 
 	if(!jumping && !climbing && !collisionMap->onGround(getCollisionBox()))
 		position.y += FALL_SPEED;
-
-	if(!prevUp && Game::instance().getSpecialKey(GLUT_KEY_UP) && collisionMap->onPortal(getCollisionBox()))
-		Game::instance().nextScene();
 
 	prevUp = Game::instance().getSpecialKey(GLUT_KEY_UP);
 	prevSpace = Game::instance().getKey(GLUT_KEY_SPACEBAR);

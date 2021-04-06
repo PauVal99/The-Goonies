@@ -36,6 +36,10 @@ SoundEngine::SoundEngine() {
 
 }
 
+void SoundEngine::stopAllSounds() {
+	engine->stopAllSounds();
+}
+
 void SoundEngine::playMainTheme() {
 	engine->play2D(mainTheme, true);
 }

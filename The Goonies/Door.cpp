@@ -66,7 +66,7 @@ void Door::setNumberOfKeys(int numKeys) {
 	this->numberOfKeys = numKeys;
 }
 
-void Door::openDoor() {
+void Door::rescueFriend() {
 	sprite->changeAnimation(OPEN);
 	itemCollected = true;
 }
@@ -77,15 +77,15 @@ bool Door::playerInteraction(bool hasKey) {
 			sprite->changeAnimation(CLOSED1KEY);
 			SoundEngine::getInstance()->playPutKey();
 			return true;
-		}
-		if (sprite->animation() == CLOSED1KEY && hasKey) {
+		} else if (sprite->animation() == CLOSED1KEY && hasKey) {
 			sprite->changeAnimation(OPENFRIEND);
 			open = true;
 			SoundEngine::getInstance()->playOpenDoor();
 			return true;
 		} else if (sprite->animation() == OPENFRIEND) {
-			openDoor();
+			rescueFriend();
 			return false;
 		}
 	}
+	return true;
 }

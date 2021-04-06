@@ -17,6 +17,8 @@ Sprite::Sprite(const glm::vec2 &quadSize, const glm::vec2 &sizeInSpritesheet, Te
 	this->sizeInSpritesheet = sizeInSpritesheet;
 	texture = spritesheet;
 	shaderProgram = program;
+	glGenVertexArrays(1, &vao);
+	glGenBuffers(1, &vbo);
 	setSize(quadSize);
 }
 
@@ -28,9 +30,7 @@ void Sprite::setSize(const glm::vec2 &size) {
 											size.x, size.y, sizeInSpritesheet.x, sizeInSpritesheet.y, 
 											0.f, size.y, 0.f, sizeInSpritesheet.y};
 
-	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
-	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBufferData(GL_ARRAY_BUFFER, 24 * sizeof(float), vertices, GL_STATIC_DRAW);
 	posLocation = shaderProgram->bindVertexAttribute("position", 2, 4*sizeof(float), 0);
