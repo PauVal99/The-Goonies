@@ -94,6 +94,12 @@ void PurpleScene::setDoors() {
 
 void PurpleScene::setObstacles() {
 
+	Stone* stone = new Stone();
+	stone->init(glm::ivec2(41, 8) * TILE_SIZE, OFFSET, texProgram);
+	stone->setCollisionMap(collisionMap);
+	stone->changeAnimation(2);
+	obstacles.push_back(stone);
+
 	ValveWater* valveWater = new ValveWater();
 	valveWater->setOrientation(0);
 	valveWater->init(glm::ivec2(38, 3) * TILE_SIZE, OFFSET, texProgram);

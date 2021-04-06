@@ -78,6 +78,13 @@ void RedScene::setDoors() {
 
 void RedScene::setObstacles() {
 
+	Stone* stone = new Stone();
+	stone->init(glm::ivec2(35, 2) * TILE_SIZE, OFFSET, texProgram);
+	stone->setCollisionMap(collisionMap);
+	stone->changeAnimation(0);
+	obstacles.push_back(stone);
+
+
 	Drop* drop = new Drop();
 	drop->init(glm::ivec2(25, 12) * TILE_SIZE, OFFSET, texProgram);
 	drop->setCollisionMap(collisionMap);
@@ -145,9 +152,4 @@ void RedScene::setObstacles() {
 	valveWater->init(glm::ivec2(88, 9) * TILE_SIZE, OFFSET, texProgram);
 	valveWater->setCollisionMap(collisionMap);
 	obstacles.push_back(valveWater);
-
-	/*Stone* stone = new Stone();
-	stone->init(glm::ivec2(24, 6) * TILE_SIZE, OFFSET, texProgram);
-	stone->setCollisionMap(collisionMap);
-	obstacles.push_back(stone);*/
 }

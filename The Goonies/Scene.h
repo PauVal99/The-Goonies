@@ -32,6 +32,7 @@ public:
 	void init(Player* player);
 	void update(int deltaTime);
 	void render();
+	bool collision(const CollisionBox& collisionBox1, const CollisionBox& collisionBox2);
 
 protected:
 	virtual void setTileMaps() = 0;
@@ -56,9 +57,6 @@ protected:
 	std::vector<Obstacle*> obstacles;
 
 	ShaderProgram texProgram;
-
-private:
-	bool collision(const CollisionBox &collisionBox1, const CollisionBox &collisionBox2);
 
 private:
 	int prevF = false;

@@ -15,14 +15,13 @@ void Game::init()
 
 	player = Player();
 
-
 	scenes.push(std::make_shared<PurpleScene>());
+	scenes.push(std::make_shared<RedScene>());
+	scenes.push(std::make_shared<GreenScene>());
+	
 	scenes.push(std::make_shared<YellowScene>());
 	scenes.push(std::make_shared<OrangeScene>());
-	scenes.push(std::make_shared<GreenScene>());
-	scenes.push(std::make_shared<RedScene>());
 	
-	scenes.push(std::make_shared<PurpleScene>());
 	
 	scenes.front()->init(&player);
 	SoundEngine::getInstance()->playMainTheme();

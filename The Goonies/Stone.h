@@ -12,6 +12,7 @@ public:
     void init(const glm::ivec2& iniPos, const glm::ivec2& tileMapOffset, ShaderProgram& shaderProgram);
     void render();
     int damage();
+    bool hit();
     int getType();
     void changeAnimation(int animation);
     bool isRestarting();

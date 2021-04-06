@@ -66,7 +66,7 @@ void YellowScene::setDoors() {
 
 	door = new Door();
 	door->setNumberOfKeys(1);
-	door->init(glm::ivec2(6, 28) * TILE_SIZE, OFFSET, texProgram);
+	door->init(glm::ivec2(6, 32) * TILE_SIZE, OFFSET, texProgram);
 	doors.push_back(door);
 
 	door = new Door();
@@ -76,6 +76,13 @@ void YellowScene::setDoors() {
 }
 
 void YellowScene::setObstacles() {
+
+	Stone* stone = new Stone();
+	stone->init(glm::ivec2(22, 58) * TILE_SIZE, OFFSET, texProgram);
+	stone->setCollisionMap(collisionMap);
+	stone->changeAnimation(3);
+	obstacles.push_back(stone);
+
 
 	ValveWater* valveWater = new ValveWater();
 	valveWater->setOrientation(0);

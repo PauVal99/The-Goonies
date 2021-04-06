@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 #include <string>
 #include "CollisionBox.h"
+#include <vector>
 
 enum {
 	AIR, BLOCK, VINE, PORTAL
@@ -33,8 +34,8 @@ public:
 	glm::ivec2 onVine(const CollisionBox &collisionBox);
 	glm::ivec2 aboveVine(const CollisionBox &collisionBox);
 	bool onPortal(const CollisionBox &collisionBox);
-	void setStone(glm::ivec2 position);
-	void updateStone(glm::ivec2 position, bool goingDown);
+	void addStone(const CollisionBox &collisionBox){}
+
 private:
 	bool loadLevel(const string &levelFile);
 	Tiles getTiles(const CollisionBox &collisionBox);
@@ -43,6 +44,7 @@ private:
 	glm::ivec2 mapSize, collisionMapOffset;
 	int tileSize;
 	int *map;
+	std::vector<CollisionBox*> stones;
 };
 
 #endif // _TILE_MAP_INCLUDE

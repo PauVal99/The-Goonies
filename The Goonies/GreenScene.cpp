@@ -90,6 +90,13 @@ void GreenScene::setDoors() {
 
 void GreenScene::setObstacles() {
 
+	Stone* stone = new Stone();
+	stone->init(glm::ivec2(2, 7) * TILE_SIZE, OFFSET, texProgram);
+	stone->setCollisionMap(collisionMap);
+	stone->changeAnimation(1);
+	obstacles.push_back(stone);
+	
+
 	Drop* drop = new Drop();
 	drop->init(glm::ivec2(55, 9) * TILE_SIZE, OFFSET, texProgram);
 	drop->setCollisionMap(collisionMap);
