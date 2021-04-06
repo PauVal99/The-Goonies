@@ -95,7 +95,7 @@ void Drop::childUpdate(int deltaTime) {
 	}
 	else if (restarting) {
 
-		if(animationCooldown == 0)animationCooldown = 1000;
+		if(animationCooldown == 0)animationCooldown = 500;
 		if (computeCooldown(deltaTime)) {
 			restarting = false;
 			sprite->changeAnimation(CREATE);

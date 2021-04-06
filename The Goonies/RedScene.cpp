@@ -28,7 +28,7 @@ glm::ivec2 RedScene::setPlayerPosition() {
 
 void RedScene::setEnemies() {
 	createSkull(glm::ivec2(2, 14), glm::ivec2(2, 18));
-	createSkull(glm::ivec2(26, 9), glm::ivec2(26, 37));
+	createSkull(glm::ivec2(36, 9), glm::ivec2(36, 43));
 	createSkull(glm::ivec2(45, 9), glm::ivec2(45, 59));
 	createSkull(glm::ivec2(40, 4), glm::ivec2(40, 51));
 	createSkull(glm::ivec2(68, 4), glm::ivec2(68, 75));
@@ -43,16 +43,16 @@ void RedScene::setEnemies() {
 }
 
 void RedScene::setPowerUps() {
-	HyperShoes* hypershoes = new HyperShoes();
-	hypershoes->init(glm::ivec2(10, 14) * TILE_SIZE, OFFSET, texProgram);
-	powerUps.push_back(hypershoes);
+	ExperiencePotion* experiencePotion = new ExperiencePotion();
+	experiencePotion->init(glm::ivec2(8, 9) * TILE_SIZE, OFFSET, texProgram);
+	powerUps.push_back(experiencePotion);
 
 	Shield* shield = new Shield();
-	shield->init(glm::ivec2(8, 9) * TILE_SIZE, OFFSET, texProgram);
+	shield->init(glm::ivec2(57, 4) * TILE_SIZE, OFFSET, texProgram);
 	powerUps.push_back(shield);
 
 	Key* key = new Key();
-	key->init(glm::ivec2(57, 4) * TILE_SIZE, OFFSET, texProgram);
+	key->init(glm::ivec2(10, 14) * TILE_SIZE, OFFSET, texProgram);
 	powerUps.push_back(key);
 
 	key = new Key();
@@ -77,13 +77,11 @@ void RedScene::setDoors() {
 }
 
 void RedScene::setObstacles() {
-
 	Stone* stone = new Stone();
 	stone->init(glm::ivec2(35, 2) * TILE_SIZE, OFFSET, texProgram);
 	stone->setCollisionMap(collisionMap);
 	stone->changeAnimation(0);
 	obstacles.push_back(stone);
-
 
 	Drop* drop = new Drop();
 	drop->init(glm::ivec2(25, 12) * TILE_SIZE, OFFSET, texProgram);
@@ -91,12 +89,17 @@ void RedScene::setObstacles() {
 	obstacles.push_back(drop);
 
 	drop = new Drop();
-	drop->init(glm::ivec2(39, 7) * TILE_SIZE, OFFSET, texProgram);
+	drop->init(glm::ivec2(14, 5) * TILE_SIZE, OFFSET, texProgram);
 	drop->setCollisionMap(collisionMap);
 	obstacles.push_back(drop);
 
 	drop = new Drop();
-	drop->init(glm::ivec2(67, 7) * TILE_SIZE, OFFSET, texProgram);
+	drop->init(glm::ivec2(45, 1) * TILE_SIZE, OFFSET, texProgram);
+	drop->setCollisionMap(collisionMap);
+	obstacles.push_back(drop);
+
+	drop = new Drop();
+	drop->init(glm::ivec2(39, 7) * TILE_SIZE, OFFSET, texProgram);
 	drop->setCollisionMap(collisionMap);
 	obstacles.push_back(drop);
 

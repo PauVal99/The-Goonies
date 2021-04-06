@@ -83,7 +83,7 @@ void Bat::childUpdate(int deltaTime) {
     }
 
     float distance = glm::distance(glm::vec2(player->getPosition() + 6), glm::vec2(position));
-    if(distance != 0 && distance <= 250) {
+    if(distance != 0 && distance <= 300) {
         glm::vec2 direction = glm::mix(glm::vec2(player->getPosition() + 6 - position), random, 0.5f);
         prevDirection = direction;
         direction = glm::mix(direction, prevDirection, 0.4f);

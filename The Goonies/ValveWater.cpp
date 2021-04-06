@@ -116,7 +116,7 @@ void ValveWater::childUpdate(int deltaTime) {
 	}
 	else if (restarting) {
 
-		if (animationCooldown == 0)animationCooldown = 2000;
+		if (animationCooldown == 0)animationCooldown = 3000;
 		if (computeCooldown(deltaTime)) {
 			restarting = false;
 			sprite->changeAnimation(CREATE);
