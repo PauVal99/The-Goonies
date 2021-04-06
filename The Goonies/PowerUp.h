@@ -19,6 +19,7 @@ protected:
 	void setAnimations();
 	int setEndTime();
     int setEndAnimation();
+	virtual void playSound();
 
 };
 

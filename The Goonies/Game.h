@@ -26,7 +26,8 @@ public:
 	}
 	
 	void init();
-	void restart();
+	void start();
+	void gameOver();
 	void nextScene();
 	bool update(int deltaTime);
 	void render();
@@ -44,8 +45,10 @@ public:
 	bool getSpecialKey(int key) const;
 
 private:
-	bool bPlay, next = false, restartGame = false;
+	int gameOverCooldown = 5000, theEndCooldown = 5000;
+	bool bPlay = true, next = false, restartGame = false, gameOverBool = false, startBool = false;
 	std::queue<std::shared_ptr<Scene>> scenes;
+	std::shared_ptr<Scene> currentScene;
 	Player player;
 	bool keys[256], specialKeys[256];
 

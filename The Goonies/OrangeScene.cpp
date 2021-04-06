@@ -32,6 +32,12 @@ void OrangeScene::setEnemies() {
 	bat->setPlayer(player);
 	enemies.push_back(bat);
 
+	bat = new Bat();
+	bat->init(glm::ivec2(83, 3) * TILE_SIZE, OFFSET, texProgram);
+	bat->setCollisionMap(collisionMap);
+	bat->setPlayer(player);
+	enemies.push_back(bat);
+
 	createSkull(glm::ivec2(2, 8), glm::ivec2(2, 11));
 	createSkull(glm::ivec2(1, 12), glm::ivec2(1, 14));
 	createSkull(glm::ivec2(1, 17), glm::ivec2(1, 14));
@@ -48,18 +54,17 @@ void OrangeScene::setEnemies() {
 
 void OrangeScene::setPowerUps() {
 
-	HyperShoes* hypershoes = new HyperShoes();
-	hypershoes->init(glm::ivec2(6, 17) * TILE_SIZE, OFFSET, texProgram);
-	powerUps.push_back(hypershoes);
+	TimePowerUp* timePowerUp = new TimePowerUp();
+	timePowerUp->init(glm::ivec2(6, 17) * TILE_SIZE, OFFSET, texProgram);
+	powerUps.push_back(timePowerUp);
 
 	VitalityPotion* vitalityPotion = new VitalityPotion();
 	vitalityPotion->init(glm::ivec2(35, 8) * TILE_SIZE, OFFSET, texProgram);
 	powerUps.push_back(vitalityPotion);
 
-	TimePowerUp* timePowerUp = new TimePowerUp();
-	timePowerUp->init(glm::ivec2(46, 3) * TILE_SIZE, OFFSET, texProgram);
-	powerUps.push_back(timePowerUp);
-
+	Shield* shield = new Shield();
+	shield->init(glm::ivec2(46, 3) * TILE_SIZE, OFFSET, texProgram);
+	powerUps.push_back(shield);
 
 	Key* key = new Key();
 	key->init(glm::ivec2(19, 3) * TILE_SIZE, OFFSET, texProgram);
@@ -82,14 +87,17 @@ void OrangeScene::setPowerUps() {
 void OrangeScene::setDoors() {
 
 	Door* door = new Door();
+	door->setNumberOfKeys(1);
 	door->init(glm::ivec2(59, 4) * TILE_SIZE, OFFSET, texProgram);
 	doors.push_back(door);
 
 	door = new Door();
+	door->setNumberOfKeys(2);
 	door->init(glm::ivec2(66, 1) * TILE_SIZE, OFFSET, texProgram);
 	doors.push_back(door);
 
 	door = new Door();
+	door->setNumberOfKeys(1);
 	door->init(glm::ivec2(90, 15) * TILE_SIZE, OFFSET, texProgram);
 	doors.push_back(door);
 
@@ -98,7 +106,7 @@ void OrangeScene::setDoors() {
 void OrangeScene::setObstacles() {
 
 	Drop* drop = new Drop();
-	drop->init(glm::ivec2(23, 6) * TILE_SIZE, OFFSET, texProgram);
+	drop->init(glm::ivec2(17, 6) * TILE_SIZE, OFFSET, texProgram);
 	drop->setCollisionMap(collisionMap);
 	obstacles.push_back(drop);
 
@@ -108,7 +116,7 @@ void OrangeScene::setObstacles() {
 	obstacles.push_back(drop);
 
 	drop = new Drop();
-	drop->init(glm::ivec2(48, 6) * TILE_SIZE, OFFSET, texProgram);
+	drop->init(glm::ivec2(46, 6) * TILE_SIZE, OFFSET, texProgram);
 	drop->setCollisionMap(collisionMap);
 	obstacles.push_back(drop);
 
@@ -117,4 +125,45 @@ void OrangeScene::setObstacles() {
 	drop->setCollisionMap(collisionMap);
 	obstacles.push_back(drop);
 
+	ValveWater* valveWater = new ValveWater();
+	valveWater->setOrientation(0);
+	valveWater->init(glm::ivec2(37, 16) * TILE_SIZE, OFFSET, texProgram);
+	valveWater->setCollisionMap(collisionMap);
+	obstacles.push_back(valveWater);
+
+	valveWater = new ValveWater();
+	valveWater->setOrientation(1);
+	valveWater->init(glm::ivec2(40, 16) * TILE_SIZE, OFFSET, texProgram);
+	valveWater->setCollisionMap(collisionMap);
+	obstacles.push_back(valveWater);
+
+	valveWater = new ValveWater();
+	valveWater->setOrientation(0);
+	valveWater->init(glm::ivec2(44, 16) * TILE_SIZE, OFFSET, texProgram);
+	valveWater->setCollisionMap(collisionMap);
+	obstacles.push_back(valveWater);
+
+	valveWater = new ValveWater();
+	valveWater->setOrientation(1);
+	valveWater->init(glm::ivec2(47, 16) * TILE_SIZE, OFFSET, texProgram);
+	valveWater->setCollisionMap(collisionMap);
+	obstacles.push_back(valveWater);
+
+	valveWater = new ValveWater();
+	valveWater->setOrientation(0);
+	valveWater->init(glm::ivec2(56, 11) * TILE_SIZE, OFFSET, texProgram);
+	valveWater->setCollisionMap(collisionMap);
+	obstacles.push_back(valveWater);
+
+	valveWater = new ValveWater();
+	valveWater->setOrientation(1);
+	valveWater->init(glm::ivec2(59, 11) * TILE_SIZE, OFFSET, texProgram);
+	valveWater->setCollisionMap(collisionMap);
+	obstacles.push_back(valveWater);
+
+	valveWater = new ValveWater();
+	valveWater->setOrientation(1);
+	valveWater->init(glm::ivec2(65, 11) * TILE_SIZE, OFFSET, texProgram);
+	valveWater->setCollisionMap(collisionMap);
+	obstacles.push_back(valveWater);
 }

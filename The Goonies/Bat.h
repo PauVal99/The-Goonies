@@ -10,7 +10,7 @@ class Bat: public Enemy
 public:
     int damage();
     int experience();
-    void setPlayer(Player* playe);
+    void setPlayer(Player* player);
 
 protected:
     string setImage();

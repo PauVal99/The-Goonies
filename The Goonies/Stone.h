@@ -8,18 +8,13 @@ class Stone : public Obstacle
 {
 
 public:
-  
     void init(const glm::ivec2& iniPos, const glm::ivec2& tileMapOffset, ShaderProgram& shaderProgram);
     void render();
     int damage();
-    int getType();
+    bool hit();
     void changeAnimation(int animation);
-    bool isRestarting();
- 
 
-protected:
-    
-    
+protected: 
     string setImage();
     glm::vec2 setSize();
     glm::vec2 setSizeInSpritesheet();
@@ -27,7 +22,6 @@ protected:
     void setAnimations();
     void childUpdate(int deltaTime);
     void setChains(ShaderProgram& shaderProgram);
-
 
 private:
     bool computeCooldown(int deltaTime);

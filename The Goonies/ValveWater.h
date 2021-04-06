@@ -9,9 +9,7 @@ class ValveWater : public Obstacle
 public:
     void setOrientation(int orientation);
     int damage();
-    int getType();
-    void changeAnimation(int animation);
-    bool isRestarting();
+    bool hit();
 
 protected:
     string setImage();

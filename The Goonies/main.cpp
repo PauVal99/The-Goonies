@@ -1,7 +1,7 @@
 #include <GL/glew.h>
 #include <GL/glut.h>
 #include "Game.h"
-
+#include <irrKlang.h>
 
 //Remove console (only works in Visual Studio)
 #pragma comment(linker, "/subsystem:\"windows\" /entry:\"mainCRTStartup\"")
@@ -82,6 +82,7 @@ static void idleCallback()
 
 int main(int argc, char **argv)
 {
+	
 	// GLUT initialization
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
@@ -109,6 +110,7 @@ int main(int argc, char **argv)
 	prevTime = glutGet(GLUT_ELAPSED_TIME);
 	// GLUT gains control of the application
 	glutMainLoop();
+	
 
 	return 0;
 }

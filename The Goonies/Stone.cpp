@@ -6,8 +6,10 @@
 #define COLLISION_BOX_MIN glm::ivec2(0, 0)
 #define COLLISION_BOX_MAX glm::ivec2(32, 48)
 
-#define DIE_TIME 0
-
+enum StoneAnims
+{
+	RED, GREEN, PURPLE, YELLOW
+};
 
 void Stone::init(const glm::ivec2& iniPos, const glm::ivec2& tileMapOffset, ShaderProgram& shaderProgram)
 {
@@ -16,17 +18,16 @@ void Stone::init(const glm::ivec2& iniPos, const glm::ivec2& tileMapOffset, Shad
 	spritesheet.setMagFilter(GL_NEAREST);
 	sprite = Sprite::createSprite(setSize(), setSizeInSpritesheet(), &spritesheet, &shaderProgram);
 
-	setPosition(iniPos);
-	setAnimations();
 	this->iniPos = iniPos;
+	this->iniPos.y -= 8;
+	setPosition(this->iniPos);
+	setAnimations();
 	this->tileMapOffset = tileMapOffset;
 	setChains(shaderProgram);
-	//collisionMap->setStone(glm::ivec2(iniPos.x/16, iniPos.y/16));
 }
 
 void Stone::setChains(ShaderProgram& shaderProgram) {
-	
-	int posYCounter = iniPos.y - 16;
+	int posYCounter = iniPos.y + 32;
 	for (int i = 0; i < 15; i++) {
 		Chain* x = new Chain();
 		x->init(glm::ivec2(iniPos.x, posYCounter), glm::ivec2(0, 0), shaderProgram);
@@ -34,10 +35,8 @@ void Stone::setChains(ShaderProgram& shaderProgram) {
 		renderChain.push_back(false);
 		posYCounter += 16;
 	}
-
 	renderChain[0] = true;
 	lastChainRendered = 0;
-
 }
 
 void Stone::render() {
@@ -57,7 +56,7 @@ glm::vec2 Stone::setSize() {
 }
 
 glm::vec2 Stone::setSizeInSpritesheet() {
-	return glm::vec2(1, 1);
+	return glm::vec2(0.25, 1);
 }
 
 CollisionBox Stone::setCollisionBox() {
@@ -69,11 +68,30 @@ CollisionBox Stone::setCollisionBox() {
 	return collisionBox;
 }
 
+bool Stone::hit() {
+	return true;
+}
+
 int Stone::damage() {
-	return 0;
+	return 20;
 }
 
 void Stone::setAnimations() {
+	sprite->setNumberAnimations(4);
+
+	sprite->setAnimationSpeed(RED, 1);
+	sprite->addKeyframe(RED, glm::vec2(0.0f, 0.0f));
+
+	sprite->setAnimationSpeed(GREEN, 1);
+	sprite->addKeyframe(GREEN, glm::vec2(0.25f, 0.0f));
+
+	sprite->setAnimationSpeed(PURPLE, 1);
+	sprite->addKeyframe(PURPLE, glm::vec2(0.5f, 0.0f));
+
+	sprite->setAnimationSpeed(YELLOW, 1);
+	sprite->addKeyframe(YELLOW, glm::vec2(0.75f, 0.0f));
+
+	sprite->changeAnimation(RED);
 
 }
 
@@ -91,37 +109,26 @@ void Stone::childUpdate(int deltaTime) {
 			position.y += 16;
 			lastChainRendered++;
 			renderChain[lastChainRendered] = true;
-			
-			
 
 			if (collisionMap->collision(getCollisionBox())) {
+				renderChain[lastChainRendered] = false;
+				lastChainRendered--;
+				position.y -= 16;
 				goingDown = false;
 			}
-			collisionMap->updateStone(glm::ivec2(position.x / 16, position.y / 16), goingDown);
 		}
 		else {
 			position.y -= 16;
 			renderChain[lastChainRendered] = false;
 			lastChainRendered--;
 
-			
-
 			if (position.y <= iniPos.y) {
 				goingDown = true;
 			}
-			collisionMap->updateStone(glm::ivec2(position.x / 16, position.y / 16), goingDown);
 		}
 	}
 }
 
-int Stone::getType() {
-	return 3;
-}
-
 void Stone::changeAnimation(int animation) {
 	sprite->changeAnimation(animation);
-}
-
-bool Stone::isRestarting() {
-	return restarting;
 }

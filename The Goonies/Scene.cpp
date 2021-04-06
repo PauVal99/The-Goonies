@@ -1,4 +1,6 @@
 #include <iostream>
+#include <GL/glew.h>
+#include <GL/glut.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include "Game.h"
 #include "Scene.h"
@@ -31,9 +33,7 @@ Scene::~Scene()
 	doors.clear();
 }
 
-
 void Scene::createSkull(glm::ivec2 pos, glm::ivec2 patrolPoints) {
-
 	Skull* skull = new Skull();
 	skull->init(pos * TILE_SIZE, OFFSET, texProgram);
 	skull->setCollisionMap(collisionMap);
@@ -55,14 +55,14 @@ void Scene::init(Player* player)
 	player->init(setPlayerPosition(), OFFSET, texProgram);
 	player->setCollisionMap(collisionMap);
 
-	gui = new GUI();
-	gui->init(&texProgram);
-	gui->setPlayer(player);
-
 	setEnemies();
 	setPowerUps();
 	setDoors();
 	setObstacles();
+
+	gui = new GUI();
+	gui->init(&texProgram, getFriendsToSave(), &savedFriends);
+	gui->setPlayer(player);
 }
 
 void Scene::update(int deltaTime)
@@ -87,38 +87,44 @@ void Scene::update(int deltaTime)
 			powerUp->take(player);
 
 	for (auto door : doors)
-		if (collision(playerCollisionBox, door->getCollisionBox()) && door->playerInteraction(player->hasKey()))
-			player->removeKey();
+		if (collision(playerCollisionBox, door->getCollisionBox()))
+			if(door->playerInteraction(player->hasKey()))
+				player->removeKey();
+			else
+				++savedFriends;
 
-	for (auto obstacle : obstacles) {
-		if (collision(playerCollisionBox, obstacle->getCollisionBox())) {
-			if (obstacle->getType() == 1) { 
-				obstacle->changeAnimation(2);
-				if(!obstacle->isRestarting())
-					player->takeDamage(obstacle->damage());
-			} else if (obstacle->getType() == 2) {
-				if (!obstacle->isRestarting())
-					player->takeDamage(obstacle->damage());
-			}
+	for (auto obstacle : obstacles)
+		if (collision(playerCollisionBox, obstacle->getCollisionBox()) && obstacle->hit())
+			player->takeDamage(obstacle->damage());
+
+	if(player->isGodMode() && prevF && Game::instance().getKey('f'))
+		for (auto door : doors) {
+			if(!door->isRescued())
+				++savedFriends;
+			door->rescueFriend();
 		}
-	}
-			player->removeKey();	
 
-	gui->update(deltaTime);		
+	if((savedFriends == getFriendsToSave()) && !prevUp && Game::instance().getSpecialKey(GLUT_KEY_UP) && collisionMap->onPortal(player->getCollisionBox()))
+		Game::instance().nextScene();		
+
+	gui->update(deltaTime);
+	prevF = Game::instance().getKey('f');
+	prevUp = Game::instance().getSpecialKey(GLUT_KEY_UP);
 }
 
 void Scene::updateActors(int deltaTime) {
 	player->update(deltaTime);
 	camera->update(player->getPosition());
 
-	if (!player->isTimePowerUpActive())
-		for (unsigned int i = 0; i < enemies.size(); ++i) {
+	for (unsigned int i = 0; i < enemies.size(); ++i) {
+		if(!player->isTimePowerUpActive() || enemies[i]->isDead()) {
 			enemies[i]->update(deltaTime);
 			if(enemies[i]->remove()) {
 				delete enemies[i];
 				enemies.erase(enemies.begin() + i);
 			}
 		}
+	}
 
 	for (unsigned int i = 0; i < powerUps.size(); ++i) {
 		powerUps[i]->update(deltaTime);
@@ -157,17 +163,17 @@ void Scene::render()
 	for(auto map : tileMaps)
 		map.second->render();
 
-	for(auto enemy : enemies)
-		enemy->render();
-
-	for (auto powerUp : powerUps)
-		powerUp->render();
-
 	for (auto door : doors) 
 		door->render();
 
 	for (auto obstacle : obstacles)
 		obstacle->render();
+
+	for (auto powerUp : powerUps)
+		powerUp->render();
+
+	for(auto enemy : enemies)
+		enemy->render();
 
 	player->render();
 

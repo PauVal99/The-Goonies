@@ -2,6 +2,7 @@
 #include <GL/glut.h>
 #include "Game.h"
 #include "Player.h"
+#include "SoundEngine.h"
 
 #define JUMP_HEIGHT 32
 #define JUMP_ANGLE_STEP 4
@@ -16,7 +17,7 @@
 #define PUNCH_COLLISION_BOX_MIN_LEFT glm::ivec2(-4, 6)
 #define PUNCH_COLLISION_BOX_MAX_LEFT glm::ivec2(8, 18)
 
-#define DAMAGE_COOLDOWN 2000
+#define DAMAGE_COOLDOWN 1000
 #define DAMAGE_COLOR glm::vec4(1.4f, 1.4f, 1.4f, 1.f)
 
 #define HEALTH_INCREMENT 20
@@ -47,11 +48,12 @@ glm::vec2 Player::setSizeInSpritesheet() {
 }
 
 void Player::takeDamage(const int &damage) {
-	if(damageCooldown == 0) {
+	if(!godModeActivated && damageCooldown == 0) {
 		if(shieldHitsCounter == 0) {
+			SoundEngine::getInstance()->playHit();
 			health -= damage;
 			if(health <= 0)
-				Game::instance().restart();
+				Game::instance().gameOver();
 		} else --shieldHitsCounter;
 		damageCooldown = DAMAGE_COOLDOWN;
 	}
@@ -179,19 +181,22 @@ void Player::childUpdate(int deltaTime) {
 	moveSideways();
 	climb();
 	jump();
+	godMode();
 
 	if(!jumping && !climbing && !collisionMap->onGround(getCollisionBox()))
 		position.y += FALL_SPEED;
 
-	if(Game::instance().getSpecialKey(GLUT_KEY_UP) && collisionMap->onPortal(getCollisionBox()))
-		Game::instance().nextScene();
-
+	prevUp = Game::instance().getSpecialKey(GLUT_KEY_UP);
+	prevSpace = Game::instance().getKey(GLUT_KEY_SPACEBAR);
+	prevG = Game::instance().getKey('g');
+	prevS = Game::instance().getKey('s');
 	timePowerUpUpdate(deltaTime);
 	wounded(deltaTime);
 }
 
 void Player::attack(int deltaTime) {
 	if(!jumping && !climbing && !isAttacking() && !prevSpace && Game::instance().getKey(GLUT_KEY_SPACEBAR)) {
+		SoundEngine::getInstance()->playPunch();
 		attacking = ATTACK_DURATION;
 		if(sprite->animation() == STAND_RIGHT || sprite->animation() == MOVE_RIGHT)
 			sprite->changeAnimation(PUNCH_RIGHT);
@@ -204,8 +209,6 @@ void Player::attack(int deltaTime) {
 		if(attacking < 0)
 			attacking = 0;
 	}
-
-	prevSpace = Game::instance().getKey(GLUT_KEY_SPACEBAR);
 }
 
 void Player::moveSideways() {
@@ -230,13 +233,6 @@ void Player::moveSideways() {
 				sprite->changeAnimation(MOVE_RIGHT);
 
 			if(collisionMap->collision(getCollisionBox())) {
-
-				#include <windows.h>
-
-				char buffer[100];
-				sprintf_s(buffer, "hello\n");
-				OutputDebugStringA(buffer);
-
 				position.x -= moveSpeed;
 				if(sprite->animation() == MOVE_RIGHT)
 					sprite->changeAnimation(STAND_RIGHT);
@@ -267,12 +263,12 @@ void Player::climb() {
 				sprite->startAnimation();
 				position.y += moveSpeed;
 			} else sprite->pauseAnimation();
-		} else if(onGround && (onVine != glm::ivec2(-1, -1)) && Game::instance().getSpecialKey(GLUT_KEY_UP)) {
+		} else if(onGround && (onVine != glm::ivec2(-1, -1)) && !prevUp && Game::instance().getSpecialKey(GLUT_KEY_UP)) {
 			climbing = true;
 			sprite->changeAnimation(CLIMB);
 			position.x = onVine.x - 6;
 			position.y -= moveSpeed;
-		} else if((aboveVine != glm::ivec2(-1, -1)) && Game::instance().getSpecialKey(GLUT_KEY_DOWN)) {
+		} else if((aboveVine != glm::ivec2(-1, -1)) && !prevUp && Game::instance().getSpecialKey(GLUT_KEY_DOWN)) {
 			climbing = true;
 			sprite->changeAnimation(CLIMB);
 			position.x = aboveVine.x - 6;
@@ -302,7 +298,10 @@ void Player::jump() {
 				else sprite->changeAnimation(STAND_RIGHT);
 			} else
 				position.y = int(startY - JUMP_HEIGHT * sin(3.14159f * jumpAngle / 180.f));
-		} else if(!prevUp && Game::instance().getSpecialKey(GLUT_KEY_UP) && collisionMap->onGround(getCollisionBox())) {
+		} else if(!prevUp && Game::instance().getSpecialKey(GLUT_KEY_UP) && collisionMap->onGround(getCollisionBox()) && !collisionMap->onPortal(getCollisionBox())) {
+			
+			SoundEngine::getInstance()->playJump();
+			
 			if((sprite->animation() == MOVE_LEFT) || (sprite->animation() == STAND_LEFT))
 				sprite->changeAnimation(JUMP_LEFT);
 			else sprite->changeAnimation(JUMP_RIGHT);
@@ -312,8 +311,21 @@ void Player::jump() {
 			startY = position.y;
 		}
 	}
+}
 
-	prevUp = Game::instance().getSpecialKey(GLUT_KEY_UP);
+void Player::godMode() {
+	if(!prevG && Game::instance().getKey('g')) {
+		godModeActivated = !godModeActivated;
+		if(godModeActivated) {
+			activateHyperShoes();
+			activateTimePowerUp();
+			activateShield();
+			addKey();
+		}
+	}
+
+	if(godModeActivated && !prevS && Game::instance().getKey('s'))
+		Game::instance().nextScene();
 }
 
 void Player::wounded(int deltaTime) {

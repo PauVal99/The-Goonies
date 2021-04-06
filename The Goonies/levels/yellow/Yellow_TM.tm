@@ -1,5 +1,5 @@
 TILEMAP
-32 60 -- Size of tile map in tiles
+32 68 -- Size of tile map in tiles
 16 16 -- Tile size & block size
 images/yellow/Yellow.png -- Tilesheet
 11 6 -- Number of tiles in tilesheet
@@ -23,26 +23,34 @@ B 9  ?@ACB?@A      9    9      C
 M"D""JKLNMJKL""""""D""""D""""""N
 SRSRSRSRSRSRSRSRSRSRSRSRSRRSQ.U-
 RSRSRSRSRSRSRSRSRSRSRSRSRSRS 9 /
+                                
+                                
+                                
+                                
 SRSRSRSRSRSRSRSRSRSRSRSRSRRS 9 :
 RSRSRSRSRSRSRSRSRSRSRSRSRSRS 9 8
 SRSRSRSRSRSRSRSRSRSRSRSRSRRS 9 C
 RSRSRSRSRSRSRSRSRSRSRSRSRSRS 9 8
 SRSRSRSRSRSRSRSRSRSRSRSRSRRS 9 C
-,OPVQOPVUQU-RSRSRSRQUQUVOPUQ 9 8
-7          8SRSRSRS )*+      9 C
-B          CRSRSRSR 456      9 8
-7          8SRSRSRS ?@A      9 C
-B          CRSRSRSR"JKL""""""D"N
-7          8SRSRSRSQ.V-,U.OPUVU-
-M""""""""""NSRSRSRS 9 87 9     8
-,V.VOPQVUOPVUQUOPUV 9 CB 9     C
-B 9                 9 87 9     8
-B 9                 9 CB 9  )*+C
-7 9                 9 87 9  4568
-B 9                 9 CB 9  ?@AC
-M"D"""""""""""""""""D"NM"D""JKLN
+,OPV[OPVUQU-RSRSRSRQUQUVOPUQ 9 8
+7   Y      8SRSRSRS )*+      9 C
+B   Y      CRSRSRSR 456      9 8
+7   Y      8SRSRSRS ?@A      9 C
+B   Y      CRSRSRSR"JKL""""""D"N
+7   Z      8SRSRSRSQ.V-,U.OPUVU-
+M"""\""""""NSRSRSRS 9 87 9     8
+,V.V[]]]]]]]]]]]][V 9 CB 9     C
+B 9 Y            Y  9 87 9     8
+B 9 Y            Y  9 CB 9  )*+C
+7 9 Y            Y  9 87 9  4568
+B 9 Z            Z  9 CB 9  ?@AC
+M"D"\""""""""""""\""D"NM"D""JKLN
 RSRSRSRSRQU.VQSRSRSRSRSRSRSRSRSR
 SRSRSRSRS  9  SRSRSRSRSRSRSRSRSR
+                                
+                                
+                                
+                                
 RSRSRSRSR  9  RSRSRSRSRSRSRSRSRS
 SRSRSRSRS  9  SRSRSRSRSRSRSRSRSR
 ,QOPUVO-,  9  -,OPQUVQVOPQVUVOP-

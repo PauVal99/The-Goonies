@@ -85,7 +85,8 @@ void ValveWater::setAnimations() {
 }
 
 void ValveWater::render() {
-	if (!restarting)sprite->render();
+	if (!restarting)
+		sprite->render();
 }
 
 bool ValveWater::computeCooldown(int deltaTime) {
@@ -115,7 +116,7 @@ void ValveWater::childUpdate(int deltaTime) {
 	}
 	else if (restarting) {
 
-		if (animationCooldown == 0)animationCooldown = 2000;
+		if (animationCooldown == 0)animationCooldown = 3000;
 		if (computeCooldown(deltaTime)) {
 			restarting = false;
 			sprite->changeAnimation(CREATE);
@@ -125,19 +126,11 @@ void ValveWater::childUpdate(int deltaTime) {
 }
 
 int ValveWater::damage() {
-	return 10;
+	return 15;
 }
 
-int ValveWater::getType() {
-	return 2;
-}
-
-void ValveWater::changeAnimation(int animation) {
-	sprite->changeAnimation(animation);
-}
-
-bool ValveWater::isRestarting() {
-	return restarting;
+bool ValveWater::hit() {
+	return !restarting;
 }
 
 void ValveWater::setOrientation(int orientation) {

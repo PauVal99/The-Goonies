@@ -13,6 +13,7 @@ public:
 
 protected:
     string setImage();
+    void playSound();
     
 };
 

@@ -8,8 +8,8 @@
 #define COLLISION_BOX_MIN glm::ivec2(2, 0)
 #define COLLISION_BOX_MAX glm::ivec2(16, 13)
 
-#define DAMAGE 10
-#define EXPERIENCE 20
+#define DAMAGE 20
+#define EXPERIENCE 10
 
 #define DIE_TIME 500
 
@@ -83,7 +83,7 @@ void Bat::childUpdate(int deltaTime) {
     }
 
     float distance = glm::distance(glm::vec2(player->getPosition() + 6), glm::vec2(position));
-    if(distance != 0 && distance <= 250) {
+    if(distance != 0 && distance <= 300) {
         glm::vec2 direction = glm::mix(glm::vec2(player->getPosition() + 6 - position), random, 0.5f);
         prevDirection = direction;
         direction = glm::mix(direction, prevDirection, 0.4f);

@@ -29,22 +29,19 @@ class Scene
 public:
 	Scene();
 	~Scene();
-	void init(Player* player);
-	void update(int deltaTime);
-	void render();
+	virtual void init(Player* player);
+	virtual void update(int deltaTime);
+	virtual void render();
 
 protected:
-	virtual void setTileMaps() = 0;
-	virtual glm::ivec2 setPlayerPosition() = 0;
-	virtual void setEnemies() {}
-	virtual void setPowerUps() {}
-	virtual void setDoors() {}
-	virtual void setObstacles() {}
+	virtual void setTileMaps() {};
+	virtual glm::ivec2 setPlayerPosition() { return glm::ivec2(-1, -1); };
+	virtual void setEnemies() {};
+	virtual void setPowerUps() {};
+	virtual void setDoors() {};
+	virtual void setObstacles() {};
 	void createSkull(glm::ivec2 pos, glm::ivec2 patrolPoints);
-
-private:
 	void initShaders();
-	void updateActors(int deltaTime);
 
 protected:
 	Player* player;
@@ -57,12 +54,18 @@ protected:
 
 	ShaderProgram texProgram;
 
-private:
-	bool collision(const CollisionBox &collisionBox1, const CollisionBox &collisionBox2);
-
-private:
+protected:
 	float currentTime;
 	glm::mat4 projection;
+
+private:
+	void updateActors(int deltaTime);
+	int getFriendsToSave() { return doors.size(); };
+	bool collision(const CollisionBox& collisionBox1, const CollisionBox& collisionBox2);
+
+private:
+	int savedFriends = 0;
+	bool prevF = false, prevUp = false;
 	Camera* camera;
 	GUI* gui;
 

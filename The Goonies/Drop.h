@@ -8,9 +8,7 @@ class Drop : public Obstacle
 
 public:
     int damage();
-    int getType();
-    void changeAnimation(int animation);
-    bool isRestarting();
+    bool hit();
 
 protected:
     string setImage();
@@ -20,8 +18,6 @@ protected:
     CollisionBox setCollisionBox();
     void setAnimations();
     void childUpdate(int deltaTime);
-    int setEndTime();
-    int setEndAnimation();
 
 private:
     bool computeCooldown(int deltaTime);

@@ -1,5 +1,6 @@
 #include "PowerUp.h"
-
+#include "SoundEngine.h"
+#include "Key.h"
 #define END_TIME 500
 
 enum PowerUpAnims {
@@ -47,7 +48,12 @@ bool PowerUp::isTaken() {
 	return isEnded();
 }
 
+void PowerUp::playSound() {
+	SoundEngine::getInstance()->playPickUpPowerUp();
+}
+
 void PowerUp::take(Player* player) {
 	activatePowerUp(player);
+	playSound();
 	end();
 }
