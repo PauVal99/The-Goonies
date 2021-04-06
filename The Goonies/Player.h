@@ -27,6 +27,7 @@ public:
 	int getExperience() { return experience; };
 	int getArmour() { return shieldHitsCounter; };
 	int getSavedFirends() { return savedFriends; };
+	void addSavedFriend() { ++savedFriends; };
 	bool hasBoots() { return moveSpeed == 2; };
 	int getMaxHealth() { return maxHealth; };
 	bool isGodMode() { return godModeActivated; };

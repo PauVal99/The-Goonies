@@ -85,16 +85,21 @@ void Scene::update(int deltaTime)
 			powerUp->take(player);
 
 	for (auto door : doors)
-		if (collision(playerCollisionBox, door->getCollisionBox()) && door->playerInteraction(player->hasKey()))
-			player->removeKey();
+		if (collision(playerCollisionBox, door->getCollisionBox()))
+			if(door->playerInteraction(player->hasKey()))
+				player->removeKey();
+			else
+				player->addSavedFriend();
 
 	for (auto obstacle : obstacles)
 		if (collision(playerCollisionBox, obstacle->getCollisionBox()) && obstacle->hit())
 			player->takeDamage(obstacle->damage());
 
 	if(player->isGodMode() && prevF && Game::instance().getKey('f'))
-		for (auto door : doors) 
-			door->openDoor();
+		for (auto door : doors) {
+			door->rescueFriend();
+			player->addSavedFriend();
+		}
 		
 
 	gui->update(deltaTime);
