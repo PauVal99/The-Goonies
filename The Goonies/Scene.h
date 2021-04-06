@@ -65,7 +65,7 @@ private:
 
 private:
 	int savedFriends = 0;
-	int prevF = false, prevUp = false;
+	bool prevF = false, prevUp = false;
 	Camera* camera;
 	GUI* gui;
 

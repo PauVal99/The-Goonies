@@ -27,7 +27,7 @@ SoundEngine::SoundEngine() {
 	gameOver = engine->addSoundSourceFromFile("sounds/GameOver.mp3");
 	theEnd = engine->addSoundSourceFromFile("sounds/TheEnd.mp3");
 	punch = engine->addSoundSourceFromFile("sounds/Punch.wav");
-	rescue = engine->addSoundSourceFromFile("sounds/Rescued.wav");
+	rescue = engine->addSoundSourceFromFile("sounds/Rescue.wav");
 
 	mainTheme->setDefaultVolume(0.6f);
 	jump->setDefaultVolume(0.35f);

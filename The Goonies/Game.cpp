@@ -9,6 +9,7 @@
 #include "OrangeScene.h"
 #include "GameOver.h"
 #include "TheEnd.h"
+#include "Start.h"
 #include "SoundEngine.h"
 
 void Game::init()
@@ -21,10 +22,14 @@ void Game::init()
 	scenes.push(std::make_shared<PurpleScene>());
 	scenes.push(std::make_shared<OrangeScene>());
 	
-	currentScene = scenes.front();
+	currentScene = std::make_shared<Start>();
 	currentScene->init(&player);
 	SoundEngine::getInstance()->stopAllSounds();
 	SoundEngine::getInstance()->playMainTheme();
+}
+
+void Game::start() {
+	startBool = true;
 }
 
 void Game::nextScene() {
@@ -55,7 +60,12 @@ bool Game::update(int deltaTime)
 		}
 	}
 
-	if(next) {
+	if(startBool) {
+		startBool = false;
+		SoundEngine::getInstance()->playRescue();
+		currentScene = scenes.front();
+		currentScene->init(&player);
+	} else if(next) {
 		next = false;
 		SoundEngine::getInstance()->playPortal();
 		scenes.pop();
