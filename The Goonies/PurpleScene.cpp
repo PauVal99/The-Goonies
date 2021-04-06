@@ -18,7 +18,6 @@ void PurpleScene::setTileMaps() {
 	TileMap* tileMap = TileMap::createTileMap("levels/purple/Purple_TM.tm", 2, OFFSET, texProgram);
 	tileMaps[tileMap->getLayer()] = tileMap;
 
-
 	collisionMap = CollisionMap::createCollisionMap("levels/purple/Purple_CM.cm", OFFSET);
 }
 
@@ -46,15 +45,17 @@ void PurpleScene::setEnemies() {
 	bat->setCollisionMap(collisionMap);
 	bat->setPlayer(player);
 	enemies.push_back(bat);
+
+	bat = new Bat();
+	bat->init(glm::ivec2(80, 10) * TILE_SIZE, OFFSET, texProgram);
+	bat->setCollisionMap(collisionMap);
+	bat->setPlayer(player);
+	enemies.push_back(bat);
 }
 
 void PurpleScene::setPowerUps() {
 
 	Key* key = new Key();
-	key->init(glm::ivec2(2, 3) * TILE_SIZE, OFFSET, texProgram);
-	powerUps.push_back(key);
-
-	key = new Key();
 	key->init(glm::ivec2(67, 17) * TILE_SIZE, OFFSET, texProgram);
 	powerUps.push_back(key);
 
@@ -66,13 +67,17 @@ void PurpleScene::setPowerUps() {
 	key->init(glm::ivec2(60, 16) * TILE_SIZE, OFFSET, texProgram);
 	powerUps.push_back(key);
 
-	VitalityPotion* vitalityPotion = new VitalityPotion();
-	vitalityPotion->init(glm::ivec2(59, 4) * TILE_SIZE, OFFSET, texProgram);
-	powerUps.push_back(vitalityPotion);
+	Shield* shield = new Shield();
+	shield->init(glm::ivec2(2, 3) * TILE_SIZE, OFFSET, texProgram);
+	powerUps.push_back(shield);
 
 	ExperiencePotion* experiencePotion = new ExperiencePotion();
-	experiencePotion->init(glm::ivec2(28, 16) * TILE_SIZE, OFFSET, texProgram);
+	experiencePotion->init(glm::ivec2(59, 4) * TILE_SIZE, OFFSET, texProgram);
 	powerUps.push_back(experiencePotion);
+
+	HyperShoes* hyperShoes = new HyperShoes();
+	hyperShoes->init(glm::ivec2(28, 16) * TILE_SIZE, OFFSET, texProgram);
+	powerUps.push_back(hyperShoes);
 }
 
 void PurpleScene::setDoors() {
@@ -93,9 +98,14 @@ void PurpleScene::setDoors() {
 }
 
 void PurpleScene::setObstacles() {
-
 	Stone* stone = new Stone();
 	stone->init(glm::ivec2(41, 8) * TILE_SIZE, OFFSET, texProgram);
+	stone->setCollisionMap(collisionMap);
+	stone->changeAnimation(2);
+	obstacles.push_back(stone);
+
+	stone = new Stone();
+	stone->init(glm::ivec2(17, 8) * TILE_SIZE, OFFSET, texProgram);
 	stone->setCollisionMap(collisionMap);
 	stone->changeAnimation(2);
 	obstacles.push_back(stone);
@@ -125,11 +135,6 @@ void PurpleScene::setObstacles() {
 	obstacles.push_back(valveWater);
 
 	Drop* drop = new Drop();
-	drop->init(glm::ivec2(17, 7) * TILE_SIZE, OFFSET, texProgram);
-	drop->setCollisionMap(collisionMap);
-	obstacles.push_back(drop);
-
-	drop = new Drop();
 	drop->init(glm::ivec2(78, 9) * TILE_SIZE, OFFSET, texProgram);
 	drop->setCollisionMap(collisionMap);
 	obstacles.push_back(drop);
@@ -138,6 +143,4 @@ void PurpleScene::setObstacles() {
 	drop->init(glm::ivec2(83, 9) * TILE_SIZE, OFFSET, texProgram);
 	drop->setCollisionMap(collisionMap);
 	obstacles.push_back(drop);
-
-
 }

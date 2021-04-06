@@ -93,6 +93,12 @@ void YellowScene::setObstacles() {
 	stone->changeAnimation(3);
 	obstacles.push_back(stone);
 
+	stone = new Stone();
+	stone->init(glm::ivec2(17, 2) * TILE_SIZE, OFFSET, texProgram);
+	stone->setCollisionMap(collisionMap);
+	stone->changeAnimation(3);
+	obstacles.push_back(stone);
+
 	ValveWater* valveWater = new ValveWater();
 	valveWater->setOrientation(0);
 	valveWater->init(glm::ivec2(2, 33) * TILE_SIZE, OFFSET, texProgram);
@@ -113,6 +119,16 @@ void YellowScene::setObstacles() {
 
 	Drop* drop = new Drop();
 	drop->init(glm::ivec2(27, 35) * TILE_SIZE, OFFSET, texProgram);
+	drop->setCollisionMap(collisionMap);
+	obstacles.push_back(drop);
+
+	drop = new Drop();
+	drop->init(glm::ivec2(10, 37) * TILE_SIZE, OFFSET, texProgram);
+	drop->setCollisionMap(collisionMap);
+	obstacles.push_back(drop);
+
+	drop = new Drop();
+	drop->init(glm::ivec2(20, 51) * TILE_SIZE, OFFSET, texProgram);
 	drop->setCollisionMap(collisionMap);
 	obstacles.push_back(drop);
 

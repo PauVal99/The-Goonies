@@ -54,18 +54,17 @@ void OrangeScene::setEnemies() {
 
 void OrangeScene::setPowerUps() {
 
-	HyperShoes* hypershoes = new HyperShoes();
-	hypershoes->init(glm::ivec2(6, 17) * TILE_SIZE, OFFSET, texProgram);
-	powerUps.push_back(hypershoes);
+	TimePowerUp* timePowerUp = new TimePowerUp();
+	timePowerUp->init(glm::ivec2(6, 17) * TILE_SIZE, OFFSET, texProgram);
+	powerUps.push_back(timePowerUp);
 
 	VitalityPotion* vitalityPotion = new VitalityPotion();
 	vitalityPotion->init(glm::ivec2(35, 8) * TILE_SIZE, OFFSET, texProgram);
 	powerUps.push_back(vitalityPotion);
 
-	TimePowerUp* timePowerUp = new TimePowerUp();
-	timePowerUp->init(glm::ivec2(46, 3) * TILE_SIZE, OFFSET, texProgram);
-	powerUps.push_back(timePowerUp);
-
+	Shield* shield = new Shield();
+	shield->init(glm::ivec2(46, 3) * TILE_SIZE, OFFSET, texProgram);
+	powerUps.push_back(shield);
 
 	Key* key = new Key();
 	key->init(glm::ivec2(19, 3) * TILE_SIZE, OFFSET, texProgram);
@@ -107,7 +106,7 @@ void OrangeScene::setDoors() {
 void OrangeScene::setObstacles() {
 
 	Drop* drop = new Drop();
-	drop->init(glm::ivec2(23, 6) * TILE_SIZE, OFFSET, texProgram);
+	drop->init(glm::ivec2(17, 6) * TILE_SIZE, OFFSET, texProgram);
 	drop->setCollisionMap(collisionMap);
 	obstacles.push_back(drop);
 
@@ -117,7 +116,7 @@ void OrangeScene::setObstacles() {
 	obstacles.push_back(drop);
 
 	drop = new Drop();
-	drop->init(glm::ivec2(48, 6) * TILE_SIZE, OFFSET, texProgram);
+	drop->init(glm::ivec2(46, 6) * TILE_SIZE, OFFSET, texProgram);
 	drop->setCollisionMap(collisionMap);
 	obstacles.push_back(drop);
 
