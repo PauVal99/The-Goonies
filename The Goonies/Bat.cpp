@@ -8,8 +8,8 @@
 #define COLLISION_BOX_MIN glm::ivec2(2, 0)
 #define COLLISION_BOX_MAX glm::ivec2(16, 13)
 
-#define DAMAGE 10
-#define EXPERIENCE 20
+#define DAMAGE 20
+#define EXPERIENCE 10
 
 #define DIE_TIME 500
 

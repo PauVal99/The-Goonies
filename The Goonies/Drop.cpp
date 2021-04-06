@@ -5,8 +5,6 @@
 #define COLLISION_BOX_MIN glm::ivec2(0, 0)
 #define COLLISION_BOX_MAX glm::ivec2(16, 16)
 
-#define DIE_TIME 0
-
 #define FALL_SPEED 2
 
 enum DropAnims
@@ -56,7 +54,6 @@ void Drop::render() {
 }
 
 bool Drop::computeCooldown(int deltaTime) {
-
 	animationCooldown -= deltaTime;
 	if (animationCooldown <= 0)
 		return true;
@@ -106,7 +103,7 @@ void Drop::childUpdate(int deltaTime) {
 }
 
 int Drop::damage() {
-	return 10;
+	return 20;
 }
 
 bool Drop::hit() {

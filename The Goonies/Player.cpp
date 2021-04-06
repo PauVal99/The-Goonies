@@ -17,7 +17,7 @@
 #define PUNCH_COLLISION_BOX_MIN_LEFT glm::ivec2(-4, 6)
 #define PUNCH_COLLISION_BOX_MAX_LEFT glm::ivec2(8, 18)
 
-#define DAMAGE_COOLDOWN 2000
+#define DAMAGE_COOLDOWN 1000
 #define DAMAGE_COLOR glm::vec4(1.4f, 1.4f, 1.4f, 1.f)
 
 #define HEALTH_INCREMENT 20

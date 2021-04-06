@@ -6,8 +6,6 @@
 #define COLLISION_BOX_MIN glm::ivec2(0, 0)
 #define COLLISION_BOX_MAX glm::ivec2(32, 48)
 
-#define DIE_TIME 0
-
 enum StoneAnims
 {
 	RED, GREEN, PURPLE, YELLOW
@@ -75,7 +73,7 @@ bool Stone::hit() {
 }
 
 int Stone::damage() {
-	return 0;
+	return 20;
 }
 
 void Stone::setAnimations() {

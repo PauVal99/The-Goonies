@@ -126,7 +126,7 @@ void ValveWater::childUpdate(int deltaTime) {
 }
 
 int ValveWater::damage() {
-	return 10;
+	return 15;
 }
 
 bool ValveWater::hit() {
