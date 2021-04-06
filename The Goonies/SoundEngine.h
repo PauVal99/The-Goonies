@@ -22,6 +22,10 @@ public:
 	void playPickUpPowerUp();
 	void playPutKey();
 	void playEnemyDeath();
+	void playGameOver();
+	void playTheEnd();
+	void playPunch();
+	void playRescue();
 
 private:
 	ISoundEngine* engine;
@@ -34,6 +38,10 @@ private:
 	ISoundSource* putKey;
 	ISoundSource* pickUpPowerUp;
 	ISoundSource* enemyDeath;
+	ISoundSource* gameOver;
+	ISoundSource* theEnd;
+	ISoundSource* punch;
+	ISoundSource* rescue;
 
 };
 

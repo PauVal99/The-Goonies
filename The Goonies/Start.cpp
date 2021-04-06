@@ -10,7 +10,7 @@ void Start::init(Player* player) {
 	startTexture = Texture();
 	startTexture.loadFromFile("images/Start.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	startTexture.setMagFilter(GL_NEAREST);
-	start = Sprite::createSprite(glm::vec2(SCREEN_WIDTH, SCREEN_HEIGHT), glm::vec2(0.5f, 1.f), &gameOverTexture, &texProgram);
+	start = Sprite::createSprite(glm::vec2(SCREEN_WIDTH, SCREEN_HEIGHT), glm::vec2(0.5f, 1.f), &startTexture, &texProgram);
 	start->setPosition(glm::vec2(0.f));
 
 	start->setNumberAnimations(1);
@@ -23,6 +23,9 @@ void Start::init(Player* player) {
 void Start::update(int deltaTime) {
 	currentTime += deltaTime;
 	start->update(deltaTime);
+
+	if(Game::instance().getKey(GLUT_KEY_SPACEBAR))
+		Game::instance().start();
 }
 
 void Start::render() {

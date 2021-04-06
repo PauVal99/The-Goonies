@@ -26,6 +26,7 @@ public:
 	}
 	
 	void init();
+	void start();
 	void gameOver();
 	void nextScene();
 	bool update(int deltaTime);
@@ -45,7 +46,7 @@ public:
 
 private:
 	int gameOverCooldown = 5000, theEndCooldown = 5000;
-	bool bPlay = true, next = false, restartGame = false, gameOverBool = false;
+	bool bPlay = true, next = false, restartGame = false, gameOverBool = false, startBool = false;
 	std::queue<std::shared_ptr<Scene>> scenes;
 	std::shared_ptr<Scene> currentScene;
 	Player player;

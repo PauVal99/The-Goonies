@@ -24,20 +24,40 @@ SoundEngine::SoundEngine() {
 	pickUpKey = engine->addSoundSourceFromFile("sounds/PickUpKey.wav");
 	pickUpPowerUp = engine->addSoundSourceFromFile("sounds/PickUpPowerUp.wav");
 	enemyDeath = engine->addSoundSourceFromFile("sounds/EnemyDeath.wav");
+	gameOver = engine->addSoundSourceFromFile("sounds/GameOver.mp3");
+	theEnd = engine->addSoundSourceFromFile("sounds/TheEnd.mp3");
+	punch = engine->addSoundSourceFromFile("sounds/Punch.wav");
+	rescue = engine->addSoundSourceFromFile("sounds/Rescue.wav");
 
+	mainTheme->setDefaultVolume(0.6f);
 	jump->setDefaultVolume(0.35f);
-	hit->setDefaultVolume(0.35f);
 	putKey->setDefaultVolume(0.35f);
 	portal->setDefaultVolume(0.35f);
 	openDoor->setDefaultVolume(0.35f);
 	pickUpKey->setDefaultVolume(0.35f);
-	pickUpPowerUp->setDefaultVolume(0.35f);
+	pickUpPowerUp->setDefaultVolume(0.25f);
 	enemyDeath->setDefaultVolume(0.6f);
-
+	punch->setDefaultVolume(0.6f);
 }
 
 void SoundEngine::stopAllSounds() {
 	engine->stopAllSounds();
+}
+
+void SoundEngine::playPunch() {
+	engine->play2D(punch);
+}
+
+void SoundEngine::playRescue() {
+	engine->play2D(rescue);
+}
+
+void SoundEngine::playGameOver() {
+	engine->play2D(gameOver);
+}
+
+void SoundEngine::playTheEnd() {
+	engine->play2D(theEnd);
 }
 
 void SoundEngine::playMainTheme() {
