@@ -13,6 +13,12 @@ void Start::init(Player* player) {
 	start = Sprite::createSprite(glm::vec2(SCREEN_WIDTH, SCREEN_HEIGHT), glm::vec2(0.5f, 1.f), &startTexture, &texProgram);
 	start->setPosition(glm::vec2(0.f));
 
+	instructionsTexture = Texture();
+	instructionsTexture.loadFromFile("images/Instructions.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	instructionsTexture.setMagFilter(GL_NEAREST);
+	instructions = Sprite::createSprite(glm::vec2(SCREEN_WIDTH, SCREEN_HEIGHT), glm::vec2(1.f), &instructionsTexture, &texProgram);
+	instructions->setPosition(glm::vec2(0.f));
+
 	start->setNumberAnimations(1);
 	start->setAnimationSpeed(0, 2);
 	start->addKeyframe(0, glm::vec2(0.f));
@@ -25,7 +31,14 @@ void Start::update(int deltaTime) {
 	start->update(deltaTime);
 
 	if(Game::instance().getKey(GLUT_KEY_SPACEBAR))
-		Game::instance().start();
+		cooldown -= deltaTime;
+
+	if(cooldown < 5000) {
+		cooldown -= deltaTime;
+		if(cooldown <= 0)
+			Game::instance().start();
+	}
+		
 }
 
 void Start::render() {
@@ -36,5 +49,8 @@ void Start::render() {
 	texProgram.setUniformMatrix4f("modelview", glm::mat4(1.f));
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
 
-	start->render();
+	if(cooldown == 5000)
+		start->render();
+	else
+		instructions->render();
 }

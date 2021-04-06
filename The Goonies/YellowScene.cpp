@@ -40,7 +40,7 @@ void YellowScene::setEnemies() {
 	bat->setPlayer(player);
 	enemies.push_back(bat);
 
-	Bat* bat = new Bat();
+	bat = new Bat();
 	bat->init(glm::ivec2(5, 66) * TILE_SIZE, OFFSET, texProgram);
 	bat->setCollisionMap(collisionMap);
 	bat->setPlayer(player);

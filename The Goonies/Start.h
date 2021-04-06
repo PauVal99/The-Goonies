@@ -11,8 +11,12 @@ protected:
 	void render();
 
 private:
+	int cooldown = 5000; 
 	Texture startTexture;
 	Sprite* start;
+
+	Texture instructionsTexture;
+	Sprite* instructions;
 
 };
 
