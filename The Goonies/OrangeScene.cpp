@@ -82,14 +82,17 @@ void OrangeScene::setPowerUps() {
 void OrangeScene::setDoors() {
 
 	Door* door = new Door();
+	door->setNumberOfKeys(1);
 	door->init(glm::ivec2(59, 4) * TILE_SIZE, OFFSET, texProgram);
 	doors.push_back(door);
 
 	door = new Door();
+	door->setNumberOfKeys(2);
 	door->init(glm::ivec2(66, 1) * TILE_SIZE, OFFSET, texProgram);
 	doors.push_back(door);
 
 	door = new Door();
+	door->setNumberOfKeys(1);
 	door->init(glm::ivec2(90, 15) * TILE_SIZE, OFFSET, texProgram);
 	doors.push_back(door);
 

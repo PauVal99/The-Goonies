@@ -8,6 +8,8 @@ class Door: public Actor
 
 public:
     bool playerInteraction(bool hasKey);
+    void setNumberOfKeys(int numKeys);
+    void openDoor();
 
 protected:
     string setImage();
@@ -17,12 +19,12 @@ protected:
     void setAnimations();
 
 protected:
-    
+  
 
 private:
     bool itemCollected = false;
     bool open = false;
-    
+    int numberOfKeys = 0;
 };
 
 #endif

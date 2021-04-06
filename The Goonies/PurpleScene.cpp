@@ -65,14 +65,17 @@ void PurpleScene::setPowerUps() {
 
 void PurpleScene::setDoors() {
 	Door* door = new Door();
+	door->setNumberOfKeys(1);
 	door->init(glm::ivec2(27, 1) * TILE_SIZE, OFFSET, texProgram);
 	doors.push_back(door);
 
 	door = new Door();
+	door->setNumberOfKeys(1);
 	door->init(glm::ivec2(65, 2) * TILE_SIZE, OFFSET, texProgram);
 	doors.push_back(door);
 
 	door = new Door();
+	door->setNumberOfKeys(2);
 	door->init(glm::ivec2(91, 1) * TILE_SIZE, OFFSET, texProgram);
 	doors.push_back(door);
 }
