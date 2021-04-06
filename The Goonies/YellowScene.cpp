@@ -61,14 +61,17 @@ void YellowScene::setPowerUps() {
 
 void YellowScene::setDoors() {
 	Door* door = new Door();
+	door->setNumberOfKeys(1);
 	door->init(glm::ivec2(27, 6) * TILE_SIZE, OFFSET, texProgram);
 	doors.push_back(door);
 
 	door = new Door();
+	door->setNumberOfKeys(1);
 	door->init(glm::ivec2(6, 28) * TILE_SIZE, OFFSET, texProgram);
 	doors.push_back(door);
 
 	door = new Door();
+	door->setNumberOfKeys(1);
 	door->init(glm::ivec2(3, 45) * TILE_SIZE, OFFSET, texProgram);
 	doors.push_back(door);
 }

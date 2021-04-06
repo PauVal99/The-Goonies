@@ -80,10 +80,12 @@ void RedScene::setPowerUps() {
 
 void RedScene::setDoors() {
 	Door* door = new Door();
+	door->setNumberOfKeys(1);
 	door->init(glm::ivec2(65, 14) * TILE_SIZE, OFFSET, texProgram);
 	doors.push_back(door);
 
 	door = new Door();
+	door->setNumberOfKeys(2);
 	door->init(glm::ivec2(80, 2) * TILE_SIZE, OFFSET, texProgram);
 	doors.push_back(door);
 }

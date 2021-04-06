@@ -66,10 +66,12 @@ void GreenScene::setPowerUps() {
 void GreenScene::setDoors() {
 	
 	Door* door = new Door();
+	door->setNumberOfKeys(1);
 	door->init(glm::ivec2(34, 9) * TILE_SIZE, OFFSET, texProgram);
 	doors.push_back(door);
 
 	door = new Door();
+	door->setNumberOfKeys(2);
 	door->init(glm::ivec2(65, 16) * TILE_SIZE, OFFSET, texProgram);
 	doors.push_back(door);
 }
@@ -77,11 +79,6 @@ void GreenScene::setDoors() {
 void GreenScene::setObstacles() {
 
 	Drop* drop = new Drop();
-	drop->init(glm::ivec2(20, 14) * TILE_SIZE, OFFSET, texProgram);
-	drop->setCollisionMap(collisionMap);
-	obstacles.push_back(drop);
-
-	drop = new Drop();
 	drop->init(glm::ivec2(55, 9) * TILE_SIZE, OFFSET, texProgram);
 	drop->setCollisionMap(collisionMap);
 	obstacles.push_back(drop);
@@ -93,11 +90,6 @@ void GreenScene::setObstacles() {
 
 	drop = new Drop();
 	drop->init(glm::ivec2(55, 1) * TILE_SIZE, OFFSET, texProgram);
-	drop->setCollisionMap(collisionMap);
-	obstacles.push_back(drop);
-
-	drop = new Drop();
-	drop->init(glm::ivec2(69, 1) * TILE_SIZE, OFFSET, texProgram);
 	drop->setCollisionMap(collisionMap);
 	obstacles.push_back(drop);
 
