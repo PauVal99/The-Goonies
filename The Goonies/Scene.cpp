@@ -1,4 +1,6 @@
 #include <iostream>
+#include <GL/glew.h>
+#include <GL/glut.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include "Game.h"
 #include "Scene.h"
@@ -53,14 +55,14 @@ void Scene::init(Player* player)
 	player->init(setPlayerPosition(), OFFSET, texProgram);
 	player->setCollisionMap(collisionMap);
 
-	gui = new GUI();
-	gui->init(&texProgram);
-	gui->setPlayer(player);
-
 	setEnemies();
 	setPowerUps();
 	setDoors();
 	setObstacles();
+
+	gui = new GUI();
+	gui->init(&texProgram, getFriendsToSave(), &savedFriends);
+	gui->setPlayer(player);
 }
 
 void Scene::update(int deltaTime)
@@ -89,7 +91,7 @@ void Scene::update(int deltaTime)
 			if(door->playerInteraction(player->hasKey()))
 				player->removeKey();
 			else
-				player->addSavedFriend();
+				++savedFriends;
 
 	for (auto obstacle : obstacles)
 		if (collision(playerCollisionBox, obstacle->getCollisionBox()) && obstacle->hit())
@@ -98,12 +100,15 @@ void Scene::update(int deltaTime)
 	if(player->isGodMode() && prevF && Game::instance().getKey('f'))
 		for (auto door : doors) {
 			door->rescueFriend();
-			player->addSavedFriend();
+			++savedFriends;
 		}
-		
+
+	if((savedFriends == getFriendsToSave()) && !prevUp && Game::instance().getSpecialKey(GLUT_KEY_UP) && collisionMap->onPortal(player->getCollisionBox()))
+		Game::instance().nextScene();		
 
 	gui->update(deltaTime);
 	prevF = Game::instance().getKey('f');
+	prevUp = Game::instance().getSpecialKey(GLUT_KEY_UP);
 }
 
 void Scene::updateActors(int deltaTime) {

@@ -45,6 +45,8 @@ protected:
 
 private:
 	void updateActors(int deltaTime);
+	int getFriendsToSave() { return doors.size(); };
+
 
 protected:
 	Player* player;
@@ -65,7 +67,8 @@ private:
 	bool collision(const CollisionBox &collisionBox1, const CollisionBox &collisionBox2);
 
 private:
-	int prevF = false;
+	int savedFriends = 0;
+	int prevF = false, prevUp = false;
 	Camera* camera;
 	GUI* gui;
 

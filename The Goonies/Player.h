@@ -26,8 +26,6 @@ public:
 	int getHealth() { return health; };
 	int getExperience() { return experience; };
 	int getArmour() { return shieldHitsCounter; };
-	int getSavedFirends() { return savedFriends; };
-	void addSavedFriend() { ++savedFriends; };
 	bool hasBoots() { return moveSpeed == 2; };
 	int getMaxHealth() { return maxHealth; };
 	bool isGodMode() { return godModeActivated; };
@@ -54,7 +52,7 @@ private:
 	bool prevSpace = false, prevUp = false, prevG = false, prevS = false;
 	bool jumping = false, climbing = false, timePowerUp = false, key = false, godModeActivated = false;
 	int moveSpeed = 1, jumpAngle, startY;
-	int experience = 0, savedFriends = 0;
+	int experience = 0;
 	int health = 100, maxHealth = 100;
 	int damageCooldown = 0, timePoweUpCooldown = 0, shieldHitsCounter = 0, attacking = 0;
 

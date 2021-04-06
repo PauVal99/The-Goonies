@@ -1,7 +1,9 @@
 #include "GUI.h"
 
-void GUI::init(ShaderProgram *shaderProgram)
+void GUI::init(ShaderProgram *shaderProgram, int friendsToSave, int* savedFriends)
 {
+	this->friendsToSave = friendsToSave;
+	this->savedFriends = savedFriends;
 	barTexture = Texture();
 	barTexture.loadFromFile("images/bar.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	barTexture.setMagFilter(GL_NEAREST);
@@ -84,23 +86,14 @@ void GUI::render() {
 	bar->setPosition(glm::vec2(4, 24));
 	bar->render();
 	
-	voidShield->setPosition(glm::vec2(136, 6));
-	voidShield->render();
-	voidShield->setPosition(glm::vec2(166, 6));
-	voidShield->render();
-	voidShield->setPosition(glm::vec2(196, 6));
-	voidShield->render();
-
-	if(player->getArmour() > 0) {
-		shield->setPosition(glm::vec2(136, 6));
-		shield->render();
-		if(player->getArmour() > 1) {
-			shield->setPosition(glm::vec2(166, 6));
+	int x = 136;
+	for(int i = 0; i < 3; ++i, x += 30) {
+		if(i < player->getArmour()) {
+			shield->setPosition(glm::vec2(x, 6));
 			shield->render();
-			if(player->getArmour() > 2) {
-				shield->setPosition(glm::vec2(196, 6));
-				shield->render();
-			}
+		} else { 
+			voidShield->setPosition(glm::vec2(x, 6));
+			voidShield->render();
 		}
 	}
 
@@ -109,55 +102,14 @@ void GUI::render() {
 	else
 		voidKey->render();
 
-	int savedFriends = player->getSavedFirends();
-
-	if(savedFriends < 6) {
-		voidFriend->setPosition(glm::vec2(104, 368));
-		voidFriend->render();
-		if(savedFriends < 5) {
-			voidFriend->setPosition(glm::vec2(84, 368));
-			voidFriend->render();
-			if(savedFriends < 4) {
-				voidFriend->setPosition(glm::vec2(64, 368));
-				voidFriend->render();
-				if(savedFriends < 3) {
-					voidFriend->setPosition(glm::vec2(44, 368));
-					voidFriend->render();
-					if(savedFriends < 2) {
-						voidFriend->setPosition(glm::vec2(24, 368));
-						voidFriend->render();
-						if(savedFriends < 1) {
-							voidFriend->setPosition(glm::vec2(4, 368));
-							voidFriend->render();
-						}
-					}
-				}
-			}
-		}
-	}
-
-	if(savedFriends > 0) {
-		savedFriend->setPosition(glm::vec2(4, 368));
-		savedFriend->render();
-		if(savedFriends > 1) {
-			savedFriend->setPosition(glm::vec2(24, 368));
+	x = 4;
+	for(int i = 0; i < friendsToSave; ++i, x += 20) {
+		if(i < *savedFriends) {
+			savedFriend->setPosition(glm::vec2(x, 368));
 			savedFriend->render();
-			if(savedFriends > 2) {
-				savedFriend->setPosition(glm::vec2(44, 368));
-				savedFriend->render();
-				if(savedFriends > 3) {
-					savedFriend->setPosition(glm::vec2(64, 368));
-					savedFriend->render();
-					if(savedFriends > 4) {
-						savedFriend->setPosition(glm::vec2(84, 368));
-						savedFriend->render();
-						if(savedFriends > 5) {
-							savedFriend->setPosition(glm::vec2(104, 368));
-							savedFriend->render();
-						}
-					}
-				}
-			}
+		} else { 
+			voidFriend->setPosition(glm::vec2(x, 368));
+			voidFriend->render();
 		}
 	}
 

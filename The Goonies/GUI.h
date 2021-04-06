@@ -8,7 +8,7 @@ class GUI
 {
 
 public:
-	void init(ShaderProgram *shaderProgram);
+	void init(ShaderProgram *shaderProgram, int friendsToSave, int* savedFriends);
     void setPlayer(Player* player);
 	void update(int deltaTime);
 	void render();
@@ -17,6 +17,9 @@ private:
     void setSprite(Sprite* sprite, glm::vec2 displacement);
    
 private:
+    int friendsToSave;
+    int* savedFriends;
+    
     Player* player;
 	Texture spritesheet, barTexture, clockTexture, bootsTexture;
 
