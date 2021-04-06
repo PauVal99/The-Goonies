@@ -18,7 +18,6 @@ void YellowScene::setTileMaps() {
 	TileMap* tileMap = TileMap::createTileMap("levels/yellow/Yellow_TM.tm", 2, OFFSET, texProgram);
 	tileMaps[tileMap->getLayer()] = tileMap;
 
-
 	collisionMap = CollisionMap::createCollisionMap("levels/yellow/Yellow_CM.cm", OFFSET);
 }
 
@@ -34,6 +33,18 @@ void YellowScene::setEnemies() {
 	createSkull(glm::ivec2(7, 59), glm::ivec2(7, 18));
 	createSkull(glm::ivec2(3, 66), glm::ivec2(3, 14));
 	createSkull(glm::ivec2(17, 66), glm::ivec2(17, 25));
+
+	Bat* bat = new Bat();
+	bat->init(glm::ivec2(15, 15) * TILE_SIZE, OFFSET, texProgram);
+	bat->setCollisionMap(collisionMap);
+	bat->setPlayer(player);
+	enemies.push_back(bat);
+
+	Bat* bat = new Bat();
+	bat->init(glm::ivec2(5, 66) * TILE_SIZE, OFFSET, texProgram);
+	bat->setCollisionMap(collisionMap);
+	bat->setPlayer(player);
+	enemies.push_back(bat);
 }
 
 void YellowScene::setPowerUps() {
@@ -71,18 +82,16 @@ void YellowScene::setDoors() {
 
 	door = new Door();
 	door->setNumberOfKeys(1);
-	door->init(glm::ivec2(3, 45) * TILE_SIZE, OFFSET, texProgram);
+	door->init(glm::ivec2(3, 53) * TILE_SIZE, OFFSET, texProgram);
 	doors.push_back(door);
 }
 
 void YellowScene::setObstacles() {
-
 	Stone* stone = new Stone();
 	stone->init(glm::ivec2(22, 58) * TILE_SIZE, OFFSET, texProgram);
 	stone->setCollisionMap(collisionMap);
 	stone->changeAnimation(3);
 	obstacles.push_back(stone);
-
 
 	ValveWater* valveWater = new ValveWater();
 	valveWater->setOrientation(0);
