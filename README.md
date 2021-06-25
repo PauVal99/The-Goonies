@@ -1,6 +1,6 @@
 # The Goonies
 
-The Goonies is a recreation of The Goonies video game for MSX made in VJ at FIB.
+The Goonies is a recreation of [The Goonies](https://www.youtube.com/watch?v=yhFCiZIcjgE) video game for MSX made in VJ at FIB.
 
 Made by:
  + Sergi Doce
@@ -8,7 +8,7 @@ Made by:
 
 ## Play
 
-In order to play just run [bin/The Goonies.exe](bin/The Goonies.exe) file.
+In order to play just run [bin/The Goonies.exe](bin/The%20Goonies.exe) file.
 
 It is only available in Windows.
 
@@ -28,7 +28,7 @@ It is only available in Windows.
 
 ## Modify
 
-All source code and assets are in the [src](src) folder. The game is made with Visual Studio [Visual Studio](https://visualstudio.microsoft.com/es/vs/). To modify it open the project file [src/The Goonies.sln](src/The Goonies.sln), the rest is configured by default.
+All source code and assets are in the [src](src) folder. The game is made with Visual Studio 2019 [Visual Studio](https://visualstudio.microsoft.com/es/vs/). To modify it open the project file [src/The Goonies.sln](src/The%20Goonies.sln), the rest is configured by default.
 
 ## License
 
