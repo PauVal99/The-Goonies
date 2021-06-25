@@ -1,6 +1,6 @@
 # The Goonies
 
-The Goonies is a recreation of [The Goonies](https://www.youtube.com/watch?v=yhFCiZIcjgE) video game for MSX made in VJ at FIB. It is made with OpenGL and C++.
+The Goonies is a recreation of [The Goonies](https://www.youtube.com/watch?v=yhFCiZIcjgE) video game for MSX made in VJ at FIB for educational purposes. It is made with OpenGL and C++.
 
 Made by:
  + Sergi Doce
