@@ -28,7 +28,7 @@ It is only available in Windows.
 
 ## Modify
 
-All source code and assets are in the [src](src) folder. The game is made with Visual Studio 2019 [Visual Studio](https://visualstudio.microsoft.com/es/vs/). To modify it open the project file [src/The Goonies.sln](src/The%20Goonies.sln), the rest is configured by default.
+All source code and assets are in the [src](src) folder. The game is made with [Visual Studio](https://visualstudio.microsoft.com/es/vs/) 2019. To modify it open the project file [src/The Goonies.sln](src/The%20Goonies.sln), the rest is configured by default.
 
 ## Contact
 
