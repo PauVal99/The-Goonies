@@ -10,21 +10,21 @@ Made by:
 
 In order to play just run [bin/The Goonies.exe](bin/The%20Goonies.exe) file.
 
-It is only available in Windows.
+It is only available on Windows.
 
 ## Instructions
-
- + **Arrow Up** Jump / Move Up (on Vine) / Take Portal (on Portal)
+Keys:
+ + **Arrow Up** Jump - Move Up on Vine - Take Portal on Portal
  + **Arrow Left** Move Left
  + **Arrow Right** Move Rigt
- + **Arrow Down** Move Down (on Vine)
+ + **Arrow Down** Move Down on Vine
  + **Space** Attack
  + **T** Use Time Clock
 
- God Mode
- + **G** Activate God Mode
- + **S** Skip Scene in God Mode
- + **F** Save Friend in God Mode
+God Mode
+ + **G** Activate God Mode, becomes invulnerable and gets all perks
+ + **S** Go to next scene
+ + **F** Save a friend of the current scene
 
 ## Modify
 
