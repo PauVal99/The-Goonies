@@ -10,7 +10,7 @@ Made by:
 
 ## Play
 
-In order to play just run [bin/The Goonies.exe](bin/The%20Goonies.exe) file.
+In order to play download the [bin](bin) folder and run the exe.
 
 It is only available on Windows.
 
