@@ -55,8 +55,6 @@ God Mode
  - There is a screen in case of Game Over and in case the game is passed to you.
  - There are sounds for all interactions and a background soundtrack.
 
-Translated with www.DeepL.com/Translator (free version)
-
 ## Modify
 
 All source code and assets are in the [src](src) folder. The game is made with [Visual Studio](https://visualstudio.microsoft.com/es/vs/) 2019. To modify it open the project file [src/The Goonies.sln](src/The%20Goonies.sln), the rest is configured by default.
